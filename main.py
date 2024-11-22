@@ -24,4 +24,8 @@ for col in columns_to_normalize:
     data[col] = (data[col] - min_val) / (max_val - min_val)
 
 # Hiển thị dữ liệu tiền xử lý
-print(data)
+# print(data)
+
+data.to_csv('data/data_processed.csv', index=False, encoding='utf-8-sig')
+
+print("Dữ liệu đã được xuất ra file 'data_processed.csv'")
