@@ -5,7 +5,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
 # 1. Đọc dữ liệu từ CSV
-df = pd.read_csv('data/data_standard.csv', header=0)
+df = pd.read_csv('data/data_processed.csv', header=0)
 
 # 2. Lấy toàn bộ dữ liệu và tráo thứ tự dòng ngẫu nhiên
 data_shuffled = df.sample(frac=1).reset_index(drop=True)
@@ -116,7 +116,7 @@ def create_groups(gioi, khong_gioi, num_groups=5, threshold=1.5):
 groups = create_groups(gioi, khong_gioi, threshold=1.5)
 
 # 10. Hiển thị nhóm và xuất ra file Excel
-output_file = 'thongtincanhan_groups_with_preferences.xlsx'
+output_file = 'data/thongtincanhan_groups_with_preferences.xlsx'
 with pd.ExcelWriter(output_file) as writer:
     for i, group in enumerate(groups, start=1):
         group.to_excel(writer, sheet_name=f'Group_{i}', index=False)
