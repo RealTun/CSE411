@@ -1,0 +1,233 @@
+[
+    {
+        "Họ tên":"Nguyễn Phương Mai",
+        "Điểm TB MIS":0.75,
+        "Điểm TB BigData":0.95,
+        "Thời gian tự học TB trong ngày":0.5,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":1.0,
+        "Khả năng sử dụng công nghệ":1.0,
+        "Sở trường":1.0,
+        "Nhóm":2
+    },
+    {
+        "Họ tên":"Nguyễn Trung Hiếu",
+        "Điểm TB MIS":0.0,
+        "Điểm TB BigData":0.6,
+        "Thời gian tự học TB trong ngày":0.25,
+        "Số lần đi học muộn trong giai đoạn 1":1.0,
+        "Kỹ năng mềm":0.5,
+        "Khả năng sử dụng công nghệ":1.0,
+        "Sở trường":1.0,
+        "Nhóm":4
+    },
+    {
+        "Họ tên":"Nguyễn Năng Vũ Hùng",
+        "Điểm TB MIS":0.6,
+        "Điểm TB BigData":0.6,
+        "Thời gian tự học TB trong ngày":0.0,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":0.5,
+        "Khả năng sử dụng công nghệ":0.0,
+        "Sở trường":0.0,
+        "Nhóm":1
+    },
+    {
+        "Họ tên":"Triệu Thị Hậu ",
+        "Điểm TB MIS":1.0,
+        "Điểm TB BigData":0.98,
+        "Thời gian tự học TB trong ngày":0.75,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":1.0,
+        "Khả năng sử dụng công nghệ":0.5,
+        "Sở trường":1.0,
+        "Nhóm":4
+    },
+    {
+        "Họ tên":"Phạm Nhật Minh",
+        "Điểm TB MIS":0.25,
+        "Điểm TB BigData":0.87,
+        "Thời gian tự học TB trong ngày":0.0,
+        "Số lần đi học muộn trong giai đoạn 1":1.0,
+        "Kỹ năng mềm":0.5,
+        "Khả năng sử dụng công nghệ":0.0,
+        "Sở trường":0.5,
+        "Nhóm":0
+    },
+    {
+        "Họ tên":"Nguyễn Đức Anh",
+        "Điểm TB MIS":0.6,
+        "Điểm TB BigData":1.0,
+        "Thời gian tự học TB trong ngày":0.5,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":1.0,
+        "Khả năng sử dụng công nghệ":1.0,
+        "Sở trường":1.0,
+        "Nhóm":2
+    },
+    {
+        "Họ tên":"Lê Quang Thanh",
+        "Điểm TB MIS":0.75,
+        "Điểm TB BigData":0.95,
+        "Thời gian tự học TB trong ngày":0.25,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":0.5,
+        "Khả năng sử dụng công nghệ":1.0,
+        "Sở trường":0.5,
+        "Nhóm":3
+    },
+    {
+        "Họ tên":"Nguyễn Tuấn Ngọc",
+        "Điểm TB MIS":0.25,
+        "Điểm TB BigData":0.6,
+        "Thời gian tự học TB trong ngày":0.0,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":0.5,
+        "Khả năng sử dụng công nghệ":0.5,
+        "Sở trường":0.0,
+        "Nhóm":3
+    },
+    {
+        "Họ tên":"Hạ Quang Dũng",
+        "Điểm TB MIS":0.625,
+        "Điểm TB BigData":0.945,
+        "Thời gian tự học TB trong ngày":0.25,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":1.0,
+        "Khả năng sử dụng công nghệ":1.0,
+        "Sở trường":1.0,
+        "Nhóm":2
+    },
+    {
+        "Họ tên":"Đàm Khắc Thái",
+        "Điểm TB MIS":0.75,
+        "Điểm TB BigData":0.87,
+        "Thời gian tự học TB trong ngày":0.125,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":0.5,
+        "Khả năng sử dụng công nghệ":0.5,
+        "Sở trường":0.5,
+        "Nhóm":1
+    },
+    {
+        "Họ tên":"Đào Hải Phúc",
+        "Điểm TB MIS":0.0,
+        "Điểm TB BigData":0.0,
+        "Thời gian tự học TB trong ngày":0.5,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":0.5,
+        "Khả năng sử dụng công nghệ":0.5,
+        "Sở trường":1.0,
+        "Nhóm":4
+    },
+    {
+        "Họ tên":"Nguyễn Ngọc Bách",
+        "Điểm TB MIS":0.8,
+        "Điểm TB BigData":0.9,
+        "Thời gian tự học TB trong ngày":0.0,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":0.0,
+        "Khả năng sử dụng công nghệ":0.0,
+        "Sở trường":0.5,
+        "Nhóm":1
+    },
+    {
+        "Họ tên":"Nguyễn Ngọc Bách",
+        "Điểm TB MIS":0.8,
+        "Điểm TB BigData":0.9,
+        "Thời gian tự học TB trong ngày":0.25,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":0.5,
+        "Khả năng sử dụng công nghệ":1.0,
+        "Sở trường":0.5,
+        "Nhóm":2
+    },
+    {
+        "Họ tên":"Lê Văn Trung",
+        "Điểm TB MIS":0.0,
+        "Điểm TB BigData":0.7,
+        "Thời gian tự học TB trong ngày":0.0,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":0.5,
+        "Khả năng sử dụng công nghệ":1.0,
+        "Sở trường":1.0,
+        "Nhóm":2
+    },
+    {
+        "Họ tên":"Phạm Văn Quý",
+        "Điểm TB MIS":0.625,
+        "Điểm TB BigData":0.93,
+        "Thời gian tự học TB trong ngày":1.0,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":0.5,
+        "Khả năng sử dụng công nghệ":0.5,
+        "Sở trường":0.0,
+        "Nhóm":4
+    },
+    {
+        "Họ tên":"Đỗ Thị Thương",
+        "Điểm TB MIS":0.5,
+        "Điểm TB BigData":0.905,
+        "Thời gian tự học TB trong ngày":0.5,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":1.0,
+        "Khả năng sử dụng công nghệ":0.5,
+        "Sở trường":0.0,
+        "Nhóm":3
+    },
+    {
+        "Họ tên":"Tào Hồng Lê",
+        "Điểm TB MIS":0.5,
+        "Điểm TB BigData":0.87,
+        "Thời gian tự học TB trong ngày":0.5,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":0.0,
+        "Khả năng sử dụng công nghệ":0.0,
+        "Sở trường":0.0,
+        "Nhóm":1
+    },
+    {
+        "Họ tên":"Phạm Ánh Hường",
+        "Điểm TB MIS":0.5,
+        "Điểm TB BigData":0.85,
+        "Thời gian tự học TB trong ngày":0.5,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":1.0,
+        "Khả năng sử dụng công nghệ":0.0,
+        "Sở trường":0.0,
+        "Nhóm":3
+    },
+    {
+        "Họ tên":"Bùi Quang Đạo",
+        "Điểm TB MIS":0.5,
+        "Điểm TB BigData":0.85,
+        "Thời gian tự học TB trong ngày":0.0,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":0.0,
+        "Khả năng sử dụng công nghệ":0.0,
+        "Sở trường":0.5,
+        "Nhóm":1
+    },
+    {
+        "Họ tên":"Đỗ Hữu Tuấn",
+        "Điểm TB MIS":0.85,
+        "Điểm TB BigData":0.92,
+        "Thời gian tự học TB trong ngày":0.75,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":0.5,
+        "Khả năng sử dụng công nghệ":1.0,
+        "Sở trường":1.0,
+        "Nhóm":4
+    },
+    {
+        "Họ tên":"Nguyễn Đăng Hoàng Giang ",
+        "Điểm TB MIS":0.75,
+        "Điểm TB BigData":0.87,
+        "Thời gian tự học TB trong ngày":0.125,
+        "Số lần đi học muộn trong giai đoạn 1":0.0,
+        "Kỹ năng mềm":1.0,
+        "Khả năng sử dụng công nghệ":0.5,
+        "Sở trường":0.0,
+        "Nhóm":3
+    }
+]

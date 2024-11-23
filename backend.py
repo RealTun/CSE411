@@ -3,53 +3,10 @@ import pandas as pd
 from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+from tienxuly import tien_xu_ly
 
-# 1. Đọc dữ liệu từ CSV
-df = pd.read_csv('data/data_processed.csv', header=0)
-
-# 2. Lấy toàn bộ dữ liệu và tráo thứ tự dòng ngẫu nhiên
-data_shuffled = df.sample(frac=1).reset_index(drop=True)
-
-# 3. Lấy dữ liệu từ cột 1 trở đi (bỏ cột đầu tiên nếu cần)
-data = data_shuffled.iloc[:, 1:2].values
-
-# 4. Đặt trọng số cho từng thuộc tính
-weights = np.array([1, 1])  # Tùy chỉnh trọng số
-
-# 5. Chuẩn hóa dữ liệu và áp dụng trọng số
-scaler = StandardScaler()
-data_normalized = scaler.fit_transform(data)
-weighted_data = data_normalized * weights
-
-Chenh_lech=0
-while Chenh_lech < 6:
-    # 6. Phân cụm để chia "gioi" và "khong gioi"
-    kmeans = KMeans(n_clusters=2)
-    kmeans.fit(data)
-
-    # Gán nhãn "gioi" (1) và "khong gioi" (0)
-    labels = kmeans.labels_
-    df['Skill'] = labels
-
-    if(len(df[df['Skill'] == 1])>len(df[df['Skill'] == 0])):
-        Chenh_lech = len(df[df['Skill'] == 1]) - len(df[df['Skill'] == 0])
-    else:
-        Chenh_lech = len(df[df['Skill'] == 0]) - len(df[df['Skill'] == 1])
-
-# 7. Chia "gioi" và "khong gioi"
-if(len(df[df['Skill'] == 1])>len(df[df['Skill'] == 0])):
-    label_gioi = 1
-    label_khonggioi = 0
-    gioi = df[df['Skill'] == label_gioi]
-    khong_gioi = df[df['Skill'] == label_khonggioi]
-else:
-    label_gioi = 0
-    label_khonggioi = 1
-    gioi = df[df['Skill'] == label_gioi]
-    khong_gioi = df[df['Skill'] == label_khonggioi]
-
-# 8. Hàm tạo nhóm dựa trên khoảng cách
-def create_groups(gioi, khong_gioi, num_groups=5, threshold=1.5):
+# Hàm tạo nhóm dựa trên khoảng cách
+def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5):
     loop = 0
     thres_hold = threshold
     while True:  # Vòng lặp tổng quát để chạy lại từ đầu nếu cần
@@ -112,13 +69,76 @@ def create_groups(gioi, khong_gioi, num_groups=5, threshold=1.5):
         if sufficient_groups:
             return groups
 
-# 9. Tạo nhóm
-groups = create_groups(gioi, khong_gioi, threshold=1.5)
+def backend():
+    tien_xu_ly()
 
-# 10. Hiển thị nhóm và xuất ra file Excel
-output_file = 'data/thongtincanhan_groups_with_preferences.xlsx'
-with pd.ExcelWriter(output_file) as writer:
-    for i, group in enumerate(groups, start=1):
-        group.to_excel(writer, sheet_name=f'Group_{i}', index=False)
+    # 1. Đọc dữ liệu từ CSV
+    df = pd.read_csv('data/data_processed.csv', header=0)
 
-print(f"Kết quả đã được lưu tại '{output_file}'.")
+    # 2. Lấy toàn bộ dữ liệu và tráo thứ tự dòng ngẫu nhiên
+    data_shuffled = df.sample(frac=1).reset_index(drop=True)
+
+    # 3. Lấy dữ liệu từ cột 1 trở đi (bỏ cột đầu tiên nếu cần)
+    data = data_shuffled.iloc[:, 1:2].values
+
+    # # 4. Đặt trọng số cho từng thuộc tính
+    # weights = np.array([1, 1])  # Tùy chỉnh trọng số
+
+    # # 5. Chuẩn hóa dữ liệu và áp dụng trọng số
+    # scaler = StandardScaler()
+    # data_normalized = scaler.fit_transform(data)
+    # weighted_data = data_normalized * weights
+
+    Chenh_lech=0
+    while Chenh_lech < 6:
+        # 6. Phân cụm để chia "gioi" và "khong gioi"
+        kmeans = KMeans(n_clusters=2)
+        kmeans.fit(data)
+
+        # Gán nhãn "gioi" (1) và "khong gioi" (0)
+        labels = kmeans.labels_
+        df['Skill'] = labels
+
+        if(len(df[df['Skill'] == 1])>len(df[df['Skill'] == 0])):
+            Chenh_lech = len(df[df['Skill'] == 1]) - len(df[df['Skill'] == 0])
+        else:
+            Chenh_lech = len(df[df['Skill'] == 0]) - len(df[df['Skill'] == 1])
+
+    # 7. Chia "gioi" và "khong gioi"
+    if(len(df[df['Skill'] == 1])>len(df[df['Skill'] == 0])):
+        label_gioi = 1
+        label_khonggioi = 0
+        gioi = df[df['Skill'] == label_gioi]
+        khong_gioi = df[df['Skill'] == label_khonggioi]
+    else:
+        label_gioi = 0
+        label_khonggioi = 1
+        gioi = df[df['Skill'] == label_gioi]
+        khong_gioi = df[df['Skill'] == label_khonggioi]
+
+    # 8. Tạo nhóm
+    groups = create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
+
+    # 9. Tạo nhóm và gán nhãn nhóm vào từng thành viên
+    group_labels = []
+    group_number = 1
+
+    for group in groups:
+        group_indices = group.index
+        group_labels.extend([(idx, group_number) for idx in group_indices])
+        group_number += 1
+
+    # Thêm cột 'Group' vào DataFrame gốc
+    group_dict = dict(group_labels)
+    df['Nhóm'] = df.index.map(group_dict).fillna(0).astype(int)  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
+
+    # Xóa cột 'Skill' nếu không cần
+    df = df.drop(columns=['Skill'])
+
+    # 10. Xuất DataFrame thành file JSON
+    output_file = 'data/thongtincanhan_with_groups.json'
+    df.to_json(output_file, orient='records', force_ascii=False, indent=4)
+
+    print(f"Kết quả đã được lưu tại '{output_file}'.")
+
+backend()
