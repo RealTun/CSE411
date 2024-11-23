@@ -130,13 +130,11 @@ def backend():
 
     # Thêm cột 'Group' vào DataFrame gốc
     group_dict = dict(group_labels)
-    df['Nhóm'] = df.index.map(group_dict)  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
-
-    # Xóa cột 'Skill' nếu không cần
-    df = df.drop(columns=['Skill'])
+    df2 = pd.read_csv('data/data_standard.csv', header=0)
+    df2['Nhóm'] = df.index.map(group_dict)  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
 
     # 10. Xuất DataFrame thành file JSON
     output_file = 'data/thongtincanhan_with_groups.json'
-    df.to_json(output_file, orient='records', force_ascii=False, indent=4)
+    df2.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
