@@ -130,7 +130,7 @@ def backend():
 
     # Thêm cột 'Group' vào DataFrame gốc
     group_dict = dict(group_labels)
-    df['Nhóm'] = df.index.map(group_dict).fillna(0).astype(int)  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
+    df['Nhóm'] = df.index.map(group_dict)  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
 
     # Xóa cột 'Skill' nếu không cần
     df = df.drop(columns=['Skill'])
@@ -140,3 +140,5 @@ def backend():
     df.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
+
+backend()

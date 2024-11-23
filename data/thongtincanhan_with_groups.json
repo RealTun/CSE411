@@ -8,7 +8,7 @@
         "Kỹ năng mềm":1.0,
         "Khả năng sử dụng công nghệ":1.0,
         "Sở trường":1.0,
-        "Nhóm":2
+        "Nhóm":1
     },
     {
         "Họ tên":"Nguyễn Trung Hiếu",
@@ -19,7 +19,7 @@
         "Kỹ năng mềm":0.5,
         "Khả năng sử dụng công nghệ":1.0,
         "Sở trường":1.0,
-        "Nhóm":4
+        "Nhóm":3
     },
     {
         "Họ tên":"Nguyễn Năng Vũ Hùng",
@@ -30,7 +30,7 @@
         "Kỹ năng mềm":0.5,
         "Khả năng sử dụng công nghệ":0.0,
         "Sở trường":0.0,
-        "Nhóm":1
+        "Nhóm":0
     },
     {
         "Họ tên":"Triệu Thị Hậu ",
@@ -41,7 +41,7 @@
         "Kỹ năng mềm":1.0,
         "Khả năng sử dụng công nghệ":0.5,
         "Sở trường":1.0,
-        "Nhóm":4
+        "Nhóm":1
     },
     {
         "Họ tên":"Phạm Nhật Minh",
@@ -52,7 +52,7 @@
         "Kỹ năng mềm":0.5,
         "Khả năng sử dụng công nghệ":0.0,
         "Sở trường":0.5,
-        "Nhóm":0
+        "Nhóm":3
     },
     {
         "Họ tên":"Nguyễn Đức Anh",
@@ -63,7 +63,7 @@
         "Kỹ năng mềm":1.0,
         "Khả năng sử dụng công nghệ":1.0,
         "Sở trường":1.0,
-        "Nhóm":2
+        "Nhóm":1
     },
     {
         "Họ tên":"Lê Quang Thanh",
@@ -74,7 +74,7 @@
         "Kỹ năng mềm":0.5,
         "Khả năng sử dụng công nghệ":1.0,
         "Sở trường":0.5,
-        "Nhóm":3
+        "Nhóm":2
     },
     {
         "Họ tên":"Nguyễn Tuấn Ngọc",
@@ -85,7 +85,7 @@
         "Kỹ năng mềm":0.5,
         "Khả năng sử dụng công nghệ":0.5,
         "Sở trường":0.0,
-        "Nhóm":3
+        "Nhóm":0
     },
     {
         "Họ tên":"Hạ Quang Dũng",
@@ -96,7 +96,7 @@
         "Kỹ năng mềm":1.0,
         "Khả năng sử dụng công nghệ":1.0,
         "Sở trường":1.0,
-        "Nhóm":2
+        "Nhóm":1
     },
     {
         "Họ tên":"Đàm Khắc Thái",
@@ -107,7 +107,7 @@
         "Kỹ năng mềm":0.5,
         "Khả năng sử dụng công nghệ":0.5,
         "Sở trường":0.5,
-        "Nhóm":1
+        "Nhóm":0
     },
     {
         "Họ tên":"Đào Hải Phúc",
@@ -118,18 +118,7 @@
         "Kỹ năng mềm":0.5,
         "Khả năng sử dụng công nghệ":0.5,
         "Sở trường":1.0,
-        "Nhóm":4
-    },
-    {
-        "Họ tên":"Nguyễn Ngọc Bách",
-        "Điểm TB MIS":0.8,
-        "Điểm TB BigData":0.9,
-        "Thời gian tự học TB trong ngày":0.0,
-        "Số lần đi học muộn trong giai đoạn 1":0.0,
-        "Kỹ năng mềm":0.0,
-        "Khả năng sử dụng công nghệ":0.0,
-        "Sở trường":0.5,
-        "Nhóm":1
+        "Nhóm":2
     },
     {
         "Họ tên":"Nguyễn Ngọc Bách",
@@ -162,7 +151,7 @@
         "Kỹ năng mềm":0.5,
         "Khả năng sử dụng công nghệ":0.5,
         "Sở trường":0.0,
-        "Nhóm":4
+        "Nhóm":3
     },
     {
         "Họ tên":"Đỗ Thị Thương",
@@ -184,7 +173,7 @@
         "Kỹ năng mềm":0.0,
         "Khả năng sử dụng công nghệ":0.0,
         "Sở trường":0.0,
-        "Nhóm":1
+        "Nhóm":0
     },
     {
         "Họ tên":"Phạm Ánh Hường",
@@ -206,7 +195,7 @@
         "Kỹ năng mềm":0.0,
         "Khả năng sử dụng công nghệ":0.0,
         "Sở trường":0.5,
-        "Nhóm":1
+        "Nhóm":0
     },
     {
         "Họ tên":"Đỗ Hữu Tuấn",
@@ -217,7 +206,7 @@
         "Kỹ năng mềm":0.5,
         "Khả năng sử dụng công nghệ":1.0,
         "Sở trường":1.0,
-        "Nhóm":4
+        "Nhóm":1
     },
     {
         "Họ tên":"Nguyễn Đăng Hoàng Giang ",
@@ -228,6 +217,6 @@
         "Kỹ năng mềm":1.0,
         "Khả năng sử dụng công nghệ":0.5,
         "Sở trường":0.0,
-        "Nhóm":3
+        "Nhóm":2
     }
 ]
