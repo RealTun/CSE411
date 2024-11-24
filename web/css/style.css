@@ -4,6 +4,8 @@ body {
     padding: 0;
     height: 100vh;
     background: #f4f4f4;
+    width:100vw;
+    overflow: hidden;
 }
 
 .d-flex {

@@ -578,7 +578,7 @@ button:hover {
 }
 .running{
     position: absolute;
-    width:60%;
+    width:80%;
     top:1vw;
     animation:run 5s ease-in-out infinite;
 }
