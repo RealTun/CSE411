@@ -55,6 +55,22 @@ navItems.forEach(item => {
         else {
             imgVip.src = "";
         }
+        setTimeout(() => {
+            const allUser = document.querySelectorAll('.user');
+            allUser.forEach(user => {
+                user.addEventListener('click',async () => {
+                    // console.log(user.id)
+                    sessionStorage.setItem("userName",user.id);
+        
+                    setTimeout(function () {
+                        window.location.href = "user.html";
+                    }, 1000);
+        
+                    loading_location.style.opacity = "1";
+                    loading_location.style.display = "flex";
+                })
+            })
+        }, 500)
         groupName.innerHTML = `${item.innerHTML}`
     })
 })
@@ -72,8 +88,6 @@ setTimeout(() => {
 
             loading_location.style.opacity = "1";
             loading_location.style.display = "flex";
-            // const cus = users[0];
-            // const userInf = new UserInforComponent(cus["Họ tên"],cus["Họ tên"]).render();
         })
     })
 }, 500)
