@@ -6,8 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from tienxuly import tien_xu_ly
 
 import xgboost as xgb
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from collections import Counter
 
 # Hàm tạo nhóm dựa trên khoảng cách
 def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5):
@@ -72,6 +71,32 @@ def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
         # Nếu toàn bộ vòng lặp thành công, thoát khỏi vòng lặp lớn
         if sufficient_groups:
             return groups
+        
+def suggest(data_test):
+    # Đọc dữ liệu từ CSV
+    data = pd.read_csv('data/train_processed.csv', header=0)
+
+    # Chia tập dữ liệu
+    X = data.drop("topic", axis=1)
+    y = data["topic"]
+
+    # Huấn luyện mô hình XGBoost
+    model = xgb.XGBClassifier(eval_metric="logloss")
+    model.fit(X, y)
+
+    # Dự đoán 100 lần
+    y_pred_labels = []
+    for _ in range(100):
+        y_pred = model.predict(data_test)
+        y_pred_labels.extend(y_pred)  # Thêm tất cả nhãn dự đoán vào danh sách
+
+    # Đếm số lần xuất hiện của các nhãn
+    counter = Counter(y_pred_labels)
+
+    # Lấy 2 nhãn xuất hiện nhiều nhất
+    most_common_labels = counter.most_common(2)
+
+    return most_common_labels
 
 def backend():
     tien_xu_ly()
@@ -83,21 +108,21 @@ def backend():
     data_shuffled = df.sample(frac=1).reset_index(drop=True)
 
     # 3. Lấy dữ liệu từ cột 1 trở đi (bỏ cột đầu tiên nếu cần)
-    data = data_shuffled.iloc[:, 1:4].values
+    data = data_shuffled.iloc[:, 1:5].values
 
-    # # 4. Đặt trọng số cho từng thuộc tính
-    # weights = np.array([1, 1])  # Tùy chỉnh trọng số
+    # 4. Đặt trọng số cho từng thuộc tính
+    weights = np.array([2, 2,0.5,0.5])  # Tùy chỉnh trọng số
 
-    # # 5. Chuẩn hóa dữ liệu và áp dụng trọng số
-    # scaler = StandardScaler()
-    # data_normalized = scaler.fit_transform(data)
-    # weighted_data = data_normalized * weights
+    # 5. Chuẩn hóa dữ liệu và áp dụng trọng số
+    scaler = StandardScaler()
+    data_normalized = scaler.fit_transform(data)
+    weighted_data = data_normalized * weights
 
     Chenh_lech=0
     while Chenh_lech < 6:
         # 6. Phân cụm để chia "gioi" và "khong gioi"
         kmeans = KMeans(n_clusters=2)
-        kmeans.fit(data)
+        kmeans.fit(weighted_data)
 
         # Gán nhãn "gioi" (1) và "khong gioi" (0)
         labels = kmeans.labels_
@@ -137,24 +162,20 @@ def backend():
     df2 = pd.read_csv('data/data_standard.csv', header=0)
     df2['Nhóm'] = df.index.map(group_dict)  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
 
+    data_suggest = df.iloc[:, 5:8].values  # Trích xuất giá trị từ các cột
+
+    label_suggest = []
+    for value in data_suggest:
+        # Chuyển mỗi hàng thành mảng 2D
+        value_reshaped = value.reshape(1, -1)
+        label_suggest.append(suggest(value_reshaped))
+
+    df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
+
     # 10. Xuất DataFrame thành file JSON
     output_file = 'data/thongtincanhan_with_groups.json'
     df2.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
 
-def suggest():
-
-    # Đọc dữ liệu từ CSV
-    data = pd.read_csv('data/train_processed.csv', header=0)
-
-    # Chia tập dữ liệu
-    X = data.drop("topic", axis=1)
-    y = data["topic"]
-
-    # Huấn luyện mô hình XGBoost
-    model = xgb.XGBClassifier(use_label_encoder=False, eval_metric="logloss")
-    model.fit(X, y)
-
-    # Dự đoán
-    # y_pred = model.predict(X_test)
+backend()
