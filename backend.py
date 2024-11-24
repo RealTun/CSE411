@@ -177,5 +177,3 @@ def backend():
     df2.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
-
-backend()
