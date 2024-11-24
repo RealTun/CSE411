@@ -5,6 +5,10 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from tienxuly import tien_xu_ly
 
+import xgboost as xgb
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
 # Hàm tạo nhóm dựa trên khoảng cách
 def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5):
     loop = 0
@@ -15,7 +19,7 @@ def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
         remaining_gioi = gioi.copy()  # Khởi tạo lại danh sách "giỏi"
         remaining_khong_gioi = khong_gioi.copy()  # Khởi tạo lại danh sách "không giỏi"
 
-        all_data = df.iloc[:, 3:-1].values  # Dữ liệu để tính khoảng cách
+        all_data = df.iloc[:, 5:-1].values  # Dữ liệu để tính khoảng cách
         sufficient_groups = True  # Biến theo dõi xem quá trình có thành công không
 
         while len(remaining_gioi) + len(remaining_khong_gioi) >= 5:
@@ -79,7 +83,7 @@ def backend():
     data_shuffled = df.sample(frac=1).reset_index(drop=True)
 
     # 3. Lấy dữ liệu từ cột 1 trở đi (bỏ cột đầu tiên nếu cần)
-    data = data_shuffled.iloc[:, 1:2].values
+    data = data_shuffled.iloc[:, 1:4].values
 
     # # 4. Đặt trọng số cho từng thuộc tính
     # weights = np.array([1, 1])  # Tùy chỉnh trọng số
@@ -138,3 +142,19 @@ def backend():
     df2.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
+
+def suggest():
+
+    # Đọc dữ liệu từ CSV
+    data = pd.read_csv('data/train_processed.csv', header=0)
+
+    # Chia tập dữ liệu
+    X = data.drop("topic", axis=1)
+    y = data["topic"]
+
+    # Huấn luyện mô hình XGBoost
+    model = xgb.XGBClassifier(use_label_encoder=False, eval_metric="logloss")
+    model.fit(X, y)
+
+    # Dự đoán
+    # y_pred = model.predict(X_test)
