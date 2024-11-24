@@ -1,0 +1,309 @@
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeInOut {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes moveAround {
+    0% {
+        transform: rotate(0deg) translateX(128px) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg) translateX(128px) rotate(-360deg);
+    }
+}
+
+@keyframes moveRectangle {
+    0% {
+        transform: translate(-7.5vw, -6.5vh);
+    }
+
+    25% {
+        transform: translate(7.5vw, -6.5vh);
+    }
+
+    50% {
+        transform: translate(7.5vw, 6.5vh);
+    }
+
+    75% {
+        transform: translate(-7.5vw, 6.5vh);
+    }
+
+    100% {
+        transform: translate(-7.5vw, -6.5vh);
+    }
+}
+
+@keyframes bubbles {
+    from {
+        transform: translate();
+    }
+
+    to {
+        transform: translate(0, -66.666%);
+    }
+}
+
+@keyframes ring {
+    0% {
+        width: 2.4vw;
+        height: 2.4vw;
+        opacity: 1;
+    }
+
+    100% {
+        width: 24vw;
+        height: 24vw;
+        opacity: 0;
+    }
+}
+
+@keyframes run{
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform:translateX(100%);
+    }
+}
+
+@keyframes wave-animation {
+    0% {
+        transform: translateX(-50%) rotate(180deg);
+    }
+
+    100% {
+        transform: translateX(50%) rotate(180deg);
+    }
+}
+
+@keyframes water-drain {
+    0% {
+        height: 100%;
+        opacity: 1;
+    }
+
+    100% {
+        height: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes waveEffect {
+    0% {
+        background: linear-gradient(135deg, hsl(210, 100%, 50%), hsl(210, 100%, 30%));
+        background-position: 200% 0;
+    }
+
+    5% {
+        background: linear-gradient(135deg, hsl(211, 100%, 52%), hsl(212, 100%, 32%));
+        background-position: 195% 0;
+    }
+
+    10% {
+        background: linear-gradient(135deg, hsl(212, 100%, 55%), hsl(213, 100%, 35%));
+        background-position: 190% 0;
+    }
+
+    15% {
+        background: linear-gradient(135deg, hsl(213, 100%, 57%), hsl(214, 100%, 38%));
+        background-position: 185% 0;
+    }
+
+    20% {
+        background: linear-gradient(135deg, hsl(214, 100%, 60%), hsl(215, 100%, 40%));
+        background-position: 180% 0;
+    }
+
+    25% {
+        background: linear-gradient(135deg, hsl(215, 100%, 62%), hsl(216, 100%, 42%));
+        background-position: 175% 0;
+    }
+
+    30% {
+        background: linear-gradient(135deg, hsl(216, 100%, 65%), hsl(217, 100%, 45%));
+        background-position: 170% 0;
+    }
+
+    35% {
+        background: linear-gradient(135deg, hsl(217, 100%, 67%), hsl(218, 100%, 48%));
+        background-position: 165% 0;
+    }
+
+    40% {
+        background: linear-gradient(135deg, hsl(218, 100%, 70%), hsl(219, 100%, 50%));
+        background-position: 160% 0;
+    }
+
+    45% {
+        background: linear-gradient(135deg, hsl(219, 100%, 72%), hsl(220, 100%, 53%));
+        background-position: 155% 0;
+    }
+
+    50% {
+        background: linear-gradient(135deg, hsl(220, 100%, 75%), hsl(221, 100%, 55%));
+        background-position: 150% 0;
+    }
+
+    55% {
+        background: linear-gradient(135deg, hsl(219, 100%, 72%), hsl(220, 100%, 53%));
+        background-position: 155% 0;
+    }
+
+    60% {
+        background: linear-gradient(135deg, hsl(218, 100%, 70%), hsl(219, 100%, 50%));
+        background-position: 160% 0;
+    }
+
+    95% {
+        background: linear-gradient(135deg, hsl(211, 100%, 52%), hsl(212, 100%, 32%));
+        background-position: 195% 0;
+    }
+
+    90% {
+        background: linear-gradient(135deg, hsl(212, 100%, 55%), hsl(213, 100%, 35%));
+        background-position: 190% 0;
+    }
+
+    85% {
+        background: linear-gradient(135deg, hsl(213, 100%, 57%), hsl(214, 100%, 38%));
+        background-position: 185% 0;
+    }
+
+    80% {
+        background: linear-gradient(135deg, hsl(214, 100%, 60%), hsl(215, 100%, 40%));
+        background-position: 180% 0;
+    }
+
+    75% {
+        background: linear-gradient(135deg, hsl(215, 100%, 62%), hsl(216, 100%, 42%));
+        background-position: 175% 0;
+    }
+
+    70% {
+        background: linear-gradient(135deg, hsl(216, 100%, 65%), hsl(217, 100%, 45%));
+        background-position: 170% 0;
+    }
+
+    65% {
+        background: linear-gradient(135deg, hsl(217, 100%, 67%), hsl(218, 100%, 48%));
+        background-position: 165% 0;
+    }
+
+    100% {
+        background: linear-gradient(135deg, hsl(210, 100%, 50%), hsl(210, 100%, 30%));
+        background-position: 200% 0;
+    }
+}
+
+@keyframes loading {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: white;
+    }
+}
+
+@keyframes slide {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-100%)
+    }
+}
+@keyframes slide-right {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+@keyframes goAhead {
+    0% {
+        transform: translate(0,0vw);
+    }
+    100% {
+        transform: translate(-100%,0);
+    }
+}
+@keyframes goRight {
+    0% {
+        transform: translate(0,-6vw);
+    }
+    100% {
+        transform: translate(-100%,-6vw);
+    }
+}
+@keyframes goLeft{
+    0%{
+        transform: translate(0,-12vw);
+    }
+    100%{
+        transform:translate(-100%,-12vw);
+    }
+}
+@keyframes goBack{
+    0%{
+        transform: translate(0,-18vw);
+    }
+    100%{
+        transform:translate(-100%,-18vw);
+    }
+}
+
+@keyframes twink {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0.2;
+    }
+    100%{
+        opacity: 1;
+    }
+}

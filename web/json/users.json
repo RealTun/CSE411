@@ -1,0 +1,122 @@
+[
+    {
+        "group":"1",
+        "member":[
+            {
+                "id":"2151163724",
+                "name": "Nguyễn Văn A",
+                "avatar": "../img/user1.png"
+            },
+            {
+                "id":"2151163723",
+                "name": "Trần Thị B",
+                "avatar": "../img/user2.png"
+            },
+            {
+                "id":"2151163722",
+                "name": "Phạm Văn C",
+                "avatar": "../img/user3.png"
+            },
+            {
+                "id":"2151163721",
+                "name": "Lê Thị D",
+                "avatar": "../img/user4.png"
+            },
+            {
+                "id":"2151163720",
+                "name": "Nguyễn Đăng Hoàng Giang",
+                "avatar": "../img/user.png"
+            }
+        ]
+    },
+    {
+        "group":"2",
+        "member":[
+            {
+                "id":"2151163724",
+                "name": "Nguyễn Văn A",
+                "avatar": "../img/user1.png"
+            },
+            {
+                "id":"2151163723",
+                "name": "Trần Thị B",
+                "avatar": "../img/user2.png"
+            },
+            {
+                "id":"2151163722",
+                "name": "Phạm Văn C",
+                "avatar": "../img/user3.png"
+            },
+            {
+                "id":"2151163721",
+                "name": "Lê Thị D",
+                "avatar": "../img/user4.png"
+            },
+            {
+                "id":"2151163720",
+                "name": "Nguyễn Đăng Hoàng Giang",
+                "avatar": "../img/user.png"
+            }
+        ]
+    },
+    {
+        "group":"3",
+        "member":[
+            {
+                "id":"2151163724",
+                "name": "Nguyễn Văn A",
+                "avatar": "../img/user1.png"
+            },
+            {
+                "id":"2151163723",
+                "name": "Trần Thị B",
+                "avatar": "../img/user2.png"
+            },
+            {
+                "id":"2151163722",
+                "name": "Phạm Văn C",
+                "avatar": "../img/user3.png"
+            },
+            {
+                "id":"2151163721",
+                "name": "Lê Thị D",
+                "avatar": "../img/user4.png"
+            },
+            {
+                "id":"2151163720",
+                "name": "Nguyễn Đăng Hoàng Giang",
+                "avatar": "../img/user.png"
+            }
+        ]
+    },
+    {
+        "group":"4",
+        "member":[
+            {
+                "id":"2151163724",
+                "name": "Nguyễn Văn A",
+                "avatar": "../img/user1.png"
+            },
+            {
+                "id":"2151163723",
+                "name": "Trần Thị B",
+                "avatar": "../img/user2.png"
+            },
+            {
+                "id":"2151163722",
+                "name": "Phạm Văn C",
+                "avatar": "../img/user3.png"
+            },
+            {
+                "id":"2151163721",
+                "name": "Lê Thị D",
+                "avatar": "../img/user4.png"
+            },
+            {
+                "id":"2151163720",
+                "name": "Nguyễn Đăng Hoàng Giang",
+                "avatar": "../img/user.png"
+            }
+        ]
+    }
+]
