@@ -8,7 +8,7 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Công nghệ",
-        "Nhóm":1
+        "Nhóm":2
     },
     {
         "Họ tên":"Nguyễn Trung Hiếu",
@@ -19,7 +19,7 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Công nghệ",
-        "Nhóm":2
+        "Nhóm":4
     },
     {
         "Họ tên":"Nguyễn Năng Vũ Hùng",
@@ -30,7 +30,7 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Trung bình",
         "Sở trường":"Nội dung",
-        "Nhóm":4
+        "Nhóm":1
     },
     {
         "Họ tên":"Triệu Thị Hậu ",
@@ -52,7 +52,7 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Trung bình",
         "Sở trường":"Kỹ thuật",
-        "Nhóm":2
+        "Nhóm":4
     },
     {
         "Họ tên":"Nguyễn Đức Anh",
@@ -74,7 +74,7 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Kỹ thuật",
-        "Nhóm":1
+        "Nhóm":3
     },
     {
         "Họ tên":"Nguyễn Tuấn Ngọc",
@@ -96,7 +96,7 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Công nghệ",
-        "Nhóm":1
+        "Nhóm":4
     },
     {
         "Họ tên":"Đàm Khắc Thái",
@@ -107,7 +107,7 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Khá",
         "Sở trường":"Kỹ thuật",
-        "Nhóm":4
+        "Nhóm":3
     },
     {
         "Họ tên":"Đào Hải Phúc",
@@ -129,7 +129,7 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Kỹ thuật",
-        "Nhóm":1
+        "Nhóm":2
     },
     {
         "Họ tên":"Lê Văn Trung",
@@ -140,7 +140,7 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Công nghệ",
-        "Nhóm":1
+        "Nhóm":4
     },
     {
         "Họ tên":"Phạm Văn Quý",
@@ -151,7 +151,7 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Khá",
         "Sở trường":"Nội dung",
-        "Nhóm":3
+        "Nhóm":1
     },
     {
         "Họ tên":"Đỗ Thị Thương",
@@ -162,7 +162,7 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Khá",
         "Sở trường":"Nội dung",
-        "Nhóm":3
+        "Nhóm":1
     },
     {
         "Họ tên":"Tào Hồng Lê",
@@ -173,7 +173,7 @@
         "Kỹ năng mềm":"Trung bình",
         "Khả năng sử dụng công nghệ":"Trung bình",
         "Sở trường":"Nội dung",
-        "Nhóm":4
+        "Nhóm":3
     },
     {
         "Họ tên":"Phạm Ánh Hường",
@@ -184,7 +184,7 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Trung bình",
         "Sở trường":"Nội dung",
-        "Nhóm":3
+        "Nhóm":1
     },
     {
         "Họ tên":"Bùi Quang Đạo",
@@ -195,7 +195,7 @@
         "Kỹ năng mềm":"Trung bình",
         "Khả năng sử dụng công nghệ":"Trung bình",
         "Sở trường":"Kỹ thuật",
-        "Nhóm":4
+        "Nhóm":3
     },
     {
         "Họ tên":"Đỗ Hữu Tuấn",
@@ -217,6 +217,6 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Khá",
         "Sở trường":"Nội dung",
-        "Nhóm":3
+        "Nhóm":1
     }
 ]

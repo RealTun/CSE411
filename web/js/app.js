@@ -1,7 +1,7 @@
 const p_content = document.getElementById("dialog_title");
 const bookContent = document.getElementById("make_group");
 const groupContent = document.getElementById("check_group");
-const userContent = document.getElementById("check_user");
+const chatbotContent = document.getElementById("chatbot");
 const btn_success = document.getElementById("btn-success");
 const loading_location = document.getElementById("loading-location");
 
@@ -45,14 +45,14 @@ function check_group() {
 }
 
 function check_user() {
-    p_content.innerText = "Bạn có muốn vào xem các thành viên trong nhóm không ?"
+    p_content.innerText = "Mở chatbot ?"
     openDialog();
     btn_success.onclick = () => {
         dismissDialog()
         loading_location.style.opacity="1";
         loading_location.style.display="flex";
         setTimeout(function () {
-            window.location.href = "load.html";
+            window.location.href = "../BOTOPENAI1/html/index.html";
         }, 1500);
     }
 }
@@ -78,7 +78,7 @@ setTimeout(function () {
 
 bookContent.addEventListener("click", make_group);
 groupContent.addEventListener("click", check_group);
-// userContent.addEventListener("click", check_user);
+chatbotContent.addEventListener("click", check_user);
 
 
 
