@@ -1,12 +1,14 @@
 import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import euclidean_distances
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from tienxuly import tien_xu_ly
 import random
 
-import xgboost as xgb
+from xgboost import XGBRegressor
+from sklearn.model_selection import GridSearchCV
 from collections import Counter
 
 # Hàm tạo nhóm dựa trên khoảng cách
@@ -82,14 +84,14 @@ def suggest_topic(data_test):
     y = data["topic"]
 
     # Huấn luyện mô hình XGBoost
-    model = xgb.XGBClassifier(eval_metric="logloss")
+    model = XGBRegressor(n_estimators=100, learning_rate=0.1, max_depth=6, random_state=42)
     model.fit(X, y)
 
     # Dự đoán 100 lần
     y_pred_labels = []
     for _ in range(100):
         y_pred = model.predict(data_test)
-        y_pred_labels.extend(y_pred)  # Thêm tất cả nhãn dự đoán vào danh sách
+        y_pred_labels.extend(np.round(y_pred))  # Thêm tất cả nhãn dự đoán vào danh sách
 
     # Đếm số lần xuất hiện của các nhãn
     counter = Counter(y_pred_labels)
@@ -207,13 +209,14 @@ def backend():
     df2 = df2.drop(columns=['Mức độ'])
     df2['Nhóm'] = labels
 
-    data_suggest = df.iloc[:, 5:8].values  # Trích xuất giá trị từ các cột
+    data_suggest = df.iloc[:, 5:8]  # Trích xuất giá trị từ các cột
 
     label_suggest = []
-    for value in data_suggest:
-        # Chuyển mỗi hàng thành mảng 2D
-        value_reshaped = value.reshape(1, -1)
-        label_suggest.append(suggest_topic(value_reshaped))
+    for _, row in data_suggest.iterrows():  # Duyệt qua từng hàng của DataFrame
+        # Chuyển mỗi hàng thành DataFrame 1 dòng với cùng tên cột
+        row_df = row.to_frame().T  # .T chuyển từ Series thành DataFrame
+        label_suggest.append(suggest_topic(row_df))
+
 
     df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
 
@@ -225,4 +228,5 @@ def backend():
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
 
-# backend()
+backend()
+
