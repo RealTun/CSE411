@@ -17,12 +17,12 @@ def tien_xu_ly():
     data['Khả năng sử dụng công nghệ'] = data['Khả năng sử dụng công nghệ'].map(mapping_ky_nang_mem)
 
     # Áp dụng kỹ thuật min - max lên các cột ngoài trừ cột đầu
-    columns_to_normalize = data.columns[1:]  
+    # columns_to_normalize = data.columns[1:]  
 
-    for col in columns_to_normalize:
-        min_val = data[col].min()
-        max_val = data[col].max()
-        data[col] = (data[col] - min_val) / (max_val - min_val)
+    # for col in columns_to_normalize:
+    #     min_val = data[col].min()
+    #     max_val = data[col].max()
+    #     data[col] = (data[col] - min_val) / (max_val - min_val)
 
     # Hiển thị dữ liệu tiền xử lý
     # print(data)

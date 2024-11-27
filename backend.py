@@ -4,6 +4,7 @@ from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from tienxuly import tien_xu_ly
+import random
 
 import xgboost as xgb
 from collections import Counter
@@ -98,7 +99,7 @@ def suggest(data_test):
 
     return most_common_labels
 
-def backend():
+def backend2():
     tien_xu_ly()
 
     # 1. Đọc dữ liệu từ CSV
@@ -175,6 +176,42 @@ def backend():
     # 10. Xuất DataFrame thành file JSON
     output_file = 'data/thongtincanhan_with_groups.json'
     df2.to_json(output_file, orient='records', force_ascii=False, indent=4)
+
+    print(f"Kết quả đã được lưu tại '{output_file}'.")
+
+def backend():
+    tien_xu_ly()
+    
+    # Đọc dữ liệu từ CSV
+    df = pd.read_csv('data/data_processed.csv', header=0)
+
+    # Lấy dữ liệu từ cột cuối cùng
+    data = df.iloc[:, -1].values
+
+    array = [0, 1, 2, 3]
+    random.shuffle(array)
+
+    labels = []
+    for label in data:
+        if label == 1000:
+            labels.append(array[0])
+        elif label == 100:
+            labels.append(array[1])
+        elif label == 10:
+            labels.append(array[2])
+        elif label == 1:
+            labels.append(array[3])
+
+    # Đọc dữ liệu khác từ file CSV và xóa cột không cần thiết
+    df2 = pd.read_csv('data/data_standard.csv', header=0)
+    df2 = df2.drop(columns=['Mức độ'])
+    df2['Nhóm'] = labels
+
+    data_shuffled = df2.sample(frac=1).reset_index(drop=True)
+
+    # Xuất dữ liệu ra file JSON
+    output_file = 'data/thongtincanhan_with_groups.json'
+    data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
 

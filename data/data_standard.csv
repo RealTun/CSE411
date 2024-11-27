@@ -1,21 +1,21 @@
-﻿Họ tên,Điểm TB MIS,Điểm TB BigData,Thời gian tự học TB trong ngày,Số lần đi học muộn trong giai đoạn 1,Kỹ năng mềm,Khả năng sử dụng công nghệ,Sở trường
-Nguyễn Phương Mai,8.5,9.5,3,0,Tốt,Khá,Kỹ thuật
-Nguyễn Trung Hiếu,7,6,2,1,Khá,Tốt,Công nghệ
-Nguyễn Năng Vũ Hùng,8.2,6.0,1,0,Khá,Trung bình,Nội dung
-Triệu Thị Hậu ,9,9.8,3,0,Tốt,Khá,Kỹ thuật
-Phạm Nhật Minh,7.5,8.7,1,1,Khá,Trung bình,Kỹ thuật
-Nguyễn Đức Anh,8.2,10,3,0,Tốt,Khá,Kỹ thuật
-Lê Quang Thanh,8.5,9.5,3,0,Tốt,Khá,Kỹ thuật
-Nguyễn Tuấn Ngọc,7.5,6,3,0,Tốt,Khá,Kỹ thuật
-Hạ Quang Dũng,8.25,9.45,2,0,Tốt,Tốt,Công nghệ
-Đàm Khắc Thái,8.5,8.7,1.5,0,Khá,Khá,Kỹ thuật
-Đào Hải Phúc,7,0,3,0,Khá,Khá,Công nghệ
-Nguyễn Ngọc Bách,8.6,9,2,0,Khá,Tốt,Kỹ thuật
-Lê Văn Trung,7,7,1,0,Khá,Tốt,Công nghệ
-Phạm Văn Quý,8.25,9.3,5,0,Khá,Khá,Nội dung
-Đỗ Thị Thương,8,9.05,3,0,Tốt,Khá,Nội dung
-Tào Hồng Lê,8,8.7,3,0,Trung bình,Trung bình,Nội dung
-Phạm Ánh Hường,8,8.5,3,0,Tốt,Trung bình,Nội dung
-Bùi Quang Đạo,8,8.5,1,0,Trung bình,Trung bình,Kỹ thuật
-Đỗ Hữu Tuấn,8.7,9.2,4,0,Khá,Tốt,Công nghệ
-Nguyễn Đăng Hoàng Giang ,8.5,8.7,1.5,0,Tốt,Khá,Nội dung
+﻿Họ tên,Điểm TB MIS,Điểm TB BigData,Thời gian tự học TB trong ngày,Số lần đi học muộn trong giai đoạn 1,Kỹ năng mềm,Khả năng sử dụng công nghệ,Sở trường,Mức độ
+Nguyễn Phương Mai,8.5,9.5,3,0,Tốt,Tốt,Công nghệ,1000
+Nguyễn Trung Hiếu,7,6,2,1,Khá,Tốt,Công nghệ,1
+Nguyễn Năng Vũ Hùng,8.2,6.0,1,0,Khá,Trung bình,Nội dung,1
+Triệu Thị Hậu ,9,9.8,4,0,Tốt,Khá,Công nghệ,1000
+Phạm Nhật Minh,7.5,8.7,1,1,Khá,Trung bình,Kỹ thuật,10
+Nguyễn Đức Anh,8.2,10,3,0,Tốt,Tốt,Công nghệ,1000
+Hạ Quang Dũng,8.25,9.45,2,0,Tốt,Tốt,Công nghệ,100
+Đàm Khắc Thái,8.5,8.7,1.5,0,Khá,Khá,Kỹ thuật,10
+Đào Hải Phúc,7,0,3,0,Khá,Khá,Công nghệ,1
+Nguyễn Ngọc Bách,8.6,9,2,0,Khá,Tốt,Kỹ thuật,10
+Lê Văn Trung,7,7,1,0,Khá,Tốt,Công nghệ,1
+Nguyễn Tuấn Ngọc,7.5,6,3,0,Tốt,Khá,Kỹ thuật,1000
+Phạm Văn Quý,8.25,9.3,5,0,Khá,Khá,Nội dung,1
+Đỗ Thị Thương,8,9.05,3,0,Tốt,Khá,Nội dung,100
+Tào Hồng Lê,8,8.7,3,0,Trung bình,Trung bình,Nội dung,100
+Phạm Ánh Hường,8,8.5,3,0,Tốt,Trung bình,Nội dung,100
+Bùi Quang Đạo,8,8.5,1,0,Trung bình,Trung bình,Kỹ thuật,10
+Lê Quang Thanh,8.5,9.5,2,0,Khá,Tốt,Kỹ thuật,1000
+Đỗ Hữu Tuấn,8.7,9.2,4,0,Khá,Tốt,Công nghệ,100
+Nguyễn Đăng Hoàng Giang ,8.5,8.7,1.5,0,Tốt,Khá,Nội dung,10
