@@ -73,7 +73,7 @@ def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
         if sufficient_groups:
             return groups
         
-def suggest(data_test):
+def suggest_topic(data_test):
     # Đọc dữ liệu từ CSV
     data = pd.read_csv('data/train_processed.csv', header=0)
 
@@ -169,7 +169,7 @@ def backend2():
     for value in data_suggest:
         # Chuyển mỗi hàng thành mảng 2D
         value_reshaped = value.reshape(1, -1)
-        label_suggest.append(suggest(value_reshaped))
+        label_suggest.append(suggest_topic(value_reshaped))
 
     df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
 
@@ -188,7 +188,7 @@ def backend():
     # Lấy dữ liệu từ cột cuối cùng
     data = df.iloc[:, -1].values
 
-    array = [0, 1, 2, 3]
+    array = [1, 2, 3, 4]
     random.shuffle(array)
 
     labels = []
@@ -207,6 +207,16 @@ def backend():
     df2 = df2.drop(columns=['Mức độ'])
     df2['Nhóm'] = labels
 
+    data_suggest = df.iloc[:, 5:8].values  # Trích xuất giá trị từ các cột
+
+    label_suggest = []
+    for value in data_suggest:
+        # Chuyển mỗi hàng thành mảng 2D
+        value_reshaped = value.reshape(1, -1)
+        label_suggest.append(suggest_topic(value_reshaped))
+
+    df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
+
     data_shuffled = df2.sample(frac=1).reset_index(drop=True)
 
     # Xuất dữ liệu ra file JSON
@@ -215,4 +225,4 @@ def backend():
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
 
-backend()
+# backend()
