@@ -1,0 +1,96 @@
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    color: #333;
+  }
+
+  .form-container {
+    background: #ecf0f3;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px #cbced1, -5px -5px 10px white;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .form-container .form-icon {
+    font-size: 55px;
+    text-align: center;
+    line-height: 100px;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 15px;
+    border-radius: 50px;
+    box-shadow: 7px 7px 10px #cbced1, -7px -7px 10px #fff;
+    background: linear-gradient(to right, #ac40ab, #3c7fd2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .form-container .title {
+    background: linear-gradient(to right, #ac40ab, #3c7fd2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 20px;
+  }
+
+  .form-container .form-group {
+    margin: 0 0 25px;
+  }
+
+  .form-container .form-group label {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .form-container .form-control {
+    color: #333;
+    background: #ecf0f3;
+    font-size: 15px;
+    width: 90%;
+    height: 30px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+  }
+
+  .form-container .form-control:focus {
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+    outline: none;
+  }
+
+  .form-container .form-control::placeholder {
+    color: #808080;
+    font-size: 14px;
+  }
+
+  .form-container .btn {
+    color: white;
+    background: linear-gradient(to right, #ac40ab, #3c7fd2);
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 20px;
+    box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px #fff;
+    border: none;
+    transition: all 0.5s ease;
+  }
+
+  .form-container .btn:hover {
+    background-color: #9b379c;
+    letter-spacing: 3px;
+  }
