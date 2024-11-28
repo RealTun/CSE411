@@ -168,10 +168,10 @@ def backend2():
     data_suggest = df.iloc[:, 5:8].values  # Trích xuất giá trị từ các cột
 
     label_suggest = []
-    for value in data_suggest:
-        # Chuyển mỗi hàng thành mảng 2D
-        value_reshaped = value.reshape(1, -1)
-        label_suggest.append(suggest_topic(value_reshaped))
+    for _, row in data_suggest.iterrows():  # Duyệt qua từng hàng của DataFrame
+        # Chuyển mỗi hàng thành DataFrame 1 dòng với cùng tên cột
+        row_df = row.to_frame().T  # .T chuyển từ Series thành DataFrame
+        label_suggest.append(suggest_topic(row_df))
 
     df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
 
@@ -227,6 +227,3 @@ def backend():
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
-
-backend()
-
