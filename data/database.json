@@ -1,5 +1,7 @@
 [
     {
+        "username":"user1",
+        "password":"123",
         "Họ tên":"Phạm Nhật Minh",
         "Điểm TB MIS":7.5,
         "Điểm TB BigData":8.7,
@@ -8,15 +10,11 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Trung bình",
         "Sở trường":"Kỹ thuật",
-        "Nhóm":2,
-        "Gợi ý":[
-            [
-                0.0,
-                100
-            ]
-        ]
+        "Nhóm":2
     },
     {
+        "username":"user2",
+        "password":"123",
         "Họ tên":"Phạm Văn Quý",
         "Điểm TB MIS":8.25,
         "Điểm TB BigData":9.3,
@@ -25,15 +23,11 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Khá",
         "Sở trường":"Nội dung",
-        "Nhóm":1,
-        "Gợi ý":[
-            [
-                0.0,
-                100
-            ]
-        ]
+        "Nhóm":1
     },
     {
+        "username":"user3",
+        "password":"123",
         "Họ tên":"Hạ Quang Dũng",
         "Điểm TB MIS":8.25,
         "Điểm TB BigData":9.45,
@@ -42,15 +36,11 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Công nghệ",
-        "Nhóm":3,
-        "Gợi ý":[
-            [
-                1.0,
-                100
-            ]
-        ]
+        "Nhóm":3
     },
     {
+        "username":"user4",
+        "password":"123",
         "Họ tên":"Triệu Thị Hậu ",
         "Điểm TB MIS":9.0,
         "Điểm TB BigData":9.8,
@@ -59,15 +49,11 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Khá",
         "Sở trường":"Công nghệ",
-        "Nhóm":4,
-        "Gợi ý":[
-            [
-                1.0,
-                100
-            ]
-        ]
+        "Nhóm":4
     },
     {
+        "username":"user5",
+        "password":"123",
         "Họ tên":"Bùi Quang Đạo",
         "Điểm TB MIS":8.0,
         "Điểm TB BigData":8.5,
@@ -76,15 +62,11 @@
         "Kỹ năng mềm":"Trung bình",
         "Khả năng sử dụng công nghệ":"Trung bình",
         "Sở trường":"Kỹ thuật",
-        "Nhóm":2,
-        "Gợi ý":[
-            [
-                0.0,
-                100
-            ]
-        ]
+        "Nhóm":2
     },
     {
+        "username":"user6",
+        "password":"123",
         "Họ tên":"Tào Hồng Lê",
         "Điểm TB MIS":8.0,
         "Điểm TB BigData":8.7,
@@ -93,15 +75,11 @@
         "Kỹ năng mềm":"Trung bình",
         "Khả năng sử dụng công nghệ":"Trung bình",
         "Sở trường":"Nội dung",
-        "Nhóm":3,
-        "Gợi ý":[
-            [
-                0.0,
-                100
-            ]
-        ]
+        "Nhóm":3
     },
     {
+        "username":"user7",
+        "password":"123",
         "Họ tên":"Nguyễn Đăng Hoàng Giang ",
         "Điểm TB MIS":8.5,
         "Điểm TB BigData":8.7,
@@ -110,15 +88,11 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Khá",
         "Sở trường":"Nội dung",
-        "Nhóm":2,
-        "Gợi ý":[
-            [
-                1.0,
-                100
-            ]
-        ]
+        "Nhóm":2
     },
     {
+        "username":"user8",
+        "password":"123",
         "Họ tên":"Đỗ Thị Thương",
         "Điểm TB MIS":8.0,
         "Điểm TB BigData":9.05,
@@ -127,15 +101,11 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Khá",
         "Sở trường":"Nội dung",
-        "Nhóm":3,
-        "Gợi ý":[
-            [
-                1.0,
-                100
-            ]
-        ]
+        "Nhóm":3
     },
     {
+        "username":"user9",
+        "password":"123",
         "Họ tên":"Nguyễn Năng Vũ Hùng",
         "Điểm TB MIS":8.2,
         "Điểm TB BigData":6.0,
@@ -144,15 +114,11 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Trung bình",
         "Sở trường":"Nội dung",
-        "Nhóm":1,
-        "Gợi ý":[
-            [
-                0.0,
-                100
-            ]
-        ]
+        "Nhóm":1
     },
     {
+        "username":"user10",
+        "password":"123",
         "Họ tên":"Nguyễn Tuấn Ngọc",
         "Điểm TB MIS":7.5,
         "Điểm TB BigData":6.0,
@@ -161,15 +127,11 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Khá",
         "Sở trường":"Kỹ thuật",
-        "Nhóm":4,
-        "Gợi ý":[
-            [
-                1.0,
-                100
-            ]
-        ]
+        "Nhóm":4
     },
     {
+        "username":"user11",
+        "password":"123",
         "Họ tên":"Nguyễn Ngọc Bách",
         "Điểm TB MIS":8.6,
         "Điểm TB BigData":9.0,
@@ -178,15 +140,11 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Kỹ thuật",
-        "Nhóm":2,
-        "Gợi ý":[
-            [
-                0.0,
-                100
-            ]
-        ]
+        "Nhóm":2
     },
     {
+        "username":"user12",
+        "password":"123",
         "Họ tên":"Đàm Khắc Thái",
         "Điểm TB MIS":8.5,
         "Điểm TB BigData":8.7,
@@ -195,15 +153,11 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Khá",
         "Sở trường":"Kỹ thuật",
-        "Nhóm":2,
-        "Gợi ý":[
-            [
-                0.0,
-                100
-            ]
-        ]
+        "Nhóm":2
     },
     {
+        "username":"user13",
+        "password":"123",
         "Họ tên":"Đào Hải Phúc",
         "Điểm TB MIS":7.0,
         "Điểm TB BigData":0.0,
@@ -212,15 +166,11 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Khá",
         "Sở trường":"Công nghệ",
-        "Nhóm":1,
-        "Gợi ý":[
-            [
-                0.0,
-                100
-            ]
-        ]
+        "Nhóm":1
     },
     {
+        "username":"user14",
+        "password":"123",
         "Họ tên":"Đỗ Hữu Tuấn",
         "Điểm TB MIS":8.7,
         "Điểm TB BigData":9.2,
@@ -229,15 +179,11 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Công nghệ",
-        "Nhóm":3,
-        "Gợi ý":[
-            [
-                0.0,
-                100
-            ]
-        ]
+        "Nhóm":3
     },
     {
+        "username":"user15",
+        "password":"123",
         "Họ tên":"Lê Quang Thanh",
         "Điểm TB MIS":8.5,
         "Điểm TB BigData":9.5,
@@ -246,15 +192,11 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Kỹ thuật",
-        "Nhóm":4,
-        "Gợi ý":[
-            [
-                0.0,
-                100
-            ]
-        ]
+        "Nhóm":4
     },
     {
+        "username":"admin",
+        "password":"123",
         "Họ tên":"Nguyễn Phương Mai",
         "Điểm TB MIS":8.5,
         "Điểm TB BigData":9.5,
@@ -263,15 +205,11 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Công nghệ",
-        "Nhóm":4,
-        "Gợi ý":[
-            [
-                1.0,
-                100
-            ]
-        ]
+        "Nhóm":4
     },
     {
+        "username":"user17",
+        "password":"123",
         "Họ tên":"Nguyễn Đức Anh",
         "Điểm TB MIS":8.2,
         "Điểm TB BigData":10.0,
@@ -280,15 +218,11 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Công nghệ",
-        "Nhóm":4,
-        "Gợi ý":[
-            [
-                1.0,
-                100
-            ]
-        ]
+        "Nhóm":4
     },
     {
+        "username":"user18",
+        "password":"123",
         "Họ tên":"Nguyễn Trung Hiếu",
         "Điểm TB MIS":7.0,
         "Điểm TB BigData":6.0,
@@ -297,15 +231,11 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Công nghệ",
-        "Nhóm":1,
-        "Gợi ý":[
-            [
-                0.0,
-                100
-            ]
-        ]
+        "Nhóm":1
     },
     {
+        "username":"user19",
+        "password":"123",
         "Họ tên":"Phạm Ánh Hường",
         "Điểm TB MIS":8.0,
         "Điểm TB BigData":8.5,
@@ -314,15 +244,11 @@
         "Kỹ năng mềm":"Tốt",
         "Khả năng sử dụng công nghệ":"Trung bình",
         "Sở trường":"Nội dung",
-        "Nhóm":3,
-        "Gợi ý":[
-            [
-                1.0,
-                100
-            ]
-        ]
+        "Nhóm":3
     },
     {
+        "username":"user20",
+        "password":"123",
         "Họ tên":"Lê Văn Trung",
         "Điểm TB MIS":7.0,
         "Điểm TB BigData":7.0,
@@ -331,12 +257,6 @@
         "Kỹ năng mềm":"Khá",
         "Khả năng sử dụng công nghệ":"Tốt",
         "Sở trường":"Công nghệ",
-        "Nhóm":1,
-        "Gợi ý":[
-            [
-                0.0,
-                100
-            ]
-        ]
+        "Nhóm":1
     }
 ]
