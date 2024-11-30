@@ -3,9 +3,9 @@ const router = express.Router();
 const userController = require('../controller/userController');
 
 
-router.get('/users', userController.getAlluser);
 
 router.post('/login', userController.login);
+router.post('/logout', userController.logout);
 
 // router.get('/users/:id', userController.getUserById);
 
