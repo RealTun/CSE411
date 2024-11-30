@@ -1,55 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-oMpQuqH3Rao7lhzKwxkr+e7Y6wQoH0hU5w0kqGzFSmP2Ky0M21VRFfx4oDYGwnyB" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-        integrity="sha512-dyL4Wqr8MXFDzHR8Xxt5cx9IwA4xRpyYBCj+DFq3CpWQlSndOD2YwT+oxcqUHH3sJlHGWCSZGztxzUg1rhlj2w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-oMpQuqH3Rao7lhzKwxkr+e7Y6wQoH0hU5w0kqGzFSmP2Ky0M21VRFfx4oDYGwnyB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-dyL4Wqr8MXFDzHR8Xxt5cx9IwA4xRpyYBCj+DFq3CpWQlSndOD2YwT+oxcqUHH3sJlHGWCSZGztxzUg1rhlj2w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/component.css">
     <link rel="stylesheet" href="../css/login.css">
-    <link rel="stylesheet" href="../css/animation.css">
-</head>
-
-<body class="background_cluster">
+  </head>
+  <body class="background_cluster">
     <div class="form-container">
-        <div class="form-icon">
-            <i class="bi bi-person-circle"></i>
+      <div class="form-icon">
+        <i class="bi bi-person-circle"></i>
+      </div>
+      <h3 class="title">Login</h3>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label>Your name</label>
+          <input class="form-control" type="text" placeholder="Your name" />
         </div>
-        <h3 class="title">Login</h3>
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label>Your name</label>
-                <input class="form-control" type="text" placeholder="Your name" />
-            </div>
-            <!-- <div class="form-group">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                <label class="form-check-label" for="inlineRadio1">Cum truong</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                <label class="form-check-label" for="inlineRadio2">Thanh vien</label>
-              </div>
-        </div> -->
-            <div class="form-group">
-                <label>Password</label>
-                <input class="form-control" type="password" placeholder="Password" />
-            </div>
-            <button type="button" class="btn" onclick="goBack()">Login</button>
-        </form>
+        <div class="form-group">
+          <label>Password</label>
+          <input class="form-control" type="password" placeholder="Password" />
+        </div>
+        <button type="button" class="btn" id="btnLogin">Login</button>
+      </form>
     </div>
-    <div id="loading-location" class="loading-location">
-        <div class="loading-circle"></div>
-    </div>
-    <script type="text/javascript" src="/eel.js"></script>
-    <script src="../js/loading.js"></script>
-    <script src="../js/login.js"></script>
-</body>
+  </body>
+  <script>
+    document.getElementById("btnLogin").addEventListener("click", function () {
+        window.location.href = "chooseTopics.html";
+    });
+</script>
 
 </html>
