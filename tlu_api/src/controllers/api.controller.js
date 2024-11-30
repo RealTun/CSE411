@@ -1,4 +1,7 @@
 const axios = require('axios');
+const fs = require('fs');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const csvParser = require('csv-parser');
 // const https = require('https');
 
 const baseUrl = 'https://sinhvien1.tlu.edu.vn';
@@ -140,7 +143,6 @@ const testAPIs = async (req, res, next) => {
         const token = `Bearer ${loginResponse.data['access_token']}`;
         // console.log("Login Successful! Token:", token);
 
-        // 2. Use the token to call getListMarkDetail
         const getListMarkDetailUrl = `${baseUrl}/education/api/studentsubjectmark/getListMarkDetailStudent`;
 
         const listMarkResponse = await axios.get(getListMarkDetailUrl, {
@@ -150,8 +152,6 @@ const testAPIs = async (req, res, next) => {
         });
 
         // console.log("Marks Data:", listMarkResponse.data);
-
-        // Process filtered data (if needed)
         const idsToFind = [354, 358];
         const filteredData = listMarkResponse.data.filter(item =>
             item.subject && idsToFind.includes(item.subject.id)
@@ -162,12 +162,42 @@ const testAPIs = async (req, res, next) => {
 
             return {
                 subject: name,
-                mark: item.mark,
-                mark4: item.mark4,
+                mark: item.mark
             };
         });
 
         // console.log("Filtered Data:", result);
+
+        const csvFilePath = '../data/data_standard.csv'; // File CSV của bạn
+        const updatedData = [];
+
+        // Đọc file CSV
+        fs.createReadStream(csvFilePath)
+            .pipe(csvParser())
+            .on('data', (row) => {
+                const firstKey = Object.keys(row)[0];  // Lấy key đầu tiên
+                const firstValue = row[firstKey];
+                if (firstValue == req.body['username']) {
+                    // Nếu mã sinh viên có trong danh sách cập nhật, sửa điểm
+                    row['Điểm TB MIS'] = result[1].mark || 0;
+                    row['Điểm TB BigData'] = result[0].mark || 0;
+                }
+                updatedData.push(row); // Thêm dữ liệu đã cập nhật vào danh sách
+            })
+            .on('end', async () => {
+                // console.log('Dữ liệu mới:', updatedData);
+
+                // Ghi lại file CSV
+                const csvWriter = createCsvWriter({
+                    path: csvFilePath, // Ghi đè file cũ
+                    header: Object.keys(updatedData[0]).map((key) => ({
+                        id: key,
+                        title: key,
+                    })),
+                });
+
+                await csvWriter.writeRecords(updatedData);
+            });
 
         res.status(200).json({
             data: result  
