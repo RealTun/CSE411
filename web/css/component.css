@@ -502,6 +502,19 @@ button:hover {
     opacity: 0.8;
 }
 
+.logout{
+    background-image:url("../img/back.png");
+    background-size: cover;
+    top:4vw;
+    left:2vw;
+    width:50px;
+    height:50px;
+    background-color: white;
+    border-radius:10px ;
+    box-shadow: 1px 1px 1px 1px black;
+    cursor:pointer;
+}
+
 .danhhieu{
     width: 10vw;
     height: 2.65vw;
