@@ -1,62 +1,61 @@
 body {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    font-family: 'Nunito', sans-serif;
-    color: #333;
-  }
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+  color: #333;
+}
 
-  .form-container {
-    background: #ecf0f3;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 5px 5px 10px #cbced1, -5px -5px 10px white;
-    width: 100%;
-    max-width: 570px;
-  }
+.form-container {
+  background: #ecf0f3;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px #cbced1, -5px -5px 10px white;
+  width: 100%;
+  max-width: 570px;
+}
 
+.title {
+  background: linear-gradient(to right, #ac40ab, #3c7fd2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 25px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 20px;
+}
+.radio-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.form-group label {
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+}
 
-  .title {
-    background: linear-gradient(to right, #ac40ab, #3c7fd2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 25px;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-align: center;
-    margin: 0 0 20px;
-  }
-  .radio-group {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;    
-    }
-  .form-group label {
-    font-size: 15px;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    display: block;
-  }
+.form-container .btn {
+  color: white;
+  background: linear-gradient(to right, #ac40ab, #3c7fd2);
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 20px;
+  box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px #fff;
+  border: none;
+  transition: all 0.5s ease;
+}
 
-  .form-container .btn {
-    color: white;
-    background: linear-gradient(to right, #ac40ab, #3c7fd2);
-    font-size: 15px;
-    font-weight: bold;
-    text-transform: uppercase;
-    width: 100%;
-    padding: 12px 15px;
-    border-radius: 20px;
-    box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px #fff;
-    border: none;
-    transition: all 0.5s ease;
-  }
-
-  .form-container .btn:hover {
-    background-color: #9b379c;
-    letter-spacing: 3px;
-  }
+.form-container .btn:hover {
+  background-color: #9b379c;
+  letter-spacing: 3px;
+}
