@@ -59,13 +59,13 @@ def get_user_by_name(name):
 #     return {"success": True, "message": "Đăng ký thành công!"}
 
 # API đăng nhập
-# @eel.expose
-# def login(username, password):
-#     users = read_users()
-#     for user in users:
-#         if user['username'] == username and user['password'] == password:
-#             return {"success": True, "message": "Đăng nhập thành công!"}
-#     return {"success": False, "message": "Sai tên người dùng hoặc mật khẩu!"}
+@eel.expose
+def login(username, password):
+    users = read_users()
+    for user in users:
+        if user['username'] == username and user['password'] == password:
+            return {"success": True, "message": "Đăng nhập thành công!"}
+    return {"success": False, "message": "Sai tên người dùng hoặc mật khẩu!"}
 
 # API lấy danh sách người dùng đã sắp xếp
 # @eel.expose
