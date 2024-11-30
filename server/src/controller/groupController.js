@@ -1,18 +1,18 @@
 const axios = require('axios');
 const https = require('https');
 const pool = require("../../config/db");
-const Group = require('../model/group');
+const Topic = require('../model/topic');
 
 const groupController = {
-    selectGroup: async (req, res) => {
+    selectTopic: async (req, res) => {
         const { username, topic } = req.body;
         try {
-            const user = new User(username, topic);
-            const [rows] = await pool.query('SELECT * FROM group_selects WHERE topic = ?', [topic]);
+            const topic_selects = new Topic(username, topic);
+            const [rows] = await pool.query('SELECT * FROM topic_selects WHERE topic = ?', [topic]);
             let query;
             if (rows.length <= 5) {
-                query = 'INSERT INTO users (username, topic) VALUES (?, ?)';
-                await pool.query(query, [user.username, user.topic]);
+                query = 'INSERT INTO topic_selects (username, topic) VALUES (?, ?)';
+                await pool.query(query, [topic_selects.username, topic_selects.topic]);
             }
 
             res.status(200).json({
@@ -23,7 +23,7 @@ const groupController = {
             res.status(500).json({message:"Lỗi cơ sở dữ liệu!"});
         }
     },
-    logout: async (req, res) => {
+    selectGroups: async (req, res) => {
         try {
             const { username } = req.body;
             query = 'UPDATE users SET state= ? WHERE username = ?';
