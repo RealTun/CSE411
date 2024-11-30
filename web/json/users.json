@@ -1,3 +1,13 @@
 [
-    
+    {
+        "message": "Login successful, data saved!",
+        "data": {
+            "access_token": "4199ce93-4cf2-41fd-9468-75785cef6982",
+            "token_type": "bearer",
+            "refresh_token": "43871c74-6fcf-49f6-9bd4-40e9d60cb5f1",
+            "expires_in": 63045,
+            "scope": "read write delete"
+        },
+        "role": "normal"
+    }
 ]

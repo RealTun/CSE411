@@ -12,6 +12,7 @@ eel.init('web')
 
 # File lưu trữ thông tin người dùng
 USER_FILE ="data/thongtincanhan_with_groups.json"
+user_login = "./web/json/users.json"
 
 def read_users():
     if not os.path.exists(USER_FILE):
@@ -44,9 +45,13 @@ def get_user_by_name(name):
     return filtered_users
 
 # # Hàm ghi danh sách người dùng
-# def write_users(users):
-#     with open(USER_FILE, 'w') as f:
-#         json.dump(users, f)
+def write_users(users,path):
+    if not os.path.exists(path):
+        with open(path, 'w',encoding='utf-8') as f:
+            json.dump([], f)
+        return []
+    with open(path, 'w') as f:
+        json.dump(users, f)
 
 # API đăng ký
 # @eel.expose
@@ -59,13 +64,18 @@ def get_user_by_name(name):
 #     return {"success": True, "message": "Đăng ký thành công!"}
 
 # API đăng nhập
+def read_file(path):
+    with open(path, 'r',encoding='utf-8') as f:
+        return json.load(f)
+    
 @eel.expose
-def login(username, password):
-    users = read_users()
-    for user in users:
-        if user['username'] == username and user['password'] == password:
-            return {"success": True, "message": "Đăng nhập thành công!"}
-    return {"success": False, "message": "Sai tên người dùng hoặc mật khẩu!"}
+def login(data):
+    users = read_file(path=user_login)
+    users.append(data)
+    write_users(users,user_login)
+@eel.expose
+def logout():
+    write_users([],user_login)
 
 # API lấy danh sách người dùng đã sắp xếp
 # @eel.expose

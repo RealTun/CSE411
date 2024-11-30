@@ -19,7 +19,8 @@ async function login() {
         });
 
         if (response.status === 200) {
-            console.log("Đăng nhập thành công!");
+            const userData = await response.json();
+            eel.login(userData);
             setTimeout(() => {
                 window.location.href = "index.html";
             }, 2000);

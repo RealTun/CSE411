@@ -2,20 +2,32 @@ const p_content = document.getElementById("dialog_title");
 const bookContent = document.getElementById("make_group");
 const groupContent = document.getElementById("check_group");
 const chatbotContent = document.getElementById("chatbot");
+const topicContent = document.getElementById("topic");
 const btn_success = document.getElementById("btn-success");
 const btn_logout = document.getElementById("btn-logout");
 const loading_location = document.getElementById("loading-location");
 
+const checkRole = async () => {
+    const user = await fetch('../json/users.json');
+    const userData  = await user.json();
+    if (userData != null) {
+        if (userData[0].role == "normal") {
+            bookContent.parentNode.remove();
+        }
+    }
+}
+checkRole();
+
 function goBack() {
     window.location.href = "index.html";
 }
-function logOut(){
+function logOut() {
     p_content.innerText = "Bạn có đăng xuất không ?"
     openDialog();
     btn_logout.onclick = () => {
         dismissDialog()
-        loading_location.style.opacity="1";
-        loading_location.style.display="flex";
+        loading_location.style.opacity = "1";
+        loading_location.style.display = "flex";
         setTimeout(function () {
             window.location.href = "load.html";
         }, 500);
@@ -36,8 +48,8 @@ function make_group() {
     openDialog();
     btn_success.onclick = () => {
         dismissDialog()
-        loading_location.style.opacity="1";
-        loading_location.style.display="flex";
+        loading_location.style.opacity = "1";
+        loading_location.style.display = "flex";
         setTimeout(function () {
             window.location.href = "load.html";
         }, 500);
@@ -49,8 +61,8 @@ function check_group() {
     openDialog();
     btn_success.onclick = () => {
         dismissDialog()
-        loading_location.style.opacity="1";
-        loading_location.style.display="flex";
+        loading_location.style.opacity = "1";
+        loading_location.style.display = "flex";
         setTimeout(function () {
             window.location.href = "group.html";
         }, 1500);
@@ -62,8 +74,8 @@ function check_user() {
     openDialog();
     btn_success.onclick = () => {
         dismissDialog()
-        loading_location.style.opacity="1";
-        loading_location.style.display="flex";
+        loading_location.style.opacity = "1";
+        loading_location.style.display = "flex";
         setTimeout(function () {
             window.location.href = "../BOTOPENAI1/html/index.html";
         }, 1500);
