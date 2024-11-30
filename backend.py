@@ -21,7 +21,7 @@ def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
         remaining_gioi = gioi.copy()  # Khởi tạo lại danh sách "giỏi"
         remaining_khong_gioi = khong_gioi.copy()  # Khởi tạo lại danh sách "không giỏi"
 
-        all_data = df.iloc[:, 5:-1].values  # Dữ liệu để tính khoảng cách
+        all_data = df.iloc[:, 6:-1].values  # Dữ liệu để tính khoảng cách
         sufficient_groups = True  # Biến theo dõi xem quá trình có thành công không
 
         while len(remaining_gioi) + len(remaining_khong_gioi) >= 5:
@@ -45,7 +45,7 @@ def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
                 ((selected_group['Skill'] == label_gioi).sum() + (selected_group['Skill'] == label_khonggioi).sum()) == 5
             ):
                 # Kiểm tra khoảng cách trung bình trong nhóm
-                group_data = selected_group.iloc[:, 1:-1].values
+                group_data = selected_group.iloc[:, 6:-1].values
                 avg_distance = np.mean(euclidean_distances(group_data))
 
                 if avg_distance < thres_hold:
@@ -111,7 +111,7 @@ def backend2():
     data_shuffled = df.sample(frac=1).reset_index(drop=True)
 
     # 3. Lấy dữ liệu từ cột 1 trở đi (bỏ cột đầu tiên nếu cần)
-    data = data_shuffled.iloc[:, 1:5].values
+    data = data_shuffled.iloc[:, 2:5].values
 
     # 4. Đặt trọng số cho từng thuộc tính
     weights = np.array([2, 2,0.5,0.5])  # Tùy chỉnh trọng số
@@ -165,7 +165,7 @@ def backend2():
     df2 = pd.read_csv('data/data_standard.csv', header=0)
     df2['Nhóm'] = df.index.map(group_dict)  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
 
-    data_suggest = df.iloc[:, 5:8].values  # Trích xuất giá trị từ các cột
+    data_suggest = df.iloc[:, 6:9].values  # Trích xuất giá trị từ các cột
 
     label_suggest = []
     for _, row in data_suggest.iterrows():  # Duyệt qua từng hàng của DataFrame
@@ -209,7 +209,7 @@ def backend():
     df2 = df2.drop(columns=['Mức độ'])
     df2['Nhóm'] = labels
 
-    data_suggest = df.iloc[:, 5:8]  # Trích xuất giá trị từ các cột
+    data_suggest = df.iloc[:, 6:9]  # Trích xuất giá trị từ các cột
 
     label_suggest = []
     for _, row in data_suggest.iterrows():  # Duyệt qua từng hàng của DataFrame
@@ -227,3 +227,5 @@ def backend():
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
+
+backend()
