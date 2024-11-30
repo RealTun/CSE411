@@ -162,4 +162,4 @@ def get_chart_data():
     return chart_data
 
 # Chạy ứng dụng
-eel.start('html/index.html',size=(1280,800))
+eel.start('html/groupUser.html',size=(1280,800))
