@@ -2,6 +2,7 @@ const axios = require('axios');
 const https = require('https');
 const pool = require("../../config/db");
 const Topic = require('../model/topic');
+const Group = require('../model/group');
 
 const groupController = {
     selectTopic: async (req, res) => {
