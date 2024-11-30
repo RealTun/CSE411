@@ -1,3 +1,11 @@
 pip install eel
 cd /server/ =>  run : npm install (install depen)
                 start server: npm start
+
+Luồng chạy:
+User:
+    Login -> userRights -> chatbox
+                        -> chooseTopics -> groupUser(nhóm mình được phân)
+Admin:
+    Login -> index      -> chatbox
+                        -> xem nhóm đã phân (toàn bộ các nhóm)
