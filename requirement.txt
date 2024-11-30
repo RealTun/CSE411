@@ -1,1 +1,3 @@
 pip install eel
+cd /server/ =>  run : npm install (install depen)
+                start server: npm start

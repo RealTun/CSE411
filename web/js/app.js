@@ -3,10 +3,23 @@ const bookContent = document.getElementById("make_group");
 const groupContent = document.getElementById("check_group");
 const chatbotContent = document.getElementById("chatbot");
 const btn_success = document.getElementById("btn-success");
+const btn_logout = document.getElementById("btn-logout");
 const loading_location = document.getElementById("loading-location");
 
 function goBack() {
     window.location.href = "index.html";
+}
+function logOut(){
+    p_content.innerText = "Bạn có đăng xuất không ?"
+    openDialog();
+    btn_logout.onclick = () => {
+        dismissDialog()
+        loading_location.style.opacity="1";
+        loading_location.style.display="flex";
+        setTimeout(function () {
+            window.location.href = "load.html";
+        }, 500);
+    }
 }
 // setTimeout(function () {
 //     window.location.href = "load.html";
