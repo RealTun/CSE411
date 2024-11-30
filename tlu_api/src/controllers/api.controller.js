@@ -89,11 +89,13 @@ const getListMarkDetail = async (req, res, next) => {
             },
         });
 
-        const idsToFind = [724476, 1108991];
-        const filteredData = response.data.filter(item => idsToFind.includes(item.id));
+        const idsToFind = [354, 358];
+        const filteredData = response.data.filter(item => 
+            item.subject && idsToFind.includes(item.subject.id)
+        );
 
         const result = filteredData.map(item => {
-            const name = item.id === 724476 ? 'Phân tích dữ liệu lớn' : 'Quản trị hệ thống thông tin'
+            const name = item.id === 354 ? 'Phân tích dữ liệu lớn' : 'Quản trị hệ thống thông tin'
         
             return {
                 subject: name,
