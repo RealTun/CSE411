@@ -115,8 +115,72 @@ const getListMarkDetail = async (req, res, next) => {
     }
 };
 
+const testAPIs = async (req, res, next) => {
+    try {
+        const loginUrl = `${baseUrl}/education/oauth/token`;
+
+        // Mẫu body request
+        // {
+        //     "client_id": "education_client",
+        //     "grant_type": "password",
+        //     "username": "",
+        //     "password": "",
+        //     "client_secret": "password"
+        // }
+
+        // Dữ liệu gửi đi từ body của client
+        const loginPayload = req.body;
+
+        const loginResponse = await axios.post(loginUrl, loginPayload, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const token = `Bearer ${loginResponse.data['access_token']}`;
+        // console.log("Login Successful! Token:", token);
+
+        // 2. Use the token to call getListMarkDetail
+        const getListMarkDetailUrl = `${baseUrl}/education/api/studentsubjectmark/getListMarkDetailStudent`;
+
+        const listMarkResponse = await axios.get(getListMarkDetailUrl, {
+            headers: {
+                'Authorization': token,
+            },
+        });
+
+        // console.log("Marks Data:", listMarkResponse.data);
+
+        // Process filtered data (if needed)
+        const idsToFind = [354, 358];
+        const filteredData = listMarkResponse.data.filter(item =>
+            item.subject && idsToFind.includes(item.subject.id)
+        );
+
+        const result = filteredData.map(item => {
+            const name = item.id === 354 ? 'Phân tích dữ liệu lớn' : 'Quản trị hệ thống thông tin';
+
+            return {
+                subject: name,
+                mark: item.mark,
+                mark4: item.mark4,
+            };
+        });
+
+        // console.log("Filtered Data:", result);
+
+        res.status(200).json({
+            data: result  
+        });
+
+    } catch (error) {
+        console.error("Error:", error.response?.data || error.message);
+    }
+};
+
 module.exports = {
     login,
     getCurrentStudent,
-    getListMarkDetail
+    getListMarkDetail,
+    testAPIs
 };
