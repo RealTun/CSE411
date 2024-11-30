@@ -1,7 +1,4 @@
 
-function goBack() {
+function login() {
     loading()
-    setTimeout(() => {
-        window.location.href = "../html/index.html";
-    }, 2000)
 }
