@@ -18,7 +18,7 @@ const groupController = {
             }
 
             res.status(200).json({
-                message: 'Login successful, data saved!'
+                message: 'Lưu topic thành công!'
             });
         } catch (error) {
             console.log(error);
