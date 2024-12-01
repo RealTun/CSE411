@@ -3,6 +3,7 @@ const https = require('https');
 const pool = require("../../config/db");
 const Topic = require('../model/topic');
 const Group = require('../model/group');
+const fs = require('fs');
 
 const groupController = {
     selectTopic: async (req, res) => {
@@ -11,7 +12,7 @@ const groupController = {
             const topic_selects = new Topic(username, topic);
             const [rows] = await pool.query('SELECT * FROM topic_selects WHERE topic = ?', [topic]);
             let query;
-            if (rows.length <= 5) {
+            if (rows.length < 5) {
                 query = 'INSERT INTO topic_selects (username, topic) VALUES (?, ?)';
                 await pool.query(query, [topic_selects.username, topic_selects.topic]);
             }
@@ -25,21 +26,15 @@ const groupController = {
         }
     },
     selectGroups: async (req, res) => {
-        const filePath = '../data/thongtincanhan_with_groups.csv';
+        const filePath = '../data/thongtincanhan_with_groups.json';
         try {
-            const query = 'DELETE FROM group_selects';
-            pool.query(sql, (err, result) => {
-                if (err) {
-                    console.error('Lỗi khi xóa dữ liệu: ' + err.message);
-                    return;
-                }
-                console.log(`Đã xóa ${result.affectedRows} dòng dữ liệu.`);
-            });
+            let query = 'DELETE FROM group_selects';
+            await pool.query(query);
             fs.readFile(filePath, 'utf8', (err, data) => {
                 const students = JSON.parse(data);
                 students.forEach(student => {
                     const group_selects = new Group(
-                        student.MSV, 
+                        student["MSV"], 
                         student["Họ tên"],
                         student["Điểm TB MIS"],
                         student["Điểm TB BigData"],
@@ -49,9 +44,15 @@ const groupController = {
                         student["Khả năng sử dụng công nghệ"],
                         student["Sở trường"],
                         student["Nhóm"],
-                        student["Topic"]
+                        student["Gợi ý"]
                     );
-                    query = 'INSERT INTO group_selects (username, fullname, Average_MIS_Score, Average_BigData_Score, Average_Self_Study_Time, Number_of_Late_Attendances_in_Phase_1, Soft_Skills, Technology_Usage_Skills, Strengths, Group, Topic) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                    query = `
+                        INSERT INTO \`group_selects\` 
+                        (\`username\`, \`fullname\`, \`Average_MIS_Score\`, \`Average_BigData_Score\`, 
+                        \`Average_Self_Study_Time\`, \`Number_of_Late_Attendances_in_Phase_1\`, 
+                        \`Soft_Skills\`, \`Technology_Usage_Skills\`, \`Strengths\`, \`Group\`, \`Topic\`) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        `;
                     pool.query(query, [
                         group_selects.username, 
                         group_selects.fullname,
@@ -70,6 +71,7 @@ const groupController = {
             res.status(200).json({ message: "Lưu nhóm thành công!" })
         }
         catch (error) {
+            console.log(error);
             res.status(500).json({ message: "Có lỗi xảy ra khi lưu nhóm!" })
         }
     }
