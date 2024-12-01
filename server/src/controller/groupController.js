@@ -71,7 +71,16 @@ const groupController = {
     
             await csvWriter.writeRecords(updatedData);
 
-            exec('python3 ../backend.py');
+            exec(`python ../backend.py`, (err, stdout, stderr) => {
+                if (err) {
+                    console.error(`${err}`);
+                    return;
+                }
+                if (stderr) {
+                    console.error(`${stderr}`);
+                    return;
+                }
+            });
     
             res.status(200).json({ message: 'Lưu nhóm thành công!' });
         } catch (error) {

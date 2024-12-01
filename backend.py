@@ -77,7 +77,7 @@ def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
         
 def suggest_topic(data_test):
     # Đọc dữ liệu từ CSV
-    data = pd.read_csv('data/train_processed.csv', header=0)
+    data = pd.read_csv('../data/train_processed.csv', header=0)
 
     # Chia tập dữ liệu
     X = data.drop("topic", axis=1)
@@ -182,10 +182,35 @@ def backend2():
     print(f"Kết quả đã được lưu tại '{output_file}'.")
 
 def backend():
-    tien_xu_ly()
+    data = pd.read_csv('../data/data_standard.csv')
+
+    # Xem các cột hiện có
+    # print(data.columns)
+
+    # Tạo các dictionary để mapping dữ liệu -> số
+    mapping_so_truong = {'Nội dung': 0, 'Kỹ thuật': 1, 'Công nghệ': 2}
+    mapping_ky_nang_mem = {'Trung bình': 0, 'Khá': 1, 'Tốt': 2}
+
+    # Áp dụng mapping vào các cột tương ứng
+    data['Sở trường'] = data['Sở trường'].map(mapping_so_truong)
+    data['Kỹ năng mềm'] = data['Kỹ năng mềm'].map(mapping_ky_nang_mem)
+    data['Khả năng sử dụng công nghệ'] = data['Khả năng sử dụng công nghệ'].map(mapping_ky_nang_mem)
+
+    # Áp dụng kỹ thuật min - max lên các cột ngoài trừ cột đầu
+    # columns_to_normalize = data.columns[2:]  
+
+    # for col in columns_to_normalize:
+    #     min_val = data[col].min()
+    #     max_val = data[col].max()
+    #     data[col] = (data[col] - min_val) / (max_val - min_val)
+
+    # Hiển thị dữ liệu tiền xử lý
+    # print(data)
+
+    data.to_csv('../data/data_processed.csv', index=False, encoding='utf-8-sig')
     
     # Đọc dữ liệu từ CSV
-    df = pd.read_csv('data/data_processed.csv', header=0)
+    df = pd.read_csv('../data/data_processed.csv', header=0)
 
     # Lấy dữ liệu từ cột cuối cùng
     data = df.iloc[:, 9].values
@@ -205,7 +230,7 @@ def backend():
             labels.append(array[3])
 
     # Đọc dữ liệu khác từ file CSV và xóa cột không cần thiết
-    df2 = pd.read_csv('data/data_standard.csv', header=0)
+    df2 = pd.read_csv('../data/data_standard.csv', header=0)
     df2 = df2.drop(columns=['Mức độ'])
     df2['Nhóm'] = labels
 
@@ -223,10 +248,7 @@ def backend():
     data_shuffled = df2.sample(frac=1).reset_index(drop=True)
 
     # Xuất dữ liệu ra file JSON
-    output_file = 'data/thongtincanhan_with_groups.json'
+    output_file = '../data/thongtincanhan_with_groups.json'
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
-    print(f"Kết quả đã được lưu tại '{output_file}'.")
-
-if __name__ == "__main__":
-    backend()
+backend()
