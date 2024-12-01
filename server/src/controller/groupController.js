@@ -78,7 +78,7 @@ const groupController = {
     
             await csvWriter.writeRecords(updatedData);
 
-            exec(`python ../backend.py`, (err, stdout, stderr) => {
+            exec(`python ../backend2.py`, (err, stdout, stderr) => {
                 if (err) {
                     console.error(`${err}`);
                     return;
