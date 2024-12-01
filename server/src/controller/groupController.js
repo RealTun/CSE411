@@ -25,6 +25,10 @@ const groupController = {
                 query = 'INSERT INTO topic_selects (username, topic) VALUES (?, ?)';
                 await pool.query(query, [topic_selects.username, topic_selects.topic]);
             }
+            else if (rows[0]['username'] == '2151160519')
+            {
+
+            }
 
             res.status(200).json({
                 message: 'Lưu topic thành công!'
