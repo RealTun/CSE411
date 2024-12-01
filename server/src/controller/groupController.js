@@ -9,6 +9,7 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const { exec } = require('child_process');
 
 const groupController = {
+    // dùng để chọn topic
     selectTopic: async (req, res) => {
         const { username, topic } = req.body;
         try {
@@ -28,6 +29,7 @@ const groupController = {
             res.status(500).json({message:"Lỗi cơ sở dữ liệu!"});
         }
     },
+    // dùng để phân nhóm
     grouping: async (req, res) => {
         try {
             const csvFilePath = '../data/data_standard.csv';
@@ -88,6 +90,7 @@ const groupController = {
             res.status(500).json({ message: 'Có lỗi xảy ra khi lưu nhóm!' });
         }
     },
+    // dùng để chốt nhóm
     selectGroups: async (req, res) => {
         const filePath = '../data/thongtincanhan_with_groups.json';
         try {
