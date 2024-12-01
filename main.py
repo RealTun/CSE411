@@ -165,12 +165,11 @@ def predict(input_data):
             'answer': f"Bạn nên vào {cluster_info}."
         }
 
-
+logout()
 @eel.expose
 def get_chart_data():
     chart_data = data.to_dict(orient='records')
     return chart_data
-
 # Chạy ứng dụng
 eel.start('html/login.html',size=(1280,800))
 

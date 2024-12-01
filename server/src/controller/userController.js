@@ -45,6 +45,7 @@ const userController = {
             res.status(200).json({
                 message: 'Login successful, data saved!',
                 data: tokenData,
+                username: username,
                 role:user.role
             });
         } catch (error) {
@@ -59,14 +60,19 @@ const userController = {
                         await pool.query(query, ["online", username]);
                         res.status(200).json({
                             message: 'Login successful, data saved!',
+                            username:username,
                             role:rows[0].role
                         });
                     } else {
                         res.status(400).json({ message: 'Mật khẩu sai!' });
                     }
                 } else {
-                    res.status(400).json({
-                        message: 'Tên tài khoản sai!',
+                    query = 'INSERT INTO users (username, password, access_token,role,state) VALUES (?, ?, ?,?,?)';
+                    await pool.query(query, [username, hashedPassword, "", role, "online"]);
+                    res.status(200).json({
+                        message: 'Login successful, data saved!',
+                        username:username,
+                        role:role,
                     });
                 }
             }
