@@ -68,11 +68,11 @@ const userController = {
                     }
                 } else {
                     query = 'INSERT INTO users (username, password, access_token,role,state) VALUES (?, ?, ?,?,?)';
-                    await pool.query(query, [username, password, "", role, "online"]);
+                    await pool.query(query, [username, hashedPassword, "", role, "online"]);
                     res.status(200).json({
                         message: 'Login successful, data saved!',
                         username:username,
-                        role:rows[0].role
+                        role:role,
                     });
                 }
             }

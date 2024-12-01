@@ -324,4 +324,4 @@ def backend3():
     output_file = '../data/thongtincanhan_with_groups.json'
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
-# backend3()
+backend3()
