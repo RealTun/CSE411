@@ -228,4 +228,5 @@ def backend():
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
 
-backend()
+if __name__ == "__main__":
+    backend()
