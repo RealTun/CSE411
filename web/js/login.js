@@ -20,6 +20,7 @@ async function login() {
 
         if (response.status === 200) {
             const userData = await response.json();
+            await logout();
             eel.login(userData);
             setTimeout(() => {
                 window.location.href = "index.html";
@@ -30,6 +31,34 @@ async function login() {
         }
     } catch (error) {
         stopLoading()
+        console.error('Error logging in:', error);
+    }
+}
+
+async function logout() {
+    try {
+        const user = await fetch('../json/users.json');
+        const userData = await user.json();
+        const username = userData[0].username;
+        // console.log(username)
+        const response = await fetch('http://localhost:3001/api/user/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({username}),
+        });
+
+        if (response.status === 200) {
+            eel.logout();
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 2000);
+        } else {
+            stopLoading()
+            console.log("Đăng nhập không thành công!")
+        }
+    } catch (error) {
         console.error('Error logging in:', error);
     }
 }

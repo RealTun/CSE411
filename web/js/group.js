@@ -2,14 +2,39 @@ const groupDiv = document.querySelector('.group');
 const batman = document.querySelector(".batman");
 const navItems = document.querySelectorAll('.nav-item');
 const groupName = document.querySelector('#gr-name');
+const btn_success = document.getElementById("btn-success");
 const backBtn = document.querySelector('.back');
 const loading_location = document.getElementById("loading-location");
 const imgVip = document.getElementById("vip");
-
+const p_content = document.getElementById("dialog_title");
+const btn_quit = document.getElementById("btn-quit");
+const infor = document.getElementById("infor");
 
 import { UserComponent } from '../object/user.js';
 
 loadGroupUsers("all");
+
+const checkRole = async () => {
+    const id1 = document.querySelector("#\\1");
+    const id2 = document.querySelector("#\\2");
+    const id3 = document.querySelector("#\\3");
+    const id4 = document.querySelector("#\\4");
+    const idAll = document.querySelector("#all");
+
+    const user = await fetch('../json/users.json');
+    const userData = await user.json();
+    if (userData != null) {
+        if (userData[0].role == "normal") {
+            idAll.remove();
+            infor.classList.remove("hide");
+        }
+        else{
+            infor.remove();
+            id1.remove();
+        }
+    }
+}
+checkRole();
 
 backBtn.addEventListener('click', () => {
     loading_location.style.opacity = "1";
@@ -58,14 +83,14 @@ navItems.forEach(item => {
         setTimeout(() => {
             const allUser = document.querySelectorAll('.user');
             allUser.forEach(user => {
-                user.addEventListener('click',async () => {
+                user.addEventListener('click', async () => {
                     // console.log(user.id)
-                    sessionStorage.setItem("userName",user.id);
-        
+                    sessionStorage.setItem("userName", user.id);
+
                     setTimeout(function () {
                         window.location.href = "user.html";
                     }, 1000);
-        
+
                     loading_location.style.opacity = "1";
                     loading_location.style.display = "flex";
                 })
@@ -78,9 +103,9 @@ navItems.forEach(item => {
 setTimeout(() => {
     const allUser = document.querySelectorAll('.user');
     allUser.forEach(user => {
-        user.addEventListener('click',async () => {
+        user.addEventListener('click', async () => {
             // console.log(user.id)
-            sessionStorage.setItem("userName",user.id);
+            sessionStorage.setItem("userName", user.id);
 
             setTimeout(function () {
                 window.location.href = "user.html";
@@ -92,5 +117,34 @@ setTimeout(() => {
     })
 }, 500)
 
+function openDialog() {
+    const background = document.getElementsByClassName("background_tranparents");
+    background[0].style.display = "flex";
+    background[0].style.opacity = "1";
+}
 
+function dismissDialog() {
+    const background = document.getElementsByClassName("background_tranparents");
+    background[0].style.display = "none";
+    background[0].style.opacity = "0";
+}
+
+function logOutDialog() {
+    p_content.innerText = "Bạn có đăng xuất không ?"
+    openDialog();
+    btn_success.onclick =async () => {
+        dismissDialog()
+        loading_location.style.opacity = "1";
+        loading_location.style.display = "flex";
+        await logout();
+        setTimeout(function () {
+            window.location.href = "login.html";
+        }, 3000);
+    }
+}
+btn_quit.onclick = ()=>{
+    dismissDialog();
+};
+const logOutbtn = document.querySelectorAll(".logout");
+logOutbtn[0].onclick = () => { logOutDialog() };
 batman.style.left = `${navItems[0].getBoundingClientRect().x}px`;

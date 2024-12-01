@@ -4,15 +4,18 @@ const groupContent = document.getElementById("check_group");
 const chatbotContent = document.getElementById("chatbot");
 const topicContent = document.getElementById("topic");
 const btn_success = document.getElementById("btn-success");
-const btn_logout = document.getElementById("btn-logout");
 const loading_location = document.getElementById("loading-location");
+
 
 const checkRole = async () => {
     const user = await fetch('../json/users.json');
-    const userData  = await user.json();
+    const userData = await user.json();
     if (userData != null) {
         if (userData[0].role == "normal") {
-            bookContent.parentNode.remove();
+            bookContent.parentElement.remove();
+        }
+        else{
+            bookContent.parentElement.classList.remove("hide");
         }
     }
 }
@@ -21,18 +24,7 @@ checkRole();
 function goBack() {
     window.location.href = "index.html";
 }
-function logOut() {
-    p_content.innerText = "Bạn có đăng xuất không ?"
-    openDialog();
-    btn_logout.onclick = () => {
-        dismissDialog()
-        loading_location.style.opacity = "1";
-        loading_location.style.display = "flex";
-        setTimeout(function () {
-            window.location.href = "load.html";
-        }, 500);
-    }
-}
+
 // setTimeout(function () {
 //     window.location.href = "load.html";
 // }, 10000);
@@ -41,6 +33,12 @@ function openDialog() {
     const background = document.getElementsByClassName("background_tranparents");
     background[0].style.display = "flex";
     background[0].style.opacity = "1";
+}
+
+function dismissDialog() {
+    const background = document.getElementsByClassName("background_tranparents");
+    background[0].style.display = "none";
+    background[0].style.opacity = "0";
 }
 
 function make_group() {
@@ -82,11 +80,19 @@ function check_user() {
     }
 }
 
-function dismissDialog() {
-    const background = document.getElementsByClassName("background_tranparents");
-    background[0].style.display = "none";
-    background[0].style.opacity = "0";
+function topic_open() {
+    p_content.innerText = "Mở topic ?"
+    openDialog();
+    btn_success.onclick = () => {
+        dismissDialog()
+        loading_location.style.opacity = "1";
+        loading_location.style.display = "flex";
+        setTimeout(function () {
+            window.location.href = "chooseTopics.html";
+        }, 1500);
+    }
 }
+
 
 
 setTimeout(function () {
@@ -104,7 +110,7 @@ setTimeout(function () {
 bookContent.addEventListener("click", make_group);
 groupContent.addEventListener("click", check_group);
 chatbotContent.addEventListener("click", check_user);
-
+topicContent.addEventListener("click", topic_open);
 
 
 eel.expose(ping);
