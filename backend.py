@@ -188,7 +188,7 @@ def backend():
     df = pd.read_csv('data/data_processed.csv', header=0)
 
     # Lấy dữ liệu từ cột cuối cùng
-    data = df.iloc[:, -1].values
+    data = df.iloc[:, 9].values
 
     array = [1, 2, 3, 4]
     random.shuffle(array)
@@ -218,7 +218,7 @@ def backend():
         label_suggest.append(suggest_topic(row_df))
 
 
-    df2['Topic'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
+    df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
 
     data_shuffled = df2.sample(frac=1).reset_index(drop=True)
 
