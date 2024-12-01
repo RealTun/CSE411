@@ -18,7 +18,9 @@
     <div class="d-flex justify-content-center w-100 h-100 wrapper flex-row">
         <div class="d-flex justify-content-space_around flex-column align-item-center w-100">
             <div class="p-absolute back"></div>
-            <div class="p-absolute logout"></div>
+            <div class="p-absolute logout d-flex justify-content-center align-item-center">
+                <img src="../img/logout.png">
+            </div>
             <div class="group-name" id="group-name">
                 <div class="group-img">
                     <h4 id="gr-name">All</h4>
@@ -36,10 +38,20 @@
                         <li id="2" class="nav-item">Nhóm 2</li>
                         <li id="3" class="nav-item">Nhóm 3</li>
                         <li id="4" class="nav-item">Nhóm 4</li>
+                        <li id="infor" class="nav-item hide">Infor</li>
                     </ul>
                 </nav>
             </div>
             <div class="group"></div>
+        </div>
+    </div>
+    <div class="background_tranparents justify-content-center align-item-center">
+        <div class="dialog d-flex justify-content-space_around align-content-center flex-column w-100">
+            <p id="dialog_title"></p>
+            <div class="d-flex justify-content-space_around align-content-center w-100">
+                <button class="button-success" id="btn-success">Đồng ý</button>
+                <button class="button-quit" id="btn-quit">Không</button>
+            </div>
         </div>
     </div>
     <div id="loading-location" class="loading-location">
@@ -47,6 +59,9 @@
     </div>
     <script type="text/javascript" src="/eel.js"></script>
     <!-- <script src="../object/user.js"></script> -->
+    <script src="../js/loading.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/login.js"></script>
     <script type="module" src="../js/group.js"></script>
 </body>
 
