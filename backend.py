@@ -77,6 +77,32 @@ def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
         
 def suggest_topic(data_test):
     # Đọc dữ liệu từ CSV
+    data = pd.read_csv('data/train_processed.csv', header=0)
+
+    # Chia tập dữ liệu
+    X = data.drop("topic", axis=1)
+    y = data["topic"]
+
+    # Huấn luyện mô hình XGBoost
+    model = XGBRegressor(n_estimators=100, learning_rate=0.1, max_depth=6, random_state=42)
+    model.fit(X, y)
+
+    # Dự đoán 100 lần
+    y_pred_labels = []
+    for _ in range(100):
+        y_pred = model.predict(data_test)
+        y_pred_labels.extend(np.round(y_pred))  # Thêm tất cả nhãn dự đoán vào danh sách
+
+    # Đếm số lần xuất hiện của các nhãn
+    counter = Counter(y_pred_labels)
+
+    # Lấy 2 nhãn xuất hiện nhiều nhất
+    most_common_labels = counter.most_common(1)[0][0]
+
+    return most_common_labels
+
+def suggest_topic2(data_test):
+    # Đọc dữ liệu từ CSV
     data = pd.read_csv('../data/train_processed.csv', header=0)
 
     # Chia tập dữ liệu
@@ -182,6 +208,53 @@ def backend2():
     print(f"Kết quả đã được lưu tại '{output_file}'.")
 
 def backend():
+    tien_xu_ly()
+    
+    # Đọc dữ liệu từ CSV
+    df = pd.read_csv('data/data_processed.csv', header=0)
+
+    # Lấy dữ liệu từ cột cuối cùng
+    data = df.iloc[:, 9].values
+
+    array = [1, 2, 3, 4]
+    random.shuffle(array)
+
+    labels = []
+    for label in data:
+        if label == 1000:
+            labels.append(array[0])
+        elif label == 100:
+            labels.append(array[1])
+        elif label == 10:
+            labels.append(array[2])
+        elif label == 1:
+            labels.append(array[3])
+
+    # Đọc dữ liệu khác từ file CSV và xóa cột không cần thiết
+    df2 = pd.read_csv('data/data_standard.csv', header=0)
+    df2 = df2.drop(columns=['Mức độ'])
+    df2['Nhóm'] = labels
+
+    data_suggest = df.iloc[:, 6:9]  # Trích xuất giá trị từ các cột
+
+    label_suggest = []
+    for _, row in data_suggest.iterrows():  # Duyệt qua từng hàng của DataFrame
+        # Chuyển mỗi hàng thành DataFrame 1 dòng với cùng tên cột
+        row_df = row.to_frame().T  # .T chuyển từ Series thành DataFrame
+        label_suggest.append(suggest_topic(row_df))
+
+
+    df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
+
+    data_shuffled = df2.sample(frac=1).reset_index(drop=True)
+
+    # Xuất dữ liệu ra file JSON
+    output_file = 'data/thongtincanhan_with_groups.json'
+    data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
+
+    print(f"Kết quả đã được lưu tại '{output_file}'.")
+
+def backend3():
     data = pd.read_csv('../data/data_standard.csv')
 
     # Xem các cột hiện có
@@ -240,7 +313,7 @@ def backend():
     for _, row in data_suggest.iterrows():  # Duyệt qua từng hàng của DataFrame
         # Chuyển mỗi hàng thành DataFrame 1 dòng với cùng tên cột
         row_df = row.to_frame().T  # .T chuyển từ Series thành DataFrame
-        label_suggest.append(suggest_topic(row_df))
+        label_suggest.append(suggest_topic2(row_df))
 
 
     df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
@@ -251,4 +324,4 @@ def backend():
     output_file = '../data/thongtincanhan_with_groups.json'
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
-backend()
+# backend3()

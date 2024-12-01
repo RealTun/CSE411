@@ -4,6 +4,11 @@ const groupController = require('../controller/groupController');
 
 
 // dùng để chọn topic
+// Mẫu body request
+// {
+//     "username": "",
+//     "topic": ""
+// }
 router.post('/selectTopic', groupController.selectTopic);
 // dùng để chốt nhóm
 router.get('/selectGroups', groupController.selectGroups);

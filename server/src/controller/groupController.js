@@ -10,6 +10,11 @@ const { exec } = require('child_process');
 
 const groupController = {
     // dùng để chọn topic
+    // Mẫu body request
+    // {
+    //     "username": "",
+    //     "topic": ""
+    // }
     selectTopic: async (req, res) => {
         const { username, topic } = req.body;
         try {
