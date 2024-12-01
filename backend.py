@@ -97,7 +97,7 @@ def suggest_topic(data_test):
     counter = Counter(y_pred_labels)
 
     # Lấy 2 nhãn xuất hiện nhiều nhất
-    most_common_labels = counter.most_common(2)
+    most_common_labels = counter.most_common(1)[0][0]
 
     return most_common_labels
 
@@ -218,7 +218,7 @@ def backend():
         label_suggest.append(suggest_topic(row_df))
 
 
-    df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
+    df2['Topic'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
 
     data_shuffled = df2.sample(frac=1).reset_index(drop=True)
 
