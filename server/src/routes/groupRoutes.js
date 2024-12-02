@@ -11,9 +11,17 @@ const groupController = require('../controller/groupController');
 // }
 router.post('/selectTopic', groupController.selectTopic);
 // dùng để chốt nhóm
-router.get('/selectGroups', groupController.selectGroups);
+// Mẫu body request
+// {
+//     "lan": 1
+// }
+router.post('/selectGroups', groupController.selectGroups);
 // dùng để phân nhóm
-router.get('/grouping', groupController.grouping);
+// Mẫu body request
+// {
+//     "lan": 1
+// }
+router.post('/grouping', groupController.grouping);
 
 router.get("/getUserSameGroup",groupController.getUserSameGroup);
 

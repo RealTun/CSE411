@@ -38,6 +38,10 @@ const groupController = {
         }
     },
     // dùng để phân nhóm
+    // Mẫu body request
+    // {
+    //     "lan": 1
+    // }
     grouping: async (req, res) => {
         try {
             const csvFilePath = '../data/data_standard.csv';
@@ -81,7 +85,7 @@ const groupController = {
 
             await csvWriter.writeRecords(updatedData);
 
-            exec(`python ../backend2.py`, (err, stdout, stderr) => {
+            exec(`python ../backend2.py ${req.body['lan']}`, (err, stdout, stderr) => {
                 if (err) {
                     console.error(`${err}`);
                     return;
@@ -99,14 +103,18 @@ const groupController = {
         }
     },
     // dùng để chốt nhóm
+    // Mẫu body request
+    // {
+    //     "lan": 1
+    // }
     selectGroups: async (req, res) => {
-        const filePath = '../data/thongtincanhan_with_groups.json';
+        const filePath = '../data/history.json';
         try {
             let query = 'DELETE FROM group_selects';
             await pool.query(query);
             fs.readFile(filePath, 'utf8', (err, data) => {
                 const students = JSON.parse(data);
-                students.forEach(student => {
+                students[0][req.body['lan']].forEach(student => {
                     const group_selects = new Group(
                         student["MSV"],
                         student["Họ tên"],
