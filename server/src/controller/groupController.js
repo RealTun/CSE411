@@ -43,6 +43,10 @@ const groupController = {
         }
     },
     // dùng để phân nhóm
+    // Mẫu body request
+    // {
+    //     "lan": 1
+    // }
     grouping: async (req, res) => {
         try {
             const csvFilePath = '../data/data_standard.csv';
@@ -86,7 +90,7 @@ const groupController = {
     
             await csvWriter.writeRecords(updatedData);
 
-            exec(`python ../backend2.py`, (err, stdout, stderr) => {
+            exec(`python ../backend2.py ${req.body['lan']}`, (err, stdout, stderr) => {
                 if (err) {
                     console.error(`${err}`);
                     return;
@@ -104,6 +108,10 @@ const groupController = {
         }
     },
     // dùng để chốt nhóm
+    // Mẫu body request
+    // {
+    //     "lan": 1
+    // }
     selectGroups: async (req, res) => {
         const filePath = '../data/thongtincanhan_with_groups.json';
         try {

@@ -11,6 +11,8 @@ from xgboost import XGBRegressor
 from sklearn.model_selection import GridSearchCV
 from collections import Counter
 
+import json
+
 # Hàm tạo nhóm dựa trên khoảng cách
 def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5):
     loop = 0
@@ -207,7 +209,7 @@ def backend2():
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
 
-def backend():
+def backend(lan=1):
     tien_xu_ly()
     
     # Đọc dữ liệu từ CSV
@@ -220,29 +222,32 @@ def backend():
     random.shuffle(array)
 
     labels = []
+    label_suggest = []
     for label in data:
         if label == 1000:
             labels.append(array[0])
+            label_suggest.append(1)
         elif label == 100:
             labels.append(array[1])
+            label_suggest.append(2)
         elif label == 10:
             labels.append(array[2])
+            label_suggest.append(3)
         elif label == 1:
             labels.append(array[3])
+            label_suggest.append(4)
 
     # Đọc dữ liệu khác từ file CSV và xóa cột không cần thiết
     df2 = pd.read_csv('data/data_standard.csv', header=0)
     df2 = df2.drop(columns=['Mức độ'])
     df2['Nhóm'] = labels
 
-    data_suggest = df.iloc[:, 6:9]  # Trích xuất giá trị từ các cột
+    # data_suggest = df.iloc[:, 6:9]  # Trích xuất giá trị từ các cột
 
-    label_suggest = []
-    for _, row in data_suggest.iterrows():  # Duyệt qua từng hàng của DataFrame
-        # Chuyển mỗi hàng thành DataFrame 1 dòng với cùng tên cột
-        row_df = row.to_frame().T  # .T chuyển từ Series thành DataFrame
-        label_suggest.append(suggest_topic(row_df))
-
+    # for _, row in data_suggest.iterrows():  # Duyệt qua từng hàng của DataFrame
+    #     # Chuyển mỗi hàng thành DataFrame 1 dòng với cùng tên cột
+    #     row_df = row.to_frame().T  # .T chuyển từ Series thành DataFrame
+    #     label_suggest.append(suggest_topic2(row_df))
 
     df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
 
@@ -252,9 +257,33 @@ def backend():
     output_file = 'data/thongtincanhan_with_groups.json'
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
-    print(f"Kết quả đã được lưu tại '{output_file}'.")
+    # Đường dẫn đến file JSON
+    json_file = 'data/history.json'
 
-def backend3():
+    # Đọc dữ liệu từ file JSON
+    with open(json_file, 'r', encoding='utf-8') as f:
+        data_history = json.load(f)
+
+    with open(output_file, "r", encoding="utf-8") as file:
+        data_jsons = json.load(file)
+
+    def insert_to_group(input_value, value_to_insert):
+        str_key = str(input_value)  # Chuyển đầu vào thành chuỗi để làm key
+        if str_key in data_history[0]:  # Kiểm tra nếu key tồn tại trong JSON
+            if len(data_history[0][str_key]) < 19:
+                data_history[0][str_key].append(value_to_insert)  # Thêm giá trị vào mảng
+            else:
+                data_history[0][str_key] = []
+                data_history[0][str_key].append(value_to_insert)
+        
+    for value in data_jsons:
+        insert_to_group(lan, value)
+
+    # Ghi lại file JSON sau khi chỉnh sửa
+    with open(json_file, 'w', encoding='utf-8') as f:
+        json.dump(data_history, f, ensure_ascii=False, indent=4)
+
+def backend3(lan = 1):
     data = pd.read_csv('../data/data_standard.csv')
 
     # Tạo các dictionary để mapping dữ liệu -> số
@@ -278,29 +307,32 @@ def backend3():
     random.shuffle(array)
 
     labels = []
+    label_suggest = []
     for label in data:
         if label == 1000:
             labels.append(array[0])
+            label_suggest.append(1)
         elif label == 100:
             labels.append(array[1])
+            label_suggest.append(2)
         elif label == 10:
             labels.append(array[2])
+            label_suggest.append(3)
         elif label == 1:
             labels.append(array[3])
+            label_suggest.append(4)
 
     # Đọc dữ liệu khác từ file CSV và xóa cột không cần thiết
     df2 = pd.read_csv('../data/data_standard.csv', header=0)
     df2 = df2.drop(columns=['Mức độ'])
     df2['Nhóm'] = labels
 
-    data_suggest = df.iloc[:, 6:9]  # Trích xuất giá trị từ các cột
+    # data_suggest = df.iloc[:, 6:9]  # Trích xuất giá trị từ các cột
 
-    label_suggest = []
-    for _, row in data_suggest.iterrows():  # Duyệt qua từng hàng của DataFrame
-        # Chuyển mỗi hàng thành DataFrame 1 dòng với cùng tên cột
-        row_df = row.to_frame().T  # .T chuyển từ Series thành DataFrame
-        label_suggest.append(suggest_topic2(row_df))
-
+    # for _, row in data_suggest.iterrows():  # Duyệt qua từng hàng của DataFrame
+    #     # Chuyển mỗi hàng thành DataFrame 1 dòng với cùng tên cột
+    #     row_df = row.to_frame().T  # .T chuyển từ Series thành DataFrame
+    #     label_suggest.append(suggest_topic2(row_df))
 
     df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
 
@@ -310,4 +342,33 @@ def backend3():
     output_file = '../data/thongtincanhan_with_groups.json'
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
-backend3()
+    # Đường dẫn đến file JSON
+    json_file = '../data/history.json'
+
+    # Đọc dữ liệu từ file JSON
+    with open(json_file, 'r', encoding='utf-8') as f:
+        data_history = json.load(f)
+
+    with open(output_file, "r", encoding="utf-8") as file:
+        data_jsons = json.load(file)
+
+    def insert_to_group(input_value, value_to_insert):
+        str_key = str(input_value)  # Chuyển đầu vào thành chuỗi để làm key
+        if str_key in data_history[0]:  # Kiểm tra nếu key tồn tại trong JSON
+            if len(data_history[0][str_key]) < 20:
+                data_history[0][str_key].append(value_to_insert)  # Thêm giá trị vào mảng
+            else:
+                data_history[0][str_key] = []
+                data_history[0][str_key].append(value_to_insert)
+        
+    for value in data_jsons:
+        insert_to_group(lan, value)
+
+    # Ghi lại file JSON sau khi chỉnh sửa
+    with open(json_file, 'w', encoding='utf-8') as f:
+        json.dump(data_history, f, ensure_ascii=False, indent=4)
+
+if __name__ == "__main__":
+    import sys
+    lan = sys.argv[1]
+    backend3(lan)

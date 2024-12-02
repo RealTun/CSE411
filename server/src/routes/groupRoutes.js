@@ -11,8 +11,16 @@ const groupController = require('../controller/groupController');
 // }
 router.post('/selectTopic', groupController.selectTopic);
 // dùng để chốt nhóm
+// Mẫu body request
+// {
+//     "lan": 1
+// }
 router.post('/selectGroups', groupController.selectGroups);
 // dùng để phân nhóm
+// Mẫu body request
+// {
+//     "lan": 1
+// }
 router.post('/grouping', groupController.grouping);
 
 module.exports = router;
