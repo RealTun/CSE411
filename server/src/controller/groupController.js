@@ -113,13 +113,13 @@ const groupController = {
     //     "lan": 1
     // }
     selectGroups: async (req, res) => {
-        const filePath = '../data/thongtincanhan_with_groups.json';
+        const filePath = '../data/history.json';
         try {
             let query = 'DELETE FROM group_selects';
             await pool.query(query);
             fs.readFile(filePath, 'utf8', (err, data) => {
                 const students = JSON.parse(data);
-                students.forEach(student => {
+                students[0][req.body['lan']].forEach(student => {
                     const group_selects = new Group(
                         student["MSV"], 
                         student["Họ tên"],
