@@ -23,4 +23,9 @@ router.post('/selectGroups', groupController.selectGroups);
 // }
 router.post('/grouping', groupController.grouping);
 
+router.get("/getUserSameGroup",groupController.getUserSameGroup);
+
+router.get("/getMyInfor",groupController.getMyInfor);
+
+
 module.exports = router;
