@@ -254,7 +254,7 @@ def backend():
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
 
-def backend3(lan=1):
+def backend3():
     data = pd.read_csv('../data/data_standard.csv')
 
     # Tạo các dictionary để mapping dữ liệu -> số
@@ -307,10 +307,7 @@ def backend3(lan=1):
     data_shuffled = df2.sample(frac=1).reset_index(drop=True)
 
     # Xuất dữ liệu ra file JSON
-    output_file = 'data/thongtincanhan_with_groups_' + str(lan) + '.json'
+    output_file = '../data/thongtincanhan_with_groups.json'
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
-if __name__ == "__main__":
-    import sys
-    lan = sys.argv[1]
-    backend3(lan)
+backend3()
