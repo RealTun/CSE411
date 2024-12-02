@@ -207,7 +207,7 @@ def backend2():
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
 
-def backend():
+def backend(lan =1):
     tien_xu_ly()
     
     # Đọc dữ liệu từ CSV
@@ -249,7 +249,7 @@ def backend():
     data_shuffled = df2.sample(frac=1).reset_index(drop=True)
 
     # Xuất dữ liệu ra file JSON
-    output_file = 'data/thongtincanhan_with_groups.json'
+    output_file = 'data/thongtincanhan_with_groups_' + str(lan) + '.json'
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
@@ -324,4 +324,4 @@ def backend3():
     output_file = '../data/thongtincanhan_with_groups.json'
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
-# backend3()
+backend(2)

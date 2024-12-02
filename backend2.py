@@ -307,7 +307,10 @@ def backend3(lan=1):
     data_shuffled = df2.sample(frac=1).reset_index(drop=True)
 
     # Xuất dữ liệu ra file JSON
-    output_file = '../data/thongtincanhan_with_groups_'+lan+'.json'
+    output_file = 'data/thongtincanhan_with_groups_' + str(lan) + '.json'
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
-backend3()
+if __name__ == "__main__":
+    import sys
+    lan = sys.argv[1]
+    backend3(lan)
