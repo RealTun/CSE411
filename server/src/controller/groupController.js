@@ -27,7 +27,11 @@ const groupController = {
             }
             else if (rows[0]['username'] == '2151160519')
             {
-
+                const [rows2] = await pool.query('SELECT * FROM topic_selects WHERE username = ?', [username]);
+                if (rows2 > 0){
+                    query = 'UPDATE users SET topic = ? WHERE username = ?';
+                    await pool.query(query, [topic_selects.topic,topic_selects.username]);
+                }
             }
 
             res.status(200).json({
