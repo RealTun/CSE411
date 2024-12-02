@@ -25,8 +25,7 @@ const groupController = {
                 query = 'INSERT INTO topic_selects (username, topic) VALUES (?, ?)';
                 await pool.query(query, [topic_selects.username, topic_selects.topic]);
             }
-            else if (rows[0]['username'] == '2151160519')
-            {
+            else if (rows[0]['username'] == '2151160519') {
 
             }
 
@@ -35,7 +34,7 @@ const groupController = {
             });
         } catch (error) {
             console.log(error);
-            res.status(500).json({message:"Lỗi cơ sở dữ liệu!"});
+            res.status(500).json({ message: "Lỗi cơ sở dữ liệu!" });
         }
     },
     // dùng để phân nhóm
@@ -43,7 +42,7 @@ const groupController = {
         try {
             const csvFilePath = '../data/data_standard.csv';
             const rawData = []; // Lưu dữ liệu thô từ CSV
-    
+
             // Đọc dữ liệu từ file CSV
             await new Promise((resolve, reject) => {
                 fs.createReadStream(csvFilePath)
@@ -58,7 +57,7 @@ const groupController = {
                 try {
                     const firstKey = Object.keys(row)[0]; // Lấy key đầu tiên
                     const firstValue = row[firstKey];
-    
+
                     // Thực hiện truy vấn với await
                     const [rows] = await pool.query(
                         'SELECT * FROM topic_selects WHERE username = ?',
@@ -79,7 +78,7 @@ const groupController = {
                     title: key,
                 })),
             });
-    
+
             await csvWriter.writeRecords(updatedData);
 
             exec(`python ../backend2.py`, (err, stdout, stderr) => {
@@ -92,7 +91,7 @@ const groupController = {
                     return;
                 }
             });
-    
+
             res.status(200).json({ message: 'Lưu nhóm thành công!' });
         } catch (error) {
             console.error(error);
@@ -109,7 +108,7 @@ const groupController = {
                 const students = JSON.parse(data);
                 students.forEach(student => {
                     const group_selects = new Group(
-                        student["MSV"], 
+                        student["MSV"],
                         student["Họ tên"],
                         student["Điểm TB MIS"],
                         student["Điểm TB BigData"],
@@ -129,7 +128,7 @@ const groupController = {
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         `;
                     pool.query(query, [
-                        group_selects.username, 
+                        group_selects.username,
                         group_selects.fullname,
                         group_selects.Average_MIS_Score,
                         group_selects.Average_BigData_Score,
@@ -148,6 +147,28 @@ const groupController = {
         catch (error) {
             console.log(error);
             res.status(500).json({ message: "Có lỗi xảy ra khi lưu nhóm!" })
+        }
+    },
+    getUserSameGroup: async (req, res) => {
+        try {
+            const query = `SELECT * from group_selects WHERE \`Group\` = ?`;
+            const { group } = req.query;
+            const userData = await pool.query(query,[group]);
+            res.status(200).json(userData[0]);
+        }
+        catch (error) {
+            res.status(500).json({ message:"Có lỗi xảy ra khi lấy dữ liệu ! ",error });
+        }
+    },
+    getMyInfor: async (req,res) =>{
+        try{
+            const query = `SELECT * from group_selects WHERE \`username\` = ?`;
+            const { username } = req.query;
+            const userData = await pool.query(query,[username]);
+            res.status(200).json(userData[0][0]);
+        }
+        catch(error){
+            res.status(500).json({ message:"Có lỗi xảy ra khi lấy dữ liệu ! ",error });
         }
     }
 }

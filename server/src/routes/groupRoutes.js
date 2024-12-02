@@ -15,4 +15,9 @@ router.get('/selectGroups', groupController.selectGroups);
 // dùng để phân nhóm
 router.get('/grouping', groupController.grouping);
 
+router.get("/getUserSameGroup",groupController.getUserSameGroup);
+
+router.get("/getMyInfor",groupController.getMyInfor);
+
+
 module.exports = router;
