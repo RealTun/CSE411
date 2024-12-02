@@ -291,6 +291,41 @@ button:hover {
     animation: slide 0.3s steps(3) infinite alternate;
 }
 
+.pet {
+    width: 11vw;
+    height: 11vw;
+    bottom:0vw;
+    right:0vw;
+    overflow: hidden;
+    /* animation: run 5s ease-in-out forwards; */
+}
+.pet>.linh-thu{
+    scale: -1 1;
+    animation: slide 0.3s steps(3) infinite alternate;
+}
+.pet-ac {
+    width: 8vw;
+    height: 8vw;
+    left:-1vw;
+    top:-1vw;
+    overflow: hidden;
+    /* animation: run 5s ease-in-out forwards; */
+}
+.pet-ac>.than-chet{
+    width:8vw;
+    height:64vw;
+    animation: slide-than-chet 0.4s steps(8) infinite;
+}
+
+@keyframes slide-than-chet {
+    from {
+        transform: 0;
+    }
+    to{
+        transform: translateY(-100%);
+    }
+}
+
 .condoi {
     width: 6.4vw;
     height: 4.53333333333333333333333333333333333vw;
@@ -454,7 +489,7 @@ button:hover {
 }
 
 .menu-group {
-    width: 52%;
+    width: auto;
     display: flex;
     align-items: center;
 }
@@ -464,11 +499,12 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    /* width: 100%; */
     background-color: white;
     padding: 10px;
     margin: 0;
     border-radius: 10px;
+    gap:10px;
 }
 
 .menu-group>ul>li {
@@ -692,6 +728,34 @@ button:hover {
 .hide{
     visibility: hidden;
     display:none;
+}
+
+.infor-user{
+    padding:2vw;
+}
+.infor-content{
+    margin-top:1vw;
+    width:100%;
+    gap:5vw;
+}
+.infor-self{
+    margin-top:1vw;
+    width:100%;
+    gap:5vw;
+
+}
+.infor-self>.infor{
+    width:75%;
+    border-left: 1px solid rgba(15, 114, 0, 0.381);
+    padding-left:10px;
+}
+.infor-content>*{
+    border-left: 1px solid rgba(15, 114, 0, 0.381);
+    padding-left:10px;
+}
+.infor-content h3{
+    padding: 0;
+    margin:0;
 }
 
 /* .book .spot{

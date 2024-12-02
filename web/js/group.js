@@ -10,31 +10,58 @@ const p_content = document.getElementById("dialog_title");
 const btn_quit = document.getElementById("btn-quit");
 const infor = document.getElementById("infor");
 
-import { UserComponent } from '../object/user.js';
+import { UserComponent, UserMyInfor } from '../object/user.js';
 
-loadGroupUsers("all");
+// loadGroupUsers("all");
+let roleUser;
+
+const user = await fetch('../json/users.json');
+const userData = await user.json();
 
 const checkRole = async () => {
-    const id1 = document.querySelector("#\\1");
-    const id2 = document.querySelector("#\\2");
-    const id3 = document.querySelector("#\\3");
-    const id4 = document.querySelector("#\\4");
+    const id1 = document.getElementById("1");
+    const id2 = document.getElementById("2");
+    const id3 = document.getElementById("3");
+    const id4 = document.getElementById("4");
     const idAll = document.querySelector("#all");
-
-    const user = await fetch('../json/users.json');
-    const userData = await user.json();
+    const idHistory = document.querySelector("#history");
+    console.log(idHistory)
+    roleUser = userData[0].role;
     if (userData != null) {
-        if (userData[0].role == "normal") {
-            idAll.remove();
+        if (roleUser == "normal") {
             infor.classList.remove("hide");
+            infor.classList.add("active");
+            for (let i = 1; i <= 4; i++) {
+                if (userData[0].infor.Group == i) {
+                    const idClass = document.getElementById(`${i}`);
+                    idClass.classList.remove("hide");
+                }
+            }
+            idAll.remove();
         }
-        else{
+        else {
             infor.remove();
-            id1.remove();
+            id1.classList.remove("hide");
+            id2.classList.remove("hide");
+            id3.classList.remove("hide");
+            id4.classList.remove("hide");
+            idHistory.classList.remove("hide");
+        }
+        const activeOb = document.querySelector(".active");
+        getBatX(activeOb);
+        groupName.innerHTML = `${activeOb.innerHTML}`
+        switch (roleUser) {
+            case "normal": {
+                loadGroupUsersDB(activeOb.id, userData[0].username);
+                break;
+            }
+            case "admin": {
+                loadGroupUsers(activeOb.id);
+                break;
+            }
         }
     }
 }
-checkRole();
 
 backBtn.addEventListener('click', () => {
     loading_location.style.opacity = "1";
@@ -46,16 +73,61 @@ backBtn.addEventListener('click', () => {
 
 function showMember(users) {
     users.forEach(user => {
-        let userDiv = new UserComponent(user["Họ tên"], user["Họ tên"]).render();
+        let userDiv = new UserComponent(user["MSV"], user["Họ tên"]).render();
+        groupDiv.appendChild(userDiv);
+    });
+}
+function showMemberDB(users) {
+    users.forEach(user => {
+        let userDiv = new UserComponent(user["username"], user["fullname"]).render();
         groupDiv.appendChild(userDiv);
     });
 }
 
 function loadGroupUsers(groupId) {
-    groupDiv.innerHTML = "";
-    eel.get_users_by_group(groupId)(function (users) {
-        showMember(users)
-    });
+    try {
+        groupDiv.innerHTML = "";
+        if (groupId != "history") {
+            eel.get_users_by_group(groupId)(function (users) {
+                showMember(users)
+            });
+        }
+        else {
+            
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+
+}
+
+async function loadGroupUsersDB(groupId, username) {
+    try {
+        groupDiv.innerHTML = "";
+        let users;
+        if (groupId == "infor") {
+            users = await fetch(`http://localhost:3001/api/group/getMyInfor/?username=${username}`);
+            const data = await users.json();
+            const topic = await fetch(`http://localhost:3001/api/group/getMyTopic/?username=${username}`);
+            const topicData = await topic.json();
+            let userDiv = new UserMyInfor(data["fullname"], data["Group"], topicData, data["Topic"],
+                data["Average_MIS_Score"], data["Average_BigData_Score"], data["Average_Self_Study_Time"],
+                data["Number_of_Late_Attendances_in_Phase_1"], data["Soft_Skills"],
+                data["Technology_Usage_Skills"], data["Strengths"]);
+            const html = await userDiv.build();
+            groupDiv.innerHTML = html;
+            userDiv.render();
+        }
+        else {
+            users = await fetch(`http://localhost:3001/api/group/getUserSameGroup/?group=${groupId}`);
+            const data = await users.json();
+            showMemberDB(data);
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
 }
 
 navItems.forEach(item => {
@@ -64,7 +136,11 @@ navItems.forEach(item => {
         item.classList.add("active")
         const rect = item.getBoundingClientRect();
         batman.style.left = `${rect.x}px`;
-        loadGroupUsers(item.id)
+        if (roleUser == "normal") {
+            loadGroupUsersDB(item.id, userData[0].username);
+        }
+        else
+            loadGroupUsers(item.id);
         if (item.id == "1") {
             imgVip.src = "../img/9679.png";
         }
@@ -84,8 +160,7 @@ navItems.forEach(item => {
             const allUser = document.querySelectorAll('.user');
             allUser.forEach(user => {
                 user.addEventListener('click', async () => {
-                    // console.log(user.id)
-                    sessionStorage.setItem("userName", user.id);
+                    sessionStorage.setItem("MSV", user.id);
 
                     setTimeout(function () {
                         window.location.href = "user.html";
@@ -104,8 +179,7 @@ setTimeout(() => {
     const allUser = document.querySelectorAll('.user');
     allUser.forEach(user => {
         user.addEventListener('click', async () => {
-            // console.log(user.id)
-            sessionStorage.setItem("userName", user.id);
+            sessionStorage.setItem("MSV", user.id);
 
             setTimeout(function () {
                 window.location.href = "user.html";
@@ -132,7 +206,7 @@ function dismissDialog() {
 function logOutDialog() {
     p_content.innerText = "Bạn có đăng xuất không ?"
     openDialog();
-    btn_success.onclick =async () => {
+    btn_success.onclick = async () => {
         dismissDialog()
         loading_location.style.opacity = "1";
         loading_location.style.display = "flex";
@@ -142,9 +216,15 @@ function logOutDialog() {
         }, 3000);
     }
 }
-btn_quit.onclick = ()=>{
+btn_quit.onclick = () => {
     dismissDialog();
 };
+
+const getBatX = (item) => {
+    batman.style.left = `${item.getBoundingClientRect().x}px`;
+}
+
 const logOutbtn = document.querySelectorAll(".logout");
 logOutbtn[0].onclick = () => { logOutDialog() };
-batman.style.left = `${navItems[0].getBoundingClientRect().x}px`;
+getBatX(navItems[0]);
+checkRole();

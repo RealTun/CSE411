@@ -161,22 +161,33 @@ const groupController = {
         try {
             const query = `SELECT * from group_selects WHERE \`Group\` = ?`;
             const { group } = req.query;
-            const userData = await pool.query(query,[group]);
+            const userData = await pool.query(query, [group]);
             res.status(200).json(userData[0]);
         }
         catch (error) {
-            res.status(500).json({ message:"Có lỗi xảy ra khi lấy dữ liệu ! ",error });
+            res.status(500).json({ message: "Có lỗi xảy ra khi lấy dữ liệu ! ", error });
         }
     },
-    getMyInfor: async (req,res) =>{
-        try{
+    getMyInfor: async (req, res) => {
+        try {
             const query = `SELECT * from group_selects WHERE \`username\` = ?`;
             const { username } = req.query;
-            const userData = await pool.query(query,[username]);
+            const userData = await pool.query(query, [username]);
             res.status(200).json(userData[0][0]);
         }
-        catch(error){
-            res.status(500).json({ message:"Có lỗi xảy ra khi lấy dữ liệu ! ",error });
+        catch (error) {
+            res.status(500).json({ message: "Có lỗi xảy ra khi lấy dữ liệu ! ", error });
+        }
+    },
+    getMyTopic: async (req, res) => {
+        try {
+            const query = `SELECT * from topic_selects WHERE \`username\` = ?`;
+            const { username } = req.query;
+            const userData = await pool.query(query, [username]);
+            res.status(200).json(userData[0]);
+        }
+        catch (error) {
+            res.status(500).json({ message: "Có lỗi xảy ra khi lấy dữ liệu ! ", error });
         }
     }
 }
