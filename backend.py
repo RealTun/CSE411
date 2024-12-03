@@ -283,7 +283,7 @@ def backend(lan=1):
     with open(json_file, 'w', encoding='utf-8') as f:
         json.dump(data_history, f, ensure_ascii=False, indent=4)
 
-def backend3(lan = 1):
+def backend3():
     data = pd.read_csv('../data/data_standard.csv')
 
     # Tạo các dictionary để mapping dữ liệu -> số
@@ -327,13 +327,6 @@ def backend3(lan = 1):
     df2 = df2.drop(columns=['Mức độ'])
     df2['Nhóm'] = labels
 
-    # data_suggest = df.iloc[:, 6:9]  # Trích xuất giá trị từ các cột
-
-    # for _, row in data_suggest.iterrows():  # Duyệt qua từng hàng của DataFrame
-    #     # Chuyển mỗi hàng thành DataFrame 1 dòng với cùng tên cột
-    #     row_df = row.to_frame().T  # .T chuyển từ Series thành DataFrame
-    #     label_suggest.append(suggest_topic2(row_df))
-
     df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
 
     data_shuffled = df2.sample(frac=1).reset_index(drop=True)
@@ -352,16 +345,20 @@ def backend3(lan = 1):
     with open(output_file, "r", encoding="utf-8") as file:
         data_jsons = json.load(file)
 
-    def insert_to_group(input_value, value_to_insert):
-        str_key = str(input_value)  # Chuyển đầu vào thành chuỗi để làm key
-        if str_key in data_history[0]:  # Kiểm tra nếu key tồn tại trong JSON
-            if len(data_history[0][str_key]) < 19:
-                data_history[0][str_key].append(value_to_insert)  # Thêm giá trị vào mảng
-            else:
-                data_history[0][str_key] = []
-                data_history[0][str_key].append(value_to_insert)
+    def insert_to_group(value_to_insert):
+        last_key = max(map(int, data[0].keys()))  # Lấy key lớn nhất (chuyển về số nguyên để so sánh)
+        new_key = str(last_key)  # Tăng giá trị và chuyển lại thành chuỗi
+        if len(data_history[0][new_key]) >= 20:
+            new_key = str(last_key+1)
+            data_history[0][new_key] = []
+            
+        data_history[0][new_key].append(value_to_insert)
         
     for value in data_jsons:
-        insert_to_group(lan, value)
+        insert_to_group(value)
+
+    # Ghi lại file JSON sau khi chỉnh sửa
+    with open(json_file, 'w', encoding='utf-8') as f:
+        json.dump(data_history, f, ensure_ascii=False, indent=4)
 
 # backend3()
