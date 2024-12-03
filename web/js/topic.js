@@ -6,3 +6,8 @@ function back(){
     },2000);
 }
 backbtn[0].addEventListener("click",back)
+
+const btnTopic = document.querySelector("#btnTopics");
+btnTopic.addEventListener("click",()=>{
+    
+})

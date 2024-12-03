@@ -19,7 +19,6 @@ const checkRole = async () => {
         }
     }
 }
-checkRole();
 
 function goBack() {
     window.location.href = "index.html";
@@ -111,10 +110,11 @@ bookContent.addEventListener("click", make_group);
 groupContent.addEventListener("click", check_group);
 chatbotContent.addEventListener("click", check_user);
 topicContent.addEventListener("click", topic_open);
+checkRole();
 
 
-eel.expose(ping);
-function ping() {
-    console.log("Eel connected!");
-}
-ping();
+// eel.expose(ping);
+// function ping() {
+//     console.log("Eel connected!");
+// }
+// ping();

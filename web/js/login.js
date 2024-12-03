@@ -17,10 +17,19 @@ async function login() {
             },
             body: JSON.stringify(data),
         });
-
+        const userDataset = await fetch(`http://localhost:3001/api/group/getMyInfor/?username=${username}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const userDatas = await userDataset.json();
         if (response.status === 200) {
             const userData = await response.json();
-            await logout();
+            // await logout();
+            if (userDatas != null) {
+                userData.infor = userDatas
+            }
             eel.login(userData);
             setTimeout(() => {
                 window.location.href = "index.html";
@@ -46,7 +55,7 @@ async function logout() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({username}),
+            body: JSON.stringify({ username }),
         });
 
         if (response.status === 200) {
@@ -56,7 +65,7 @@ async function logout() {
             }, 2000);
         } else {
             stopLoading()
-            console.log("Đăng nhập không thành công!")
+            console.log("Đăng xuất không thành công!")
         }
     } catch (error) {
         console.error('Error logging in:', error);
