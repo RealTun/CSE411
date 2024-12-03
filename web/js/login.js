@@ -1,3 +1,5 @@
+const toast = document.getElementById("toast");
+const chatbox = document.getElementsByClassName("chatbox");
 async function login() {
     loading();
 
@@ -25,8 +27,23 @@ async function login() {
         });
         const userDatas = await userDataset.json();
         if (response.status === 200) {
+            toast.style.display = "flex";
+            setTimeout(() => {
+                toast.style.animation = "flyDown 1s ease-in-out forwards";
+                toast.style.transition = "opacity 2s ease-in-out";
+                setTimeout(() => {
+                    chatbox[0].innerHTML = "Đăng nhập thành công!";
+                    chatbox[0].style.color = "#00d29e";
+                })
+                setTimeout(() => {
+                    toast.style.opacity = "0";
+                    setTimeout(() => {
+                        toast.style.display = "flex";
+                    }, 1000);
+                }, 3000);
+            }, 500);
             const userData = await response.json();
-            // await logout();
+            await logout();
             if (userDatas != null) {
                 userData.infor = userDatas
             }
@@ -35,11 +52,45 @@ async function login() {
                 window.location.href = "index.html";
             }, 2000);
         } else {
-            stopLoading()
+            toast.style.display = "flex";
+            setTimeout(() => {
+                toast.style.animation = "flyDown 1s ease-in-out forwards";
+                toast.style.transition = "opacity 1s ease-in-out";
+                setTimeout(() => {
+                    chatbox[0].innerHTML = "Đăng nhập không thành công!";
+                    chatbox[0].style.color = "red";
+                })
+                setTimeout(() => {
+                    toast.style.opacity = "0";
+                    setTimeout(() => {
+                        toast.style.display = "flex";
+                    }, 1000);
+                }, 3000);
+            }, 500);
+            setTimeout(() => {
+                stopLoading();
+            }, 3500)
             console.log("Đăng nhập không thành công!")
         }
     } catch (error) {
-        stopLoading()
+        toast.style.display = "flex";
+        setTimeout(() => {
+            toast.style.animation = "flyDown 1s ease-in-out forwards";
+            toast.style.transition = "opacity 1s ease-in-out";
+            setTimeout(() => {
+                chatbox[0].innerHTML = "Đăng nhập không thành công!";
+                chatbox[0].style.color = "red";
+            })
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                setTimeout(() => {
+                    toast.style.display = "flex";
+                }, 1000);
+            }, 3000);
+        }, 500);
+        setTimeout(() => {
+            stopLoading();
+        }, 3500)
         console.error('Error logging in:', error);
     }
 }
@@ -71,4 +122,5 @@ async function logout() {
         console.error('Error logging in:', error);
     }
 }
+
 
