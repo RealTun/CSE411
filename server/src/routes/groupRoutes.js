@@ -36,5 +36,7 @@ router.get("/getUserSameGroup",groupController.getUserSameGroup);
 
 router.get("/getMyInfor",groupController.getMyInfor);
 
+router.get("/getMyTopic",groupController.getMyTopic);
+
 
 module.exports = router;

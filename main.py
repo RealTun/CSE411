@@ -33,6 +33,8 @@ def get_users_by_group(group):
         filtered_users=users
     return filtered_users
 
+
+
 @eel.expose
 def run_back_end():
     bk()
@@ -44,14 +46,21 @@ def get_user_by_name(name):
     # print(filtered_users)
     return filtered_users
 
+@eel.expose
+def get_user_by_msv(MSV):
+    users = read_users()
+    filtered_users = [user for user in users if user['MSV'] == int(MSV)]
+    # print(filtered_users)
+    return filtered_users
+
 # # Hàm ghi danh sách người dùng
 def write_users(users,path):
     if not os.path.exists(path):
         with open(path, 'w',encoding='utf-8') as f:
-            json.dump([], f)
+            json.dump([], f,ensure_ascii=False)
         return []
-    with open(path, 'w') as f:
-        json.dump(users, f)
+    with open(path, 'w',encoding='utf-8') as f:
+        json.dump(users, f,ensure_ascii=False)
 
 # API đăng ký
 # @eel.expose
