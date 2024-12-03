@@ -307,3 +307,20 @@
         opacity: 1;
     }
 }
+@keyframes fly {
+    from {
+        transform: 0%;
+    }
+
+    to {
+        transform: translateY(-100%);
+    }
+}
+@keyframes flyDown{
+    0%{
+        transform:translateY(-200%);
+    }
+    100%{
+        transform: translateY(-50%);
+    }
+}
