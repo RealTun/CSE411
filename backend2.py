@@ -26,7 +26,7 @@ def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
         all_data = df.iloc[:, 6:-1].values  # Dữ liệu để tính khoảng cách
         sufficient_groups = True  # Biến theo dõi xem quá trình có thành công không
 
-        while len(remaining_gioi) + len(remaining_khong_gioi) >= 5:
+        while len(remaining_gioi) + len(remaining_khong_gioi) >= df.shape[0]/4:
             # Chọn ngẫu nhiên 1 "gioi" để bắt đầu nhóm
             start_member = remaining_gioi.sample(1, random_state=None)
             start_index = start_member.index[0]

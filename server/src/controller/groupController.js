@@ -42,45 +42,40 @@ const groupController = {
     grouping: async (req, res) => {
         try {
             const csvFilePath = '../data/data_standard.csv';
-            const rawData = []; // Lưu dữ liệu thô từ CSV
 
-            // Đọc dữ liệu từ file CSV
-            await new Promise((resolve, reject) => {
-                fs.createReadStream(csvFilePath)
-                    .pipe(csvParser())
-                    .on('data', (row) => rawData.push(row)) // Lưu từng hàng vào rawData
-                    .on('end', resolve) // Hoàn tất quá trình đọc
-                    .on('error', reject); // Xử lý lỗi nếu xảy ra
-            });
-            // Dữ liệu đã đọc
-            const updatedData = [];
-            for (const row of rawData) {
-                try {
-                    const firstKey = Object.keys(row)[0]; // Lấy key đầu tiên
-                    const firstValue = row[firstKey];
-
-                    // Thực hiện truy vấn với await
-                    const [rows] = await pool.query(
-                        'SELECT * FROM topic_selects WHERE username = ?',
-                        [firstValue]
-                    );
-                    // Cập nhật hàng với dữ liệu từ cơ sở dữ liệu
-                    row['topic'] = rows.length > 0 ? rows[0]['Topic'] : 0;
-                    updatedData.push(row);
-                } catch (err) {
-                    console.error('Lỗi khi xử lý hàng:', err);
+            try {
+                // Thực hiện truy vấn với await
+                const [rows] = await pool.query(
+                    'SELECT s.username,s.fullname,s.Average_MIS_Score,s.Average_BigData_Score,s.GPA,s.Average_Self_Study_Time,s.Number_of_Late_Attendances_in_Phase_1,s.Soft_Skills,s.Technology_Usage_Skills,s.Strengths,s.Muc_do,COALESCE(ts.Topic, 0) AS Topic FROM students s LEFT JOIN topic_selects ts ON s.username = ts.username;',
+                );
+                if (rows.length < 12){
+                    res.status(500).json({ message: 'Không đủ thành thành viên để phân nhóm!' });
+                    return;
                 }
+                const csvWriter = createCsvWriter({
+                    path: csvFilePath,
+                    header: [
+                        { id: 'username', title: 'MSV' },
+                        { id: 'fullname', title: 'Họ tên' },
+                        { id: 'Average_MIS_Score', title: 'Điểm TB MIS' },
+                        { id: 'Average_BigData_Score', title: 'Điểm TB BigData' },
+                        { id: 'GPA', title: 'GPA' },
+                        { id: 'Average_Self_Study_Time', title: 'Thời gian tự học TB trong ngày' },
+                        { id: 'Number_of_Late_Attendances_in_Phase_1', title: 'Số lần đi học muộn trong giai đoạn 1' },
+                        { id: 'Soft_Skills', title: 'Kỹ năng mềm' },
+                        { id: 'Technology_Usage_Skills', title: 'Khả năng sử dụng công nghệ' },
+                        { id: 'Strengths', title: 'Sở trường' },
+                        { id: 'Muc_do', title: 'Mức độ' },
+                        { id: 'Topic', title: 'topic' },
+                    ],
+                });
+            
+                // Ghi dữ liệu vào file CSV
+                await csvWriter.writeRecords(rows);
+            } catch (err) {
+                console.error('Lỗi khi xử lý hàng:', err);
+                res.status(500).json({ message: 'Có lỗi xảy ra khi lưu thành viên!' });
             }
-            // Ghi lại file CSV
-            const csvWriter = createCsvWriter({
-                path: csvFilePath, // Ghi đè file cũ
-                header: Object.keys(updatedData[0]).map((key) => ({
-                    id: key,
-                    title: key,
-                })),
-            });
-
-            await csvWriter.writeRecords(updatedData);
 
             exec(`python ../backend2.py`, (err, stdout, stderr) => {
                 if (err) {
@@ -256,6 +251,83 @@ const groupController = {
 
             res.status(200).json({
                 message: 'Lưu thành viên thành công!'
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Lỗi cơ sở dữ liệu!" });
+        }
+    },
+    saveFullStudents: async (req, res) => {
+        try {
+            const csvFilePath = '../data/data_standard.csv';
+            const rawData = []; // Lưu dữ liệu thô từ CSV
+            let headers_0 = 'MSV';
+
+            // Đọc dữ liệu từ file CSV
+            await new Promise((resolve, reject) => {
+                fs.createReadStream(csvFilePath)
+                    .pipe(csvParser())
+                    .on('headers', (headers) => {
+                        headers_0 = headers[0]; // headers là mảng chứa tất cả các tiêu đề
+                    })
+                    .on('data', (row) => {
+                        rawData.push(row);
+                    }) // Lưu từng hàng vào rawData
+                    .on('end', resolve) // Hoàn tất quá trình đọc
+                    .on('error', reject); // Xử lý lỗi nếu xảy ra
+            });
+            let query = 'DELETE FROM students';
+            await pool.query(query);
+            // Dữ liệu đã đọc
+            for (const row of rawData) {
+                try {
+                    const student = new Student(
+                        row[headers_0],
+                        row['Họ tên'],
+                        row['Điểm TB MIS'],
+                        row['Điểm TB BigData'],
+                        row['GPA'],
+                        row['Thời gian tự học TB trong ngày'],
+                        row['Số lần đi học muộn trong giai đoạn 1'],
+                        row['Kỹ năng mềm'],
+                        row['Khả năng sử dụng công nghệ'],
+                        row['Sở trường'],
+                        row['Mức độ']
+                    );
+                    query = 'INSERT INTO students (username, fullname, Average_MIS_Score, Average_BigData_Score, GPA, Average_Self_Study_Time, Number_of_Late_Attendances_in_Phase_1, Soft_Skills, Technology_Usage_Skills, Strengths, Muc_do) VALUES (?, ?,?,?,?,?,?,?,?,?,?)';
+                    await pool.query(query, [student.username, 
+                        student.fullname, 
+                        student.Average_MIS_Score, 
+                        student.Average_BigData_Score, 
+                        student.GPA, 
+                        student.Average_Self_Study_Time, 
+                        student.Number_of_Late_Attendances_in_Phase_1, 
+                        student.Soft_Skills, 
+                        student.Technology_Usage_Skills, 
+                        student.Strengths, 
+                        student.Muc_do]);
+                } catch (err) {
+                    console.error('Lỗi khi xử lý hàng:', err);
+                }
+            }
+
+            res.status(200).json({
+                message: 'Lưu thành viên thành công!'
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Lỗi cơ sở dữ liệu!" });
+        }
+    },
+    deleteData: async (req, res) => {
+        try {
+            let query = 'DELETE FROM students';
+            await pool.query(query);
+            query = 'DELETE FROM group_selects';
+            await pool.query(query);
+
+            res.status(200).json({
+                message: 'Xoá dữ liệu thành công!'
             });
         } catch (error) {
             console.log(error);

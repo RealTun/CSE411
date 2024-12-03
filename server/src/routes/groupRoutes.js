@@ -29,6 +29,8 @@ router.get('/grouping', groupController.grouping);
 //     "Muc_do": 1
 // }
 router.post('/saveStudent',groupController.saveStudent)
+// dùng để lưu tất cả thành viên trong file .csv lên database
+router.get('/saveFullStudents',groupController.saveFullStudents)
 
 router.get("/getUserSameGroup",groupController.getUserSameGroup);
 
