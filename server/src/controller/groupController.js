@@ -3,6 +3,7 @@ const https = require('https');
 const pool = require("../../config/db");
 const Topic = require('../model/topic');
 const Group = require('../model/group');
+const Student = require('../model/student');
 const fs = require('fs');
 const csvParser = require('csv-parser');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
@@ -194,6 +195,71 @@ const groupController = {
         catch (error) {
             console.log(error);
             res.status(500).json({ message: "Có lỗi xảy ra khi lưu nhóm!" })
+        }
+    },
+    // dùng để lưu thành viên
+    // {
+    //     "username": 2151163709,
+    //     "fullname": "Nguyễn Tuấn Ngọc",
+    //     "Average_MIS_Score": 7.5,
+    //     "Average_BigData_Score": 6.0,
+    //     "GPA": 3.0,
+    //     "Average_Self_Study_Time": 3.0,
+    //     "Number_of_Late_Attendances_in_Phase_1": 0,
+    //     "Soft_Skills": "Tốt",
+    //     "Technology_Usage_Skills": "Khá",
+    //     "Strengths": "Kỹ thuật",
+    //     "Muc_do": 1
+    // }
+    saveStudent: async (req, res) => {
+        const { 
+            username, 
+            fullname, 
+            Average_MIS_Score, 
+            Average_BigData_Score, 
+            GPA, 
+            Average_Self_Study_Time, 
+            Number_of_Late_Attendances_in_Phase_1, 
+            Soft_Skills, 
+            Technology_Usage_Skills, 
+            Strengths, 
+            Muc_do
+        } = req.body;
+        try {
+            const student = new Student(username, 
+                fullname, 
+                Average_MIS_Score, 
+                Average_BigData_Score, 
+                GPA, 
+                Average_Self_Study_Time, 
+                Number_of_Late_Attendances_in_Phase_1, 
+                Soft_Skills, 
+                Technology_Usage_Skills, 
+                Strengths, 
+                Muc_do);
+            const [rows] = await pool.query('SELECT * FROM students WHERE username = ?', [username]);
+            let query;
+            if (rows.length <= 0) {
+                query = 'INSERT INTO students (username, fullname, Average_MIS_Score, Average_BigData_Score, GPA, Average_Self_Study_Time, Number_of_Late_Attendances_in_Phase_1, Soft_Skills, Technology_Usage_Skills, Strengths, Muc_do) VALUES (?, ?,?,?,?,?,?,?,?,?,?)';
+                await pool.query(query, [student.username, 
+                    student.fullname, 
+                    student.Average_MIS_Score, 
+                    student.Average_BigData_Score, 
+                    student.GPA, 
+                    student.Average_Self_Study_Time, 
+                    student.Number_of_Late_Attendances_in_Phase_1, 
+                    student.Soft_Skills, 
+                    student.Technology_Usage_Skills, 
+                    student.Strengths, 
+                    student.Muc_do]);
+            }
+
+            res.status(200).json({
+                message: 'Lưu thành viên thành công!'
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Lỗi cơ sở dữ liệu!" });
         }
     },
     getUserSameGroup: async (req, res) => {
