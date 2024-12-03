@@ -104,6 +104,7 @@ const groupController = {
                         student["Họ tên"],
                         student["Điểm TB MIS"],
                         student["Điểm TB BigData"],
+                        student["GPA"],
                         student["Thời gian tự học TB trong ngày"],
                         student["Số lần đi học muộn trong giai đoạn 1"],
                         student["Kỹ năng mềm"],
@@ -114,16 +115,17 @@ const groupController = {
                     );
                     query = `
                         INSERT INTO \`group_selects\` 
-                        (\`username\`, \`fullname\`, \`Average_MIS_Score\`, \`Average_BigData_Score\`, 
+                        (\`username\`, \`fullname\`, \`Average_MIS_Score\`, \`Average_BigData_Score\`, \`GPA\`, 
                         \`Average_Self_Study_Time\`, \`Number_of_Late_Attendances_in_Phase_1\`, 
                         \`Soft_Skills\`, \`Technology_Usage_Skills\`, \`Strengths\`, \`Group\`, \`Topic\`) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?)
                         `;
                     pool.query(query, [
                         group_selects.username,
                         group_selects.fullname,
                         group_selects.Average_MIS_Score,
                         group_selects.Average_BigData_Score,
+                        group_selects.GPA,
                         group_selects.Average_Self_Study_Time,
                         group_selects.Number_of_Late_Attendances_in_Phase_1,
                         group_selects.Soft_Skills,
@@ -155,6 +157,7 @@ const groupController = {
                         student["Họ tên"],
                         student["Điểm TB MIS"],
                         student["Điểm TB BigData"],
+                        student["GPA"],
                         student["Thời gian tự học TB trong ngày"],
                         student["Số lần đi học muộn trong giai đoạn 1"],
                         student["Kỹ năng mềm"],
@@ -165,16 +168,17 @@ const groupController = {
                     );
                     query = `
                         INSERT INTO \`group_selects\` 
-                        (\`username\`, \`fullname\`, \`Average_MIS_Score\`, \`Average_BigData_Score\`, 
+                        (\`username\`, \`fullname\`, \`Average_MIS_Score\`, \`Average_BigData_Score\`, \`GPA\`, 
                         \`Average_Self_Study_Time\`, \`Number_of_Late_Attendances_in_Phase_1\`, 
                         \`Soft_Skills\`, \`Technology_Usage_Skills\`, \`Strengths\`, \`Group\`, \`Topic\`) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?)
                         `;
                     pool.query(query, [
                         group_selects.username,
                         group_selects.fullname,
                         group_selects.Average_MIS_Score,
                         group_selects.Average_BigData_Score,
+                        group_selects.GPA,
                         group_selects.Average_Self_Study_Time,
                         group_selects.Number_of_Late_Attendances_in_Phase_1,
                         group_selects.Soft_Skills,
