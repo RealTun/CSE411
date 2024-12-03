@@ -3,6 +3,7 @@ const https = require('https');
 const pool = require("../../config/db");
 const Topic = require('../model/topic');
 const Group = require('../model/group');
+const Student = require('../model/student');
 const fs = require('fs');
 const csvParser = require('csv-parser');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
@@ -38,10 +39,6 @@ const groupController = {
         }
     },
     // dùng để phân nhóm
-    // Mẫu body request
-    // {
-    //     "lan": 1
-    // }
     grouping: async (req, res) => {
         try {
             const csvFilePath = '../data/data_standard.csv';
@@ -85,7 +82,7 @@ const groupController = {
 
             await csvWriter.writeRecords(updatedData);
 
-            exec(`python ../backend2.py ${req.body['lan']}`, (err, stdout, stderr) => {
+            exec(`python ../backend2.py`, (err, stdout, stderr) => {
                 if (err) {
                     console.error(`${err}`);
                     return;
@@ -96,6 +93,51 @@ const groupController = {
                 }
             });
 
+            const filePath = '../data/thongtincanhan_with_groups.json';
+
+            let query = 'DELETE FROM group_selects';
+            await pool.query(query);
+            fs.readFile(filePath, 'utf8', (err, data) => {
+                const students = JSON.parse(data);
+                students.forEach(student => {
+                    const group_selects = new Group(
+                        student["MSV"],
+                        student["Họ tên"],
+                        student["Điểm TB MIS"],
+                        student["Điểm TB BigData"],
+                        student["GPA"],
+                        student["Thời gian tự học TB trong ngày"],
+                        student["Số lần đi học muộn trong giai đoạn 1"],
+                        student["Kỹ năng mềm"],
+                        student["Khả năng sử dụng công nghệ"],
+                        student["Sở trường"],
+                        student["Nhóm"],
+                        student["topic"]
+                    );
+                    query = `
+                        INSERT INTO \`group_selects\` 
+                        (\`username\`, \`fullname\`, \`Average_MIS_Score\`, \`Average_BigData_Score\`, \`GPA\`, 
+                        \`Average_Self_Study_Time\`, \`Number_of_Late_Attendances_in_Phase_1\`, 
+                        \`Soft_Skills\`, \`Technology_Usage_Skills\`, \`Strengths\`, \`Group\`, \`Topic\`) 
+                        VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?)
+                        `;
+                    pool.query(query, [
+                        group_selects.username,
+                        group_selects.fullname,
+                        group_selects.Average_MIS_Score,
+                        group_selects.Average_BigData_Score,
+                        group_selects.GPA,
+                        group_selects.Average_Self_Study_Time,
+                        group_selects.Number_of_Late_Attendances_in_Phase_1,
+                        group_selects.Soft_Skills,
+                        group_selects.Technology_Usage_Skills,
+                        group_selects.Strengths,
+                        group_selects.Group,
+                        group_selects.Topic
+                    ]);
+                });
+            });
+
             res.status(200).json({ message: 'Lưu nhóm thành công!' });
         } catch (error) {
             console.error(error);
@@ -103,43 +145,41 @@ const groupController = {
         }
     },
     // dùng để chốt nhóm
-    // Mẫu body request
-    // {
-    //     "lan": 1
-    // }
     selectGroups: async (req, res) => {
-        const filePath = '../data/history.json';
+        const filePath = '../data/thongtincanhan_with_groups.json';
         try {
             let query = 'DELETE FROM group_selects';
             await pool.query(query);
             fs.readFile(filePath, 'utf8', (err, data) => {
                 const students = JSON.parse(data);
-                students[0][req.body['lan']].forEach(student => {
+                students.forEach(student => {
                     const group_selects = new Group(
                         student["MSV"],
                         student["Họ tên"],
                         student["Điểm TB MIS"],
                         student["Điểm TB BigData"],
+                        student["GPA"],
                         student["Thời gian tự học TB trong ngày"],
                         student["Số lần đi học muộn trong giai đoạn 1"],
                         student["Kỹ năng mềm"],
                         student["Khả năng sử dụng công nghệ"],
                         student["Sở trường"],
                         student["Nhóm"],
-                        student["Gợi ý"]
+                        student["topic"]
                     );
                     query = `
                         INSERT INTO \`group_selects\` 
-                        (\`username\`, \`fullname\`, \`Average_MIS_Score\`, \`Average_BigData_Score\`, 
+                        (\`username\`, \`fullname\`, \`Average_MIS_Score\`, \`Average_BigData_Score\`, \`GPA\`, 
                         \`Average_Self_Study_Time\`, \`Number_of_Late_Attendances_in_Phase_1\`, 
                         \`Soft_Skills\`, \`Technology_Usage_Skills\`, \`Strengths\`, \`Group\`, \`Topic\`) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?)
                         `;
                     pool.query(query, [
                         group_selects.username,
                         group_selects.fullname,
                         group_selects.Average_MIS_Score,
                         group_selects.Average_BigData_Score,
+                        group_selects.GPA,
                         group_selects.Average_Self_Study_Time,
                         group_selects.Number_of_Late_Attendances_in_Phase_1,
                         group_selects.Soft_Skills,
@@ -155,6 +195,71 @@ const groupController = {
         catch (error) {
             console.log(error);
             res.status(500).json({ message: "Có lỗi xảy ra khi lưu nhóm!" })
+        }
+    },
+    // dùng để lưu thành viên
+    // {
+    //     "username": 2151163709,
+    //     "fullname": "Nguyễn Tuấn Ngọc",
+    //     "Average_MIS_Score": 7.5,
+    //     "Average_BigData_Score": 6.0,
+    //     "GPA": 3.0,
+    //     "Average_Self_Study_Time": 3.0,
+    //     "Number_of_Late_Attendances_in_Phase_1": 0,
+    //     "Soft_Skills": "Tốt",
+    //     "Technology_Usage_Skills": "Khá",
+    //     "Strengths": "Kỹ thuật",
+    //     "Muc_do": 1
+    // }
+    saveStudent: async (req, res) => {
+        const { 
+            username, 
+            fullname, 
+            Average_MIS_Score, 
+            Average_BigData_Score, 
+            GPA, 
+            Average_Self_Study_Time, 
+            Number_of_Late_Attendances_in_Phase_1, 
+            Soft_Skills, 
+            Technology_Usage_Skills, 
+            Strengths, 
+            Muc_do
+        } = req.body;
+        try {
+            const student = new Student(username, 
+                fullname, 
+                Average_MIS_Score, 
+                Average_BigData_Score, 
+                GPA, 
+                Average_Self_Study_Time, 
+                Number_of_Late_Attendances_in_Phase_1, 
+                Soft_Skills, 
+                Technology_Usage_Skills, 
+                Strengths, 
+                Muc_do);
+            const [rows] = await pool.query('SELECT * FROM students WHERE username = ?', [username]);
+            let query;
+            if (rows.length <= 0) {
+                query = 'INSERT INTO students (username, fullname, Average_MIS_Score, Average_BigData_Score, GPA, Average_Self_Study_Time, Number_of_Late_Attendances_in_Phase_1, Soft_Skills, Technology_Usage_Skills, Strengths, Muc_do) VALUES (?, ?,?,?,?,?,?,?,?,?,?)';
+                await pool.query(query, [student.username, 
+                    student.fullname, 
+                    student.Average_MIS_Score, 
+                    student.Average_BigData_Score, 
+                    student.GPA, 
+                    student.Average_Self_Study_Time, 
+                    student.Number_of_Late_Attendances_in_Phase_1, 
+                    student.Soft_Skills, 
+                    student.Technology_Usage_Skills, 
+                    student.Strengths, 
+                    student.Muc_do]);
+            }
+
+            res.status(200).json({
+                message: 'Lưu thành viên thành công!'
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Lỗi cơ sở dữ liệu!" });
         }
     },
     getUserSameGroup: async (req, res) => {

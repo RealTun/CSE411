@@ -1,4 +1,4 @@
-class Group{
+class Student{
     constructor
     (
         username, 
@@ -11,8 +11,7 @@ class Group{
         Soft_Skills,
         Technology_Usage_Skills,
         Strengths,
-        Group,
-        Topic
+        Muc_do
     ) {
         this.username = username;
         this.fullname = fullname;
@@ -24,8 +23,7 @@ class Group{
         this.Soft_Skills = Soft_Skills;
         this.Technology_Usage_Skills = Technology_Usage_Skills;
         this.Strengths = Strengths;
-        this.Group = Group;
-        this.Topic = Topic;
+        this.Muc_do = Muc_do;
     }
 }
-module.exports = Group;
+module.exports = Student;
