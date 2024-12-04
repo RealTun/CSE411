@@ -216,8 +216,7 @@ def backend(lan=1):
     df = pd.read_csv('data/data_processed.csv', header=0)
 
     # Lấy dữ liệu từ cột cuối cùng
-    data = df.iloc[:, 9].values
-
+    data = df.iloc[:, 10].values
     array = [1, 2, 3, 4]
     random.shuffle(array)
 
@@ -258,7 +257,7 @@ def backend(lan=1):
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     # Đường dẫn đến file JSON
-    json_file = 'data/history.json'
+    json_file = 'web/json/history.json'
 
     # Đọc dữ liệu từ file JSON
     with open(json_file, 'r', encoding='utf-8') as f:
