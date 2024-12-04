@@ -108,7 +108,18 @@ async function sendToClusterAPI(userInput) {
             '<div class="chat-message bot"><strong>Bot:</strong> Đã xảy ra lỗi trong quá trình xử lý.</div>';
     }
 }
-
+document.addEventListener("DOMContentLoaded", function() {
+    const topicButtons = document.querySelectorAll('.topic-button');
+    const inputField = document.getElementById('user-input');
+    
+    topicButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const topicText = this.textContent; // Lấy nội dung của nút
+            inputField.value = topicText; // Đặt nội dung vào ô nhập liệu
+            sendMessage(); // Gửi tin nhắn tự động
+        });
+    });
+});
 const backBtn = document.querySelector('.back');
 const loading_location = document.getElementById("loading-location");
 backBtn.addEventListener('click', () => {

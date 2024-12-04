@@ -9,6 +9,7 @@ const imgVip = document.getElementById("vip");
 const p_content = document.getElementById("dialog_title");
 const btn_quit = document.getElementById("btn-quit");
 const infor = document.getElementById("infor");
+const deletebtn = document.getElementById("deletebtn");
 // const history = import("../../data/history.json");
 
 import { UserComponent, UserMyInfor } from '../object/user.js';
@@ -18,6 +19,9 @@ let roleUser;
 
 const user = await fetch('../json/users.json');
 const userData = await user.json();
+const userDB = await fetch(`http://localhost:3001/api/group/getMyInfor/?username=${userData[0].username}`);
+const userDBData = await userDB.json();
+
 
 const checkRole = async () => {
     const id1 = document.getElementById("1");
@@ -32,7 +36,7 @@ const checkRole = async () => {
             infor.classList.remove("hide");
             infor.classList.add("active");
             for (let i = 1; i <= 4; i++) {
-                if (userData[0].infor.Group == i) {
+                if (userDBData.Group == i) {
                     const idClass = document.getElementById(`${i}`);
                     idClass.classList.remove("hide");
                 }
@@ -45,6 +49,7 @@ const checkRole = async () => {
             id2.classList.remove("hide");
             id3.classList.remove("hide");
             id4.classList.remove("hide");
+            deletebtn.classList.remove("hide");
             idHistory.classList.remove("hide");
         }
         const activeOb = document.querySelector(".active");
@@ -73,7 +78,7 @@ backBtn.addEventListener('click', () => {
 
 function showMember(users) {
     users.forEach(user => {
-        let userDiv = new UserComponent(user["MSV"], user["Họ tên"]).render();
+        let userDiv = new UserComponent(user["username"], user["fullname"]).render();
         groupDiv.appendChild(userDiv);
     });
 }
@@ -88,9 +93,16 @@ async function loadGroupUsers(groupId) {
     try {
         groupDiv.innerHTML = "";
         if (groupId != "history") {
-            eel.get_users_by_group(groupId)(function (users) {
+            if(groupId !="all"){
+                const userData = await fetch(`http://localhost:3001/api/group/getUserSameGroup?group=${groupId}`);
+                const users =await userData.json();
                 showMember(users)
-            });
+            }
+            else{
+                const userData = await fetch(`http://localhost:3001/api/group/getAll`);
+                const users =await userData.json();
+                showMember(users)
+            }
         }
         else {
             const history = await fetch("../json/history.json");
@@ -154,22 +166,20 @@ async function loadGroupUsers(groupId) {
 async function loadGroupUsersDB(groupId, username) {
     try {
         groupDiv.innerHTML = "";
-        let users;
         if (groupId == "infor") {
-            users = await fetch(`http://localhost:3001/api/group/getMyInfor/?username=${username}`);
-            const data = await users.json();
             const topic = await fetch(`http://localhost:3001/api/group/getMyTopic/?username=${username}`);
             const topicData = await topic.json();
-            let userDiv = new UserMyInfor(data["fullname"], data["Group"], topicData[0].Topic,
-                data["Average_MIS_Score"], data["Average_BigData_Score"], data["Average_Self_Study_Time"],
-                data["Number_of_Late_Attendances_in_Phase_1"], data["Soft_Skills"],
-                data["Technology_Usage_Skills"], data["Strengths"]);
+            console.log(userDBData)
+            let userDiv = new UserMyInfor(userDBData["fullname"], userDBData["Group"], topicData[0].Topic,
+                userDBData["Average_MIS_Score"], userDBData["Average_BigData_Score"], userDBData["Average_Self_Study_Time"],
+                userDBData["Number_of_Late_Attendances_in_Phase_1"], userDBData["Soft_Skills"],
+                userDBData["Technology_Usage_Skills"], userDBData["Strengths"]);
             const html = await userDiv.build();
             groupDiv.innerHTML = html;
             userDiv.render();
         }
         else {
-            users = await fetch(`http://localhost:3001/api/group/getUserSameGroup/?group=${groupId}`);
+            const users = await fetch(`http://localhost:3001/api/group/getUserSameGroup/?group=${groupId}`);
             const data = await users.json();
             showMemberDB(data);
         }
@@ -276,4 +286,24 @@ const getBatX = (item) => {
 const logOutbtn = document.querySelectorAll(".logout");
 logOutbtn[0].onclick = () => { logOutDialog() };
 getBatX(navItems[0]);
+
+
+const delete_btn = document.getElementById("delete-btn");
+delete_btn.addEventListener("click", (event) => {
+    event.preventDefault();
+    p_content.innerText = "Bạn có muốn xóa nhóm và thông tin thành viên?"
+    openDialog();
+    btn_success.addEventListener("click", async () => {
+        loading_location.style.opacity = "1";
+        loading_location.style.display = "flex";
+        dismissDialog();
+        await fetch("http://localhost:3001/api/group/deleteStudents")
+            .then(con => {
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 5000);
+            })
+    })
+})
+
 checkRole();

@@ -20,10 +20,10 @@ const groupController = {
         const { username, topic } = req.body;
         try {
             const topic_selects = new Topic(username, topic);
-            const [topics] = await pool.query("SELECT * FROM topic_selects WHERE username = ?",[username]);
-            if(topics.length>0){
+            const [topics] = await pool.query("SELECT * FROM topic_selects WHERE username = ?", [username]);
+            if (topics.length > 0) {
                 res.status(200).json({
-                    message:"Bạn đã chọn topic 1 lần rồi. Không được chọn tiếp!"
+                    message: "Bạn đã chọn topic 1 lần rồi. Không được chọn tiếp!"
                 });
                 return;
             }
@@ -408,6 +408,16 @@ const groupController = {
             res.status(500).json({ message: "Có lỗi xảy ra khi lấy dữ liệu ! ", error });
         }
     },
+    getAll: async (req, res) => {
+        try {
+            const query = `SELECT * from students`;
+            const userData = await pool.query(query);
+            res.status(200).json(userData[0]);
+        }
+        catch (error) {
+            res.status(500).json({ message: "Có lỗi xảy ra khi lấy dữ liệu ! ", error });
+        }
+    },
     getUserSameGroup: async (req, res) => {
         try {
             const query = `SELECT * from group_selects WHERE \`Group\` = ?`;
@@ -421,13 +431,21 @@ const groupController = {
     },
     getMyInfor: async (req, res) => {
         try {
-            const query = `SELECT * from group_selects WHERE \`username\` = ?`;
+            const query = `SELECT * from students WHERE \`username\` = ?`;
             const { username } = req.query;
             const userData = await pool.query(query, [username]);
-            res.status(200).json(userData[0][0]);
+            const groupData = await pool.query(`Select \`Group\` from group_selects where username=?`, [username]);
+            const myInfor = userData[0][0];
+            if (groupData[0][0] == null) {
+                myInfor["Group"] = "None";
+            }
+            else {
+                myInfor["Group"] = groupData[0][0].Group;
+            }
+            res.status(200).json(myInfor);
         }
         catch (error) {
-            res.status(500).json({ message: "Có lỗi xảy ra khi lấy dữ liệu ! ", error });
+            res.status(500).json({ message: "Có lỗi xảy ra khi lấy dữ liệu ! " + error });
         }
     },
     getMyTopic: async (req, res) => {

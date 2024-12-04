@@ -1,5 +1,12 @@
 const toast = document.getElementById("toast");
 const chatbox = document.getElementsByClassName("chatbox");
+async function fetchWithTimeout(url, options, timeout = 10000) {
+    const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Request timed out')), timeout)
+    );
+
+    return Promise.race([fetch(url, options), timeoutPromise]);
+}
 async function login() {
     loading();
 

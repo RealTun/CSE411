@@ -275,7 +275,10 @@ def backend(lan=1):
             else:
                 data_history[0][str_key] = []
                 data_history[0][str_key].append(value_to_insert)
-        
+    if(len(data_history[0])>=6):
+        data_history = [{"1":[]}]
+        with open(json_file, 'w', encoding='utf-8') as f:
+            json.dump(data_history, f, ensure_ascii=False, indent=4)
     for value in data_jsons:
         insert_to_group(lan, value)
 
@@ -386,7 +389,7 @@ def backend3():
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     # Đường dẫn đến file JSON
-    json_file = '../data/history.json'
+    json_file = '../web/json/history.json'
 
     # Đọc dữ liệu từ file JSON
     with open(json_file, 'r', encoding='utf-8') as f:
@@ -403,7 +406,10 @@ def backend3():
             data_history[0][new_key] = []
             
         data_history[0][new_key].append(value_to_insert)
-        
+    if(len(data_history[0])>=6):
+        data_history = [{"1":[]}]
+        with open(json_file, 'w', encoding='utf-8') as f:
+            json.dump(data_history, f, ensure_ascii=False, indent=4)
     for value in data_jsons:
         insert_to_group(value)
 
