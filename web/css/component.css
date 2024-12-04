@@ -819,6 +819,24 @@ button:hover {
     border-color: #f1f1f1 transparent transparent transparent;
     transform: rotateX(180deg);
 }
+.turn{
+    display:flex;
+    flex-direction: column;
+}
+.group-history{
+    margin-left:20px;
+}
+.user-history>li{
+    
+}
+.turn-title{
+    font-size: 18px;
+    font-weight: bold;
+}
+.line{
+    width:100%;
+    border:1px dashed black
+}
 
 /* .book .spot{
     width: 10px;9

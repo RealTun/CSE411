@@ -9,6 +9,7 @@ const imgVip = document.getElementById("vip");
 const p_content = document.getElementById("dialog_title");
 const btn_quit = document.getElementById("btn-quit");
 const infor = document.getElementById("infor");
+// const history = import("../../data/history.json");
 
 import { UserComponent, UserMyInfor } from '../object/user.js';
 
@@ -84,7 +85,7 @@ function showMemberDB(users) {
     });
 }
 
-function loadGroupUsers(groupId) {
+async function loadGroupUsers(groupId) {
     try {
         groupDiv.innerHTML = "";
         if (groupId != "history") {
@@ -93,8 +94,14 @@ function loadGroupUsers(groupId) {
             });
         }
         else {
-            
-        }
+            const history = await fetch("../json/history.json");
+            const historyData =await history.json();
+            historyData.forEach(turn => {
+                const historyDiv = document.createElement("div");
+                historyDiv.innerHTML="group123"
+                console.log(turn);
+            });
+        };
     }
     catch (error) {
         console.log(error);
