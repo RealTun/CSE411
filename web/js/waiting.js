@@ -2,7 +2,11 @@ const loading_location = document.getElementById("loading-location");
 
 async function runBackendAndRedirect() {
     // await eel.run_back_end();
-    await fetch("http://localhost:3001/api/group/grouping")
+    await fetch("https://secure-koi-wholly.ngrok-free.app/api/group/grouping",{
+        headers:{
+            'ngrok-skip-browser-warning': 'true',
+        }
+    })
     setTimeout(function () {
         window.location.href = "group.html";
     }, 7000);

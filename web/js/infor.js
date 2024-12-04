@@ -9,7 +9,13 @@ const fullname = document.getElementById("fullname");
 
 async function getUser(username) {
     try {
-        const userdata = await fetch(`http://localhost:3001/api/group/getStudent?username=${username}`)
+        const userdata = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getStudent?username=${username}`, {
+            method: 'GET',
+            headers: {
+                'ngrok-skip-browser-warning': 'true',
+                'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
+            }
+        })
         const data = await userdata.json();
         return data;
     }
@@ -34,24 +40,26 @@ setTimeout(async () => {
     }
     const userData = await fetch("../json/users.json");
     let user = await userData.json();
-    try{
-        const point = await fetch("http://localhost:3001/api/point/getListMarkDetail", {
+    try {
+        const point = await fetch("https://secure-koi-wholly.ngrok-free.app/api/point/getListMarkDetail", {
             method: "GET",
             headers: {
-                'authorization': user[0].data.access_token
+                'authorization': user[0].data.access_token,
+                'ngrok-skip-browser-warning': 'true',
+                'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
             },
         })
         const pointData = await point.json();
-        pointData.data.forEach(sub=>{
-            if(sub.subject =="Bigdata"){
+        pointData.data.forEach(sub => {
+            if (sub.subject == "Bigdata") {
                 bigdata.value = sub.mark;
             }
-            else{
+            else {
                 mis.value = sub.mark;
             }
         })
     }
-    catch(error){
+    catch (error) {
         console.log(error);
     }
 })
@@ -76,13 +84,22 @@ async function addMyInfor(event) {
     data["username"] = username;
     let mucdo = 0;
     try {
-        const checkExist = await fetch(`http://localhost:3001/api/group/getStudent?username=${username}`);
+        const checkExist = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getStudent?username=${username}`, {
+            method: "GET",
+            headers: {
+                'authorization': user[0].data.access_token,
+                'ngrok-skip-browser-warning': 'true',
+                'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
+            },
+        });
         if (checkExist.status == 200) {
             // update
-            const response = await fetch("http://localhost:3001/api/group/updateStudent", {
+            const response = await fetch("https://secure-koi-wholly.ngrok-free.app/api/group/updateStudent", {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true',
+                    'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
                 },
                 body: JSON.stringify(data),
             });
@@ -105,24 +122,33 @@ async function addMyInfor(event) {
             }, 500);
         }
         else {
-            const check = await fetch(`http://localhost:3001/api/group/getStudent/cluster_1?username=${username}`);
+            const check = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getStudent/cluster_1?username=${username}`, {
+                method: "GET",
+                headers: {
+                    'authorization': user[0].data.access_token,
+                    'ngrok-skip-browser-warning': 'true',
+                    'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
+                },
+            });
             if (check.status == 200) {
                 const checkData = await check.json();
                 data["Muc_do"] = checkData["Muc_do"];
-                await fetch(`http://localhost:3001/api/group/saveStudent`, {
+                await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/saveStudent`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'ngrok-skip-browser-warning': 'true',
                     },
                     body: JSON.stringify(data),
                 })
             }
             else {
                 data["Muc_do"] = mucdo;
-                await fetch(`http://localhost:3001/api/group/saveStudent`, {
+                await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/saveStudent`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'ngrok-skip-browser-warning': 'true',
                     },
                     body: JSON.stringify(data),
                 })

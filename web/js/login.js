@@ -19,17 +19,19 @@ async function login() {
     };
 
     try {
-        const response = await fetch('http://localhost:3001/api/user/login', {
+        const response = await fetch('https://secure-koi-wholly.ngrok-free.app/api/user/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true',
             },
             body: JSON.stringify(data),
         });
-        const userDataset = await fetch(`http://localhost:3001/api/group/getMyInfor/?username=${username}`, {
+        const userDataset = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getMyInfor/?username=${username}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true',
             },
         });
         const userDatas = await userDataset.json();
@@ -115,10 +117,11 @@ async function logout() {
         const userData = await user.json();
         const username = userData[0].username;
         // console.log(username)
-        const response = await fetch('http://localhost:3001/api/user/logout', {
+        const response = await fetch('https://secure-koi-wholly.ngrok-free.app/api/user/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true',
             },
             body: JSON.stringify({ username }),
         });
