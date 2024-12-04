@@ -90,7 +90,7 @@ export class UserInforComponent {
 }
 
 export class UserMyInfor {
-    constructor(name, group, topic, suggest, mis, bigdata, time_learn, no_school_day, soft_skill, technology_skill, best_skill) {
+    constructor(name, group, topic, mis, bigdata, time_learn, no_school_day, soft_skill, technology_skill, best_skill) {
         this.name = name;
         this.group =parseInt(group);
         this.mis = mis;
@@ -101,13 +101,11 @@ export class UserMyInfor {
         this.technology_skill = technology_skill;
         this.best_skill = best_skill;
         this.topic = topic;
-        this.suggest = parseInt(suggest)+1;
     }
     render() {
         const name = document.querySelector("#name");
         const group = document.querySelector("#group");
         const topic = document.querySelector("#topic");
-        const suggest = document.querySelector("#suggest");
         const mis = document.querySelector("#mis");
         const bigdata = document.querySelector("#bigdata");
         const time_learn = document.querySelector("#time-learn");
@@ -118,7 +116,6 @@ export class UserMyInfor {
         name.innerHTML = `${this.name}`;
         group.innerHTML = `${this.group}`;
         topic.innerHTML = `${this.topic}`;
-        suggest.innerHTML = `${this.suggest}`;
         mis.innerHTML = `${this.mis}`;
         bigdata.innerHTML = `${this.bigdata}`;
         time_learn.innerHTML = `${this.time_learn}`;

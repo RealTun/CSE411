@@ -3,6 +3,7 @@ const bookContent = document.getElementById("make_group");
 const groupContent = document.getElementById("check_group");
 const chatbotContent = document.getElementById("chatbot");
 const topicContent = document.getElementById("topic");
+const myInforContent = document.getElementById("my-infor");
 const btn_success = document.getElementById("btn-success");
 const loading_location = document.getElementById("loading-location");
 
@@ -92,6 +93,18 @@ function topic_open() {
     }
 }
 
+function myInfor_open(){
+    p_content.innerText = "Xem thông tin cá nhân ?"
+    openDialog();
+    btn_success.onclick = () => {
+        dismissDialog()
+        loading_location.style.opacity = "1";
+        loading_location.style.display = "flex";
+        setTimeout(function () {
+            window.location.href = "infUser.html";
+        }, 1500);
+    }
+}
 
 
 setTimeout(function () {
@@ -110,6 +123,7 @@ bookContent.addEventListener("click", make_group);
 groupContent.addEventListener("click", check_group);
 chatbotContent.addEventListener("click", check_user);
 topicContent.addEventListener("click", topic_open);
+myInforContent.addEventListener("click",myInfor_open)
 checkRole();
 
 

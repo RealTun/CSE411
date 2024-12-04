@@ -317,7 +317,10 @@ def backend():
             data_history[0][new_key] = []
             
         data_history[0][new_key].append(value_to_insert)
-        
+    if(len(data_history[0])>=6):
+        data_history = [{"1":[]}]
+        with open(json_file, 'w', encoding='utf-8') as f:
+            json.dump(data_history, f, ensure_ascii=False, indent=4)
     for value in data_jsons:
         insert_to_group(value)
 
@@ -445,7 +448,7 @@ def backend3():
             data_history[0][new_key] = []
             
         data_history[0][new_key].append(value_to_insert)
-        
+    
     for value in data_jsons:
         insert_to_group(value)
 

@@ -777,6 +777,9 @@ button:hover {
     left:25%;
     display:none;
     transform: translateY(-200%);
+    background-color: transparent;
+    border:none;
+    box-shadow: none;
 }
 
 .pet-toast {
@@ -806,7 +809,7 @@ button:hover {
     align-items: center;
     left:20vw;
     margin-bottom:2.4vw;
-    text-shadow: 1px 1px 1px 1px;
+    text-shadow: 1px 1px 1px;
 }
 
 .chatbox::after {
@@ -818,16 +821,24 @@ button:hover {
     border-style: solid;
     border-color: #f1f1f1 transparent transparent transparent;
     transform: rotateX(180deg);
+    z-index:-1;
 }
 .turn{
     display:flex;
     flex-direction: column;
+    margin-bottom:10vw;
 }
 .group-history{
+    width:40%;
     margin-left:20px;
 }
-.user-history>li{
-    
+.history-container-group{
+    display: flex;
+    flex-wrap: wrap;
+    width:100%;
+    gap:5vw;
+    justify-content: center;
+    align-items: center;
 }
 .turn-title{
     font-size: 18px;
