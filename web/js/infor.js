@@ -125,7 +125,6 @@ async function addMyInfor(event) {
             const check = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getStudent/cluster_1?username=${username}`, {
                 method: "GET",
                 headers: {
-                    'authorization': user[0].data.access_token,
                     'ngrok-skip-browser-warning': 'true',
                     'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
                 },
