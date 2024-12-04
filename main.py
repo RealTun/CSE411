@@ -156,7 +156,7 @@ def predict(input_data):
             response = co.generate(
                 model='command-r-plus-08-2024',  # Model có thể tùy chỉnh
                 prompt=user_question.strip(),  # Đảm bảo là chuỗi và loại bỏ khoảng trắng dư thừa
-                max_tokens=200,
+                max_tokens=1000,
                 temperature=0.7,
             )
             answer = response.generations[0].text.strip()

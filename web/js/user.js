@@ -31,8 +31,8 @@ setInterval(() => {
 const userName = sessionStorage.getItem("MSV");
 async function run(username){
     const userAr = await eel.get_user_by_msv(username)();
-    // console.log(userName)
     const user = userAr[0];
+    console.log(user)
     const userInfo =new UserInforComponent(user["Họ tên"], user["Nhóm"],user["topic"],user["Gợi ý"],
         user["Điểm TB MIS"], user["Điểm TB BigData"], user["Thời gian tự học TB trong ngày"],
         user["Số lần đi học muộn trong giai đoạn 1"], user["Kỹ năng mềm"],

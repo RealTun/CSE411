@@ -67,7 +67,6 @@ export class UserInforComponent {
         const name = document.querySelector("#name");
         const group = document.querySelector("#group");
         const topic = document.querySelector("#topic");
-        const suggest = document.querySelector("#suggest");
         const mis = document.querySelector("#mis");
         const bigdata = document.querySelector("#bigdata");
         const time_learn = document.querySelector("#time-learn");
@@ -78,7 +77,6 @@ export class UserInforComponent {
         name.innerHTML = `${this.name}`;
         group.innerHTML = `${this.group}`;
         topic.innerHTML = `${this.topic}`;
-        suggest.innerHTML = `${this.suggest}`;
         mis.innerHTML = `${this.mis}`;
         bigdata.innerHTML = `${this.bigdata}`;
         time_learn.innerHTML = `${this.time_learn}`;

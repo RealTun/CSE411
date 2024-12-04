@@ -770,15 +770,15 @@ button:hover {
 }
 
 .toast {
-    width:20rem;
-    height:20rem;
+    width: 20rem;
+    height: 20rem;
     z-index: 102;
     position: absolute;
-    left:25%;
-    display:none;
+    left: 25%;
+    display: none;
     transform: translateY(-200%);
     background-color: transparent;
-    border:none;
+    border: none;
     box-shadow: none;
 }
 
@@ -807,8 +807,8 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    left:20vw;
-    margin-bottom:2.4vw;
+    left: 20vw;
+    margin-bottom: 2.4vw;
     text-shadow: 1px 1px 1px;
 }
 
@@ -821,32 +821,57 @@ button:hover {
     border-style: solid;
     border-color: #f1f1f1 transparent transparent transparent;
     transform: rotateX(180deg);
-    z-index:-1;
+    z-index: -1;
 }
-.turn{
-    display:flex;
+
+.turn {
+    display: flex;
     flex-direction: column;
-    margin-bottom:10vw;
+    margin-bottom: 10vw;
 }
-.group-history{
-    width:40%;
-    margin-left:20px;
+
+.group-history {
+    width: 40%;
+    margin-left: 20px;
 }
-.history-container-group{
+
+.history-container-group {
     display: flex;
     flex-wrap: wrap;
-    width:100%;
-    gap:5vw;
+    width: 100%;
+    gap: 5vw;
     justify-content: center;
     align-items: center;
 }
-.turn-title{
+
+.turn-title {
     font-size: 18px;
     font-weight: bold;
 }
-.line{
-    width:100%;
-    border:1px dashed black
+
+.line {
+    width: 100%;
+    border: 1px dashed black
+}
+
+.delete-group {
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    right: 10px;
+    width: 5vw;
+}
+
+.delete-group button {
+    background-color: red;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.delete-group button:hover {
+    background-color: rgb(248, 127, 127);
+    font-weight: bold;
+    box-shadow: 1px 1px 2px 1px black !important;
 }
 
 /* .book .spot{

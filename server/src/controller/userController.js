@@ -29,6 +29,7 @@ const userController = {
             // throw new Error('Test error');
             const response = await axios.post(url, data, {
                 headers: { 'Content-Type': 'application/json' },
+                timeout: 10000,
                 httpsAgent: agent,
             });
             const tokenData = response.data;

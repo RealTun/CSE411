@@ -1,3 +1,5 @@
+/* Cải tiến bố cục và màu sắc */
+
 * {
     box-sizing: border-box;
 }
@@ -7,81 +9,161 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient tím xanh */
+    height: 100vh; /* Chiếm toàn bộ màn hình */
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
     display: flex;
-    width: 100vw;
-    height: 100vh;
+    width: 95vw;
+    height: 90vh;
+    background-color: rgba(255, 255, 255, 0.9); /* Nền trắng mờ để tạo tương phản */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Hiệu ứng 3D */
+    overflow: hidden;
 }
 
 .chart-container {
-    flex: 1;
-    padding: 10px;
+    flex: 2;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
+    background: rgba(255, 255, 255, 0.95);
+ 
 }
 
 .chat-container {
-    width: 400px;
-    height: 100vh;
-    background-color: #f9f9f9;
-    border-left: 1px solid #ccc;
-    position: relative;
-    padding:20px;
+    flex: 1; /* Giảm độ rộng của phần chat một chút */
+    height: 100%;
+    width: 250px;
+    background-color: #ffffff; /* Nền trắng cho phần chat */
+    border-left: 2px solid #ddd; /* Đường viền nhẹ giữa biểu đồ và chat */
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho phần chat */
 }
 
 .chat-history {
-    height: calc(100% - 50px);
+    flex: 1; /* Chiếm phần lớn không gian của phần chat */
     overflow-y: auto;
+    margin-bottom: 20px;
 }
 
 .chat-message {
     margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 5px;
+    padding: 10px;
+    max-width: 60%;
 }
 
 .chat-message.user {
     background-color: #d1e7fd;
+    margin-left: auto; /* Căn phải cho tin nhắn người dùng */
     text-align: right;
+    border-radius: 10px;
+    font-size: 13px;
 }
 
 .chat-message.bot {
     background-color: #f1f1f1;
+    margin-right: auto; /* Căn trái cho tin nhắn bot */
+    text-align: left;
+    border-radius: 10px;
+    font-size: 13px;
 }
 
 .input-container {
     display: flex;
-    position: absolute;
+    position: relative;
     bottom: 10px;
-    width: 95%;
-    left:10px;
 }
 
 #user-input {
-    width: 80%;
-    padding: 10px;
+    width: 90%;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 20px;
+    font-size: 13px;
 }
 
 .send-button {
-    width: 15%;
-    padding: 10px;
-    margin-left: 10px;
+    width: 40px; /* Điều chỉnh kích thước nút */
+    height: 40px;
+    padding: 0; /* Loại bỏ padding thừa */
     border: none;
     background-color: #007bff;
     color: white;
     cursor: pointer;
-    border-radius: 5px;
+    margin-left: 5px;
+    border-radius: 50%; /* Làm tròn nút */
+    font-size: 20px; /* Kích thước icon */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .send-button:hover {
     background-color: #0056b3;
+    transform: scale(1.1); /* Thêm hiệu ứng phóng to khi hover */
+    transition: 0.2s;
 }
+
+/* Điều chỉnh màu sắc và kích thước của các nút Topic */
+.topic-button {
+    width: 180px; /* Tăng chiều rộng của nút */
+    height: 80px; /* Tăng chiều cao của nút */
+    padding: 10px 15px;
+    margin: 8px 0;
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 13px; /* Điều chỉnh kích thước chữ */
+    text-align: center;
+    line-height: 1.5; /* Đảm bảo chữ không bị chật trong nút */
+    
+    border: none;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Căn giữa chữ */
+}
+
+
+.topic-button:nth-child(2) { background-color: #33C1FF; }
+.topic-button:nth-child(3) { background-color: #FFC300; }
+.topic-button:nth-child(4) { background-color:#FF5733; }
+.topic-button:nth-child(1) { background-color:#50ff70; }
+
+.topic-button:hover {
+    opacity: 0.8; /* Hiệu ứng giảm độ mờ khi hover */
+    transform: scale(1.05); /* Phóng to nhẹ khi hover */
+}
+.topic-button i {
+    margin-right: 10px; /* Khoảng cách giữa icon và text */
+    font-size: 18px; /* Thay đổi kích thước icon */
+}
+
+/* Cải thiện bố cục cho các nút */
+.topic-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+/* Đảm bảo phần lịch sử trò chuyện không bị chồng lấn */
+.chat-container {
+    margin-top: 10px;
+}
+
+
 .back{
     background-image:url("../../../img/back.png");
     background-size: cover;

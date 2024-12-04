@@ -46,5 +46,8 @@ router.get("/getMyInfor", groupController.getMyInfor);
 
 router.get("/getMyTopic", groupController.getMyTopic);
 
+router.get("/getAll", groupController.getAll);
+
+
 
 module.exports = router;
