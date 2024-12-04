@@ -20,10 +20,12 @@ btnTopic.addEventListener("click", async (event) => {
         })
         data["username"] = username;
         console.log(data);
-        const response = await fetch("http://localhost:3001/api/group/selectTopic", {
+        const response = await fetch("https://secure-koi-wholly.ngrok-free.app/api/group/selectTopic", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true',
+
             },
             body: JSON.stringify(data),
         });

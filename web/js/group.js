@@ -19,7 +19,13 @@ let roleUser;
 
 const user = await fetch('../json/users.json');
 const userData = await user.json();
-const userDB = await fetch(`http://localhost:3001/api/group/getMyInfor/?username=${userData[0].username}`);
+const userDB = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getMyInfor/?username=${userData[0].username}`, {
+    method: 'GET',
+    headers: {
+        'ngrok-skip-browser-warning': 'true',
+        'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
+    }
+});
 const userDBData = await userDB.json();
 
 
@@ -93,14 +99,28 @@ async function loadGroupUsers(groupId) {
     try {
         groupDiv.innerHTML = "";
         if (groupId != "history") {
-            if(groupId !="all"){
-                const userData = await fetch(`http://localhost:3001/api/group/getUserSameGroup?group=${groupId}`);
-                const users =await userData.json();
+            if (groupId != "all") {
+                const userData = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getUserSameGroup?group=${groupId}`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'ngrok-skip-browser-warning': 'true',
+                            'User-Agent': 'CustomUserAgent'
+                        }
+                    }
+                );
+                const users = await userData.json();
                 showMember(users)
             }
-            else{
-                const userData = await fetch(`http://localhost:3001/api/group/getAll`);
-                const users =await userData.json();
+            else {
+                const userData = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getAll`, {
+                    method: 'GET',
+                    headers: {
+                        'ngrok-skip-browser-warning': 'true',
+                        'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
+                    }
+                });
+                const users = await userData.json();
                 showMember(users)
             }
         }
@@ -167,7 +187,13 @@ async function loadGroupUsersDB(groupId, username) {
     try {
         groupDiv.innerHTML = "";
         if (groupId == "infor") {
-            const topic = await fetch(`http://localhost:3001/api/group/getMyTopic/?username=${username}`);
+            const topic = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getMyTopic/?username=${username}`, {
+                method: 'GET',
+                headers: {
+                    'ngrok-skip-browser-warning': 'true',
+                    'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
+                }
+            });
             const topicData = await topic.json();
             console.log(userDBData)
             let userDiv = new UserMyInfor(userDBData["fullname"], userDBData["Group"], topicData[0].Topic,
@@ -179,7 +205,13 @@ async function loadGroupUsersDB(groupId, username) {
             userDiv.render();
         }
         else {
-            const users = await fetch(`http://localhost:3001/api/group/getUserSameGroup/?group=${groupId}`);
+            const users = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getUserSameGroup/?group=${groupId}`, {
+                method: 'GET',
+                headers: {
+                    'ngrok-skip-browser-warning': 'true',
+                    'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
+                }
+            });
             const data = await users.json();
             showMemberDB(data);
         }
@@ -297,7 +329,13 @@ delete_btn.addEventListener("click", (event) => {
         loading_location.style.opacity = "1";
         loading_location.style.display = "flex";
         dismissDialog();
-        await fetch("http://localhost:3001/api/group/deleteStudents")
+        await fetch("https://secure-koi-wholly.ngrok-free.app/api/group/deleteStudents", {
+            method: 'GET',
+            headers: {
+                'ngrok-skip-browser-warning': 'true',
+                'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
+            }
+        })
             .then(con => {
                 setTimeout(() => {
                     window.location.href = "index.html";
