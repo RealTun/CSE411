@@ -6,5 +6,5 @@ package-lock.json
 /tlu_api/package-lock.json
 /tlu_api/.env
 
-/web/history.json
-/web/users.json
+/web/json/history.json
+/web/json/users.json
