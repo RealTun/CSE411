@@ -809,7 +809,7 @@ button:hover {
     align-items: center;
     left:20vw;
     margin-bottom:2.4vw;
-    text-shadow: 1px 1px 1px 1px;
+    text-shadow: 1px 1px 1px;
 }
 
 .chatbox::after {
@@ -821,6 +821,7 @@ button:hover {
     border-style: solid;
     border-color: #f1f1f1 transparent transparent transparent;
     transform: rotateX(180deg);
+    z-index:-1;
 }
 .turn{
     display:flex;

@@ -50,6 +50,7 @@ async function login() {
                 userData.infor = userDatas
             }
             eel.login(userData);
+            sessionStorage.setItem("username",username);
             setTimeout(() => {
                 window.location.href = "index.html";
             }, 2000);
@@ -116,7 +117,6 @@ async function logout() {
         });
 
         if (response.status === 200) {
-            sessionStorage.setItem("username",username);
             eel.logout();
             setTimeout(() => {
                 window.location.href = "login.html";

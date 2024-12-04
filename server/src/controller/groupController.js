@@ -23,7 +23,7 @@ const groupController = {
             const [topics] = await pool.query("SELECT * FROM topic_selects WHERE username = ?",[username]);
             if(topics.length>0){
                 res.status(200).json({
-                    message:"Bạn đã chọn topic 1 lần rồi , không được chọn tiếp!"
+                    message:"Bạn đã chọn topic 1 lần rồi. Không được chọn tiếp!"
                 });
                 return;
             }
