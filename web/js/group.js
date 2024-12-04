@@ -26,7 +26,6 @@ const checkRole = async () => {
     const id4 = document.getElementById("4");
     const idAll = document.querySelector("#all");
     const idHistory = document.querySelector("#history");
-    console.log(idHistory)
     roleUser = userData[0].role;
     if (userData != null) {
         if (roleUser == "normal") {
@@ -95,11 +94,54 @@ async function loadGroupUsers(groupId) {
         }
         else {
             const history = await fetch("../json/history.json");
-            const historyData =await history.json();
-            historyData.forEach(turn => {
+            const historyData = await history.json();
+            const historyContainer = document.createElement("div");
+            historyContainer.className = "d-flex flex-column";
+            const index = Object.keys(historyData[0]);
+            index.forEach((turn, index) => {
                 const historyDiv = document.createElement("div");
-                historyDiv.innerHTML="group123"
-                console.log(turn);
+                historyContainer.appendChild(historyDiv)
+                historyDiv.id = `turn${index + 1}`;
+                historyDiv.className = "turn";
+
+                const historyDiv_title = document.createElement("div");
+                historyDiv_title.id = `title${index + 1}`;
+                historyDiv_title.className = "turn-title";
+                historyDiv_title.innerHTML = `Lần ${index + 1}`;
+
+                historyDiv.appendChild(historyDiv_title)
+
+                const historyDiv_container_group = document.createElement("div");
+                historyDiv_container_group.className = "history-container-group";
+                historyDiv.appendChild(historyDiv_container_group);
+
+                for (let i = 1; i <= 4; i++) {
+                    const historyDiv_group = document.createElement("div");
+                    historyDiv_group.className = "group-history";
+
+                    const p = document.createElement("p");
+                    p.innerHTML = `Nhóm ${i}`;
+                    historyDiv_group.appendChild(p);
+
+                    const ul = document.createElement("ul");
+                    ul.className = "user-history";
+                    ul.id = `gr${i}`;
+
+                    historyDiv_group.appendChild(ul);
+                    historyDiv_container_group.appendChild(historyDiv_group)
+
+                    historyData[0][turn].forEach(user => {
+                        if (user["Nhóm"] == i) {
+                            const li = document.createElement("li");
+                            li.innerHTML = user["Họ tên"]
+                            ul.appendChild(li);
+                        }
+                    });
+                    const line = document.createElement("div");
+                    line.className = "line";
+                    historyDiv_group.appendChild(line);
+                }
+                groupDiv.appendChild(historyContainer);
             });
         };
     }
@@ -118,7 +160,7 @@ async function loadGroupUsersDB(groupId, username) {
             const data = await users.json();
             const topic = await fetch(`http://localhost:3001/api/group/getMyTopic/?username=${username}`);
             const topicData = await topic.json();
-            let userDiv = new UserMyInfor(data["fullname"], data["Group"], topicData, data["Topic"],
+            let userDiv = new UserMyInfor(data["fullname"], data["Group"], topicData[0].Topic,
                 data["Average_MIS_Score"], data["Average_BigData_Score"], data["Average_Self_Study_Time"],
                 data["Number_of_Late_Attendances_in_Phase_1"], data["Soft_Skills"],
                 data["Technology_Usage_Skills"], data["Strengths"]);

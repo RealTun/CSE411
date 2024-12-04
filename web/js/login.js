@@ -28,6 +28,8 @@ async function login() {
         const userDatas = await userDataset.json();
         if (response.status === 200) {
             toast.style.display = "flex";
+            toast.style.opacity = "1";
+            toast.style.animation = 'none';
             setTimeout(() => {
                 toast.style.animation = "flyDown 1s ease-in-out forwards";
                 toast.style.transition = "opacity 2s ease-in-out";
@@ -38,7 +40,7 @@ async function login() {
                 setTimeout(() => {
                     toast.style.opacity = "0";
                     setTimeout(() => {
-                        toast.style.display = "flex";
+                        toast.style.display = "none";
                     }, 1000);
                 }, 3000);
             }, 500);
@@ -53,6 +55,8 @@ async function login() {
             }, 2000);
         } else {
             toast.style.display = "flex";
+            toast.style.opacity = "1";
+            toast.style.animation = 'none';
             setTimeout(() => {
                 toast.style.animation = "flyDown 1s ease-in-out forwards";
                 toast.style.transition = "opacity 1s ease-in-out";
@@ -63,7 +67,7 @@ async function login() {
                 setTimeout(() => {
                     toast.style.opacity = "0";
                     setTimeout(() => {
-                        toast.style.display = "flex";
+                        toast.style.display = "none";
                     }, 1000);
                 }, 3000);
             }, 500);
@@ -74,6 +78,8 @@ async function login() {
         }
     } catch (error) {
         toast.style.display = "flex";
+        toast.style.opacity = "1";
+        toast.style.animation = 'none';
         setTimeout(() => {
             toast.style.animation = "flyDown 1s ease-in-out forwards";
             toast.style.transition = "opacity 1s ease-in-out";
@@ -84,7 +90,7 @@ async function login() {
             setTimeout(() => {
                 toast.style.opacity = "0";
                 setTimeout(() => {
-                    toast.style.display = "flex";
+                    toast.style.display = "none";
                 }, 1000);
             }, 3000);
         }, 500);
@@ -110,6 +116,7 @@ async function logout() {
         });
 
         if (response.status === 200) {
+            sessionStorage.setItem("username",username);
             eel.logout();
             setTimeout(() => {
                 window.location.href = "login.html";

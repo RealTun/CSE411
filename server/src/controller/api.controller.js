@@ -89,7 +89,7 @@ const getListMarkDetail = async (req, res, next) => {
 
         const response = await axios.get(apiUrl, {
             headers: {
-                'Authorization': token
+                'Authorization':"Bearer "+ token
             },
             httpsAgent: agent,
         });
@@ -100,7 +100,7 @@ const getListMarkDetail = async (req, res, next) => {
         );
 
         const result = filteredData.map(item => {
-            const name = item.id === 354 ? 'Phân tích dữ liệu lớn' : 'Quản trị hệ thống thông tin'
+            const name = item.subject.id === 354 ? 'Bigdata' : 'MIS'
         
             return {
                 subject: name,

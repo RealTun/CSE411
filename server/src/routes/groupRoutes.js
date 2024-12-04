@@ -28,15 +28,23 @@ router.get('/grouping', groupController.grouping);
 //     "Strengths": "Kỹ thuật",
 //     "Muc_do": 1
 // }
-router.post('/saveStudent',groupController.saveStudent)
-// dùng để lưu tất cả thành viên trong file .csv lên database
-router.get('/saveFullStudents',groupController.saveFullStudents)
+router.post('/saveStudent', groupController.saveStudent);
 
-router.get("/getUserSameGroup",groupController.getUserSameGroup);
+router.put('/updateStudent', groupController.updateStudent);
 
-router.get("/getMyInfor",groupController.getMyInfor);
+router.get('/getStudent', groupController.getStudent);
 
-router.get("/getMyTopic",groupController.getMyTopic);
+router.get('/getStudent/cluster_1', groupController.getStudent_cluster_1);
+
+router.get('/saveFullStudents', groupController.saveFullStudents);
+
+router.get("/deleteStudents", groupController.deleteData);
+
+router.get("/getUserSameGroup", groupController.getUserSameGroup);
+
+router.get("/getMyInfor", groupController.getMyInfor);
+
+router.get("/getMyTopic", groupController.getMyTopic);
 
 
 module.exports = router;

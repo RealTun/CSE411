@@ -20,6 +20,13 @@ const groupController = {
         const { username, topic } = req.body;
         try {
             const topic_selects = new Topic(username, topic);
+            const [topics] = await pool.query("SELECT * FROM topic_selects WHERE username = ?",[username]);
+            if(topics.length>0){
+                res.status(200).json({
+                    message:"Bạn đã chọn topic 1 lần rồi , không được chọn tiếp!"
+                });
+                return;
+            }
             const [rows] = await pool.query('SELECT * FROM topic_selects WHERE topic = ?', [topic]);
             let query;
             if (rows.length < 5) {
@@ -48,7 +55,7 @@ const groupController = {
                 const [rows] = await pool.query(
                     'SELECT s.username,s.fullname,s.Average_MIS_Score,s.Average_BigData_Score,s.GPA,s.Average_Self_Study_Time,s.Number_of_Late_Attendances_in_Phase_1,s.Soft_Skills,s.Technology_Usage_Skills,s.Strengths,s.Muc_do,COALESCE(ts.Topic, 0) AS Topic FROM students s LEFT JOIN topic_selects ts ON s.username = ts.username;',
                 );
-                if (rows.length < 12){
+                if (rows.length < 12) {
                     res.status(500).json({ message: 'Không đủ thành thành viên để phân nhóm!' });
                     return;
                 }
@@ -69,7 +76,7 @@ const groupController = {
                         { id: 'Topic', title: 'topic' },
                     ],
                 });
-            
+
                 // Ghi dữ liệu vào file CSV
                 await csvWriter.writeRecords(rows);
             } catch (err) {
@@ -207,46 +214,46 @@ const groupController = {
     //     "Muc_do": 1
     // }
     saveStudent: async (req, res) => {
-        const { 
-            username, 
-            fullname, 
-            Average_MIS_Score, 
-            Average_BigData_Score, 
-            GPA, 
-            Average_Self_Study_Time, 
-            Number_of_Late_Attendances_in_Phase_1, 
-            Soft_Skills, 
-            Technology_Usage_Skills, 
-            Strengths, 
+        const {
+            username,
+            fullname,
+            Average_MIS_Score,
+            Average_BigData_Score,
+            GPA,
+            Average_Self_Study_Time,
+            Number_of_Late_Attendances_in_Phase_1,
+            Soft_Skills,
+            Technology_Usage_Skills,
+            Strengths,
             Muc_do
         } = req.body;
         try {
-            const student = new Student(username, 
-                fullname, 
-                Average_MIS_Score, 
-                Average_BigData_Score, 
-                GPA, 
-                Average_Self_Study_Time, 
-                Number_of_Late_Attendances_in_Phase_1, 
-                Soft_Skills, 
-                Technology_Usage_Skills, 
-                Strengths, 
+            const student = new Student(username,
+                fullname,
+                Average_MIS_Score,
+                Average_BigData_Score,
+                GPA,
+                Average_Self_Study_Time,
+                Number_of_Late_Attendances_in_Phase_1,
+                Soft_Skills,
+                Technology_Usage_Skills,
+                Strengths,
                 Muc_do);
             const [rows] = await pool.query('SELECT * FROM students WHERE username = ?', [username]);
             let query;
             if (rows.length <= 0) {
                 query = 'INSERT INTO students (username, fullname, Average_MIS_Score, Average_BigData_Score, GPA, Average_Self_Study_Time, Number_of_Late_Attendances_in_Phase_1, Soft_Skills, Technology_Usage_Skills, Strengths, Muc_do) VALUES (?, ?,?,?,?,?,?,?,?,?,?)';
-                await pool.query(query, [student.username, 
-                    student.fullname, 
-                    student.Average_MIS_Score, 
-                    student.Average_BigData_Score, 
-                    student.GPA, 
-                    student.Average_Self_Study_Time, 
-                    student.Number_of_Late_Attendances_in_Phase_1, 
-                    student.Soft_Skills, 
-                    student.Technology_Usage_Skills, 
-                    student.Strengths, 
-                    student.Muc_do]);
+                await pool.query(query, [student.username,
+                student.fullname,
+                student.Average_MIS_Score,
+                student.Average_BigData_Score,
+                student.GPA,
+                student.Average_Self_Study_Time,
+                student.Number_of_Late_Attendances_in_Phase_1,
+                student.Soft_Skills,
+                student.Technology_Usage_Skills,
+                student.Strengths,
+                student.Muc_do]);
             }
 
             res.status(200).json({
@@ -295,17 +302,17 @@ const groupController = {
                         row['Mức độ']
                     );
                     query = 'INSERT INTO students (username, fullname, Average_MIS_Score, Average_BigData_Score, GPA, Average_Self_Study_Time, Number_of_Late_Attendances_in_Phase_1, Soft_Skills, Technology_Usage_Skills, Strengths, Muc_do) VALUES (?, ?,?,?,?,?,?,?,?,?,?)';
-                    await pool.query(query, [student.username, 
-                        student.fullname, 
-                        student.Average_MIS_Score, 
-                        student.Average_BigData_Score, 
-                        student.GPA, 
-                        student.Average_Self_Study_Time, 
-                        student.Number_of_Late_Attendances_in_Phase_1, 
-                        student.Soft_Skills, 
-                        student.Technology_Usage_Skills, 
-                        student.Strengths, 
-                        student.Muc_do]);
+                    await pool.query(query, [student.username,
+                    student.fullname,
+                    student.Average_MIS_Score,
+                    student.Average_BigData_Score,
+                    student.GPA,
+                    student.Average_Self_Study_Time,
+                    student.Number_of_Late_Attendances_in_Phase_1,
+                    student.Soft_Skills,
+                    student.Technology_Usage_Skills,
+                    student.Strengths,
+                    student.Muc_do]);
                 } catch (err) {
                     console.error('Lỗi khi xử lý hàng:', err);
                 }
@@ -332,6 +339,73 @@ const groupController = {
         } catch (error) {
             console.log(error);
             res.status(500).json({ message: "Lỗi cơ sở dữ liệu!" });
+        }
+    },
+    updateStudent: async (req, res) => {
+        const {
+            username,
+            fullname,
+            Average_MIS_Score,
+            Average_BigData_Score,
+            GPA,
+            Average_Self_Study_Time,
+            Number_of_Late_Attendances_in_Phase_1,
+            Soft_Skills,
+            Technology_Usage_Skills,
+            Strengths,
+        } = req.body;
+        try {
+            let query;
+            query = 'UPDATE students SET fullname = ?, Average_MIS_Score = ?, Average_BigData_Score = ?, GPA = ?, Average_Self_Study_Time = ?, Number_of_Late_Attendances_in_Phase_1 = ?, Soft_Skills = ?, Technology_Usage_Skills = ?, Strengths = ? WHERE username = ?';
+            await pool.query(query, [
+                fullname,
+                Average_MIS_Score,
+                Average_BigData_Score,
+                GPA,
+                Average_Self_Study_Time,
+                Number_of_Late_Attendances_in_Phase_1,
+                Soft_Skills,
+                Technology_Usage_Skills,
+                Strengths, username]);
+
+            res.status(200).json({
+                message: 'Lưu thành viên thành công!'
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Lỗi cơ sở dữ liệu!" });
+        }
+    },
+    getStudent: async (req, res) => {
+        try {
+            const query = `SELECT * from students WHERE \`username\` = ?`;
+            const { username } = req.query;
+            const userData = await pool.query(query, [username]);
+            const data = userData[0][0];
+            if (data == null) {
+                res.status(500).json(null);
+                return;
+            }
+            res.status(200).json(data);
+        }
+        catch (error) {
+            res.status(500).json({ message: "Có lỗi xảy ra khi lấy dữ liệu ! ", error });
+        }
+    },
+    getStudent_cluster_1: async (req, res) => {
+        try {
+            const query = `SELECT * from students_cluster_1 WHERE \`username\` = ?`;
+            const { username } = req.query;
+            const userData = await pool.query(query, [username]);
+            const data = userData[0][0];
+            if (data == null) {
+                res.status(500).json(null);
+                return;
+            }
+            res.status(200).json(data);
+        }
+        catch (error) {
+            res.status(500).json({ message: "Có lỗi xảy ra khi lấy dữ liệu ! ", error });
         }
     },
     getUserSameGroup: async (req, res) => {
