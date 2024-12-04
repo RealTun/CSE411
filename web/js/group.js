@@ -125,7 +125,13 @@ async function loadGroupUsers(groupId) {
             }
         }
         else {
-            const history = await fetch("../json/history.json");
+            const history = await fetch("https://secure-koi-wholly.ngrok-free.app/public/history.json", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "true"
+                },
+            });
             const historyData = await history.json();
             const historyContainer = document.createElement("div");
             historyContainer.className = "d-flex flex-column";

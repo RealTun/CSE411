@@ -389,7 +389,7 @@ def backend3():
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     # Đường dẫn đến file JSON
-    json_file = '../web/json/history.json'
+    json_file = '../server/public/history.json'
 
     # Đọc dữ liệu từ file JSON
     with open(json_file, 'r', encoding='utf-8') as f:
