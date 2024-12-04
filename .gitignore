@@ -5,7 +5,3 @@ package-lock.json
 /tlu_api/node_modules/
 /tlu_api/package-lock.json
 /tlu_api/.env
-
-/web/json/history.json
-/web/json/users.json
-/data/thongtincanhan_with_groups.json
