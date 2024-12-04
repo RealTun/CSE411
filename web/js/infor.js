@@ -41,10 +41,17 @@ setTimeout(async () => {
     const userData = await fetch("../json/users.json");
     let user = await userData.json();
     try {
+        let token;
+        if (user[0].data.access_token == null) {
+            token = null
+        }
+        else {
+            token = user[0].data.access_token
+        }
         const point = await fetch("https://secure-koi-wholly.ngrok-free.app/api/point/getListMarkDetail", {
             method: "GET",
             headers: {
-                'authorization': user[0].data.access_token,
+                'authorization': token,
                 'ngrok-skip-browser-warning': 'true',
                 'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
             },
@@ -122,9 +129,17 @@ async function addMyInfor(event) {
             }, 500);
         }
         else {
+            let token;
+            if (user[0].data.access_token == null) {
+                token = null
+            }
+            else {
+                token = user[0].data.access_token
+            }
             const check = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getStudent/cluster_1?username=${username}`, {
                 method: "GET",
                 headers: {
+                    'authorization': token,
                     'ngrok-skip-browser-warning': 'true',
                     'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
                 },
