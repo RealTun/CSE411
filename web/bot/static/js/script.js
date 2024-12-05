@@ -1,4 +1,4 @@
-$(document).ready( async function () {
+$(document).ready(async function () {
     await eel.get_chart_data()(function (data) {
         // console.log(data);
         const ctx = document.getElementById('kmeans-chart').getContext('2d');
@@ -95,25 +95,25 @@ function sendMessage() {
 async function sendToClusterAPI(userInput) {
     try {
         var inputData = userInput.split(',');
-        const result = {"question":inputData}
+        const result = { "question": inputData }
         const response = await eel.predict(result)();
         console.log('Response from cluster API:', response);
 
-        document.getElementById('chat-history').innerHTML += 
+        document.getElementById('chat-history').innerHTML +=
             '<div class="chat-message bot"><strong>Bot:</strong> ' + response.answer + '</div>';
     } catch (error) {
         console.error('Error:', error);
 
-        document.getElementById('chat-history').innerHTML += 
+        document.getElementById('chat-history').innerHTML +=
             '<div class="chat-message bot"><strong>Bot:</strong> Đã xảy ra lỗi trong quá trình xử lý.</div>';
     }
 }
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const topicButtons = document.querySelectorAll('.topic-button');
     const inputField = document.getElementById('user-input');
-    
+
     topicButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const topicText = this.textContent; // Lấy nội dung của nút
             inputField.value = topicText; // Đặt nội dung vào ô nhập liệu
             sendMessage(); // Gửi tin nhắn tự động
