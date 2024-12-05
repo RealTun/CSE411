@@ -6,3 +6,4 @@ package-lock.json
 /tlu_api/package-lock.json
 /tlu_api/.env
 /dist
+/build

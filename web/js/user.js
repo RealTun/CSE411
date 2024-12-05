@@ -29,14 +29,27 @@ setInterval(() => {
 }, 8000)
 
 const userName = sessionStorage.getItem("MSV");
-async function run(username){
-    const userAr = await eel.get_user_by_msv(username)();
-    const user = userAr[0];
-    console.log(user)
-    const userInfo =new UserInforComponent(user["Họ tên"], user["Nhóm"],user["topic"],user["Gợi ý"],
-        user["Điểm TB MIS"], user["Điểm TB BigData"], user["Thời gian tự học TB trong ngày"],
-        user["Số lần đi học muộn trong giai đoạn 1"], user["Kỹ năng mềm"],
-        user["Khả năng sử dụng công nghệ"], user["Sở trường"]).render();
+async function run(username) {
+    const topic = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getMyTopic/?username=${username}`, {
+        method: 'GET',
+        headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
+        }
+    });
+    const topicData = await topic.json();
+    const userDB = await fetch(`https://secure-koi-wholly.ngrok-free.app/api/group/getMyInfor/?username=${username}`, {
+        method: 'GET',
+        headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'User-Agent': 'CustomUserAgent'  // Tùy chọn: có thể thêm User-Agent tùy chỉnh
+        }
+    });
+    const userDBData = await userDB.json();
+    const userInfo = new UserInforComponent(userDBData["fullname"], userDBData["Group"], topicData[0].Topic,
+        userDBData["Average_MIS_Score"], userDBData["Average_BigData_Score"], userDBData["Average_Self_Study_Time"],
+        userDBData["Number_of_Late_Attendances_in_Phase_1"], userDBData["Soft_Skills"],
+        userDBData["Technology_Usage_Skills"], userDBData["Strengths"]).render();
 }
 run(userName)
 

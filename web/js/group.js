@@ -201,7 +201,7 @@ async function loadGroupUsersDB(groupId, username) {
                 }
             });
             const topicData = await topic.json();
-            console.log(userDBData)
+            // console.log(userDBData)
             let userDiv = new UserMyInfor(userDBData["fullname"], userDBData["Group"], topicData[0].Topic,
                 userDBData["Average_MIS_Score"], userDBData["Average_BigData_Score"], userDBData["Average_Self_Study_Time"],
                 userDBData["Number_of_Late_Attendances_in_Phase_1"], userDBData["Soft_Skills"],
@@ -261,13 +261,13 @@ navItems.forEach(item => {
 
                     setTimeout(function () {
                         window.location.href = "user.html";
-                    }, 1000);
+                    }, 2000);
 
                     loading_location.style.opacity = "1";
                     loading_location.style.display = "flex";
                 })
             })
-        }, 500)
+        }, 1000)
         groupName.innerHTML = `${item.innerHTML}`
     })
 })
