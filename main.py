@@ -79,6 +79,7 @@ def predict(input_data):
     if not input_data or 'question' not in input_data:
         return {"error": "Câu hỏi không hợp lệ"}
     user_question = input_data['question']
+    # print(user_question)
     features = np.array([0, 0, 0])
     cluster_info = "Không xác định"
     # Logic xử lý câu hỏi...
@@ -86,7 +87,7 @@ def predict(input_data):
         try:
             response = co.generate(
                 model='command-r-plus-08-2024',
-                prompt=user_question.strip(),
+                prompt=user_question[0].strip(),
                 max_tokens=1000,
                 temperature=0.7,
             )

@@ -49,7 +49,7 @@ export class UserComponent {
 }
 
 export class UserInforComponent {
-    constructor(name, group, topic, suggest, mis, bigdata, time_learn, no_school_day, soft_skill, technology_skill, best_skill) {
+    constructor(name, group, topic, mis, bigdata, time_learn, no_school_day, soft_skill, technology_skill, best_skill) {
         this.name = name;
         this.group = group;
         this.mis = mis;
@@ -60,7 +60,6 @@ export class UserInforComponent {
         this.technology_skill = technology_skill;
         this.best_skill = best_skill;
         this.topic = topic;
-        this.suggest = suggest;
     }
 
     render() {
