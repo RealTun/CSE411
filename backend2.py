@@ -306,23 +306,23 @@ def backend3():
     # Lấy dữ liệu từ cột cuối cùng
     data = df.iloc[:, 10].values
 
-    array = [1, 2, 3, 4]
-    random.shuffle(array)
+    # array = [1, 2, 3, 4]
+    # random.shuffle(array)
 
     labels = []
     students = True
     for label in data:
         if label == 1000:
-            labels.append(array[0])
+            labels.append(1)
             students = False
         elif label == 100:
-            labels.append(array[1])
+            labels.append(4)
             students = False
         elif label == 10:
-            labels.append(array[2])
+            labels.append(3)
             students = False
         elif label == 1:
-            labels.append(array[3])
+            labels.append(2)
             students = False
 
     if students == True:
