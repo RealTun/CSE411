@@ -5,3 +5,4 @@ package-lock.json
 /tlu_api/node_modules/
 /tlu_api/package-lock.json
 /tlu_api/.env
+/dist

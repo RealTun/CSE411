@@ -75,7 +75,7 @@ function check_user() {
         loading_location.style.opacity = "1";
         loading_location.style.display = "flex";
         setTimeout(function () {
-            window.location.href = "../BOTOPENAI1/html/index.html";
+            window.location.href = "../bot/html/index.html";
         }, 1500);
     }
 }
