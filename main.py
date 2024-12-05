@@ -78,16 +78,44 @@ clusters = {
 def predict(input_data):
     if not input_data or 'question' not in input_data:
         return {"error": "Câu hỏi không hợp lệ"}
+    
     user_question = input_data['question']
-    # print(user_question)
-    features = np.array([0, 0, 0])
+
+    # Kiểm tra nếu 'question' là một danh sách, lấy phần tử đầu tiên
+    if isinstance(user_question, list):
+        user_question = user_question[0]  # Lấy câu hỏi đầu tiên trong danh sách
+
+    # Kiểm tra nếu 'user_question' không phải là chuỗi
+    if not isinstance(user_question, str):
+        return {"error": "Câu hỏi phải là một chuỗi văn bản"}
+
+    # Chuyển đổi câu hỏi về chữ thường để so sánh không phân biệt chữ hoa/chữ thường
+    user_question_lower = user_question.lower()
+
+    # Phân tích câu hỏi người dùng và phân loại vào các cụm nếu có
+    features = np.array([0, 0, 0])  # Mặc định là không có sở thích
     cluster_info = "Không xác định"
+    
+    # Kiểm tra câu hỏi và phân loại nếu có từ khóa liên quan đến lĩnh vực
+    if "công nghệ" in user_question_lower or "kỹ năng mềm vững" in user_question_lower:
+        features = np.array([1, 0, 0])  # Cụm 0
+        cluster_info = clusters[0]
+    elif "nội dung" in user_question_lower or "nghiên cứu" in user_question_lower or "phân tích" in user_question_lower or "khả năng công nghệ trung bình" in user_question_lower:
+        features = np.array([0, 1, 0])  # Cụm 1
+        cluster_info = clusters[1]
+    elif "kỹ thuật" in user_question_lower or "khả năng công nghệ khá" in user_question_lower or "phát triển hệ thống" in user_question_lower:
+        features = np.array([0, 0, 1])  # Cụm 2
+        cluster_info = clusters[2]
+    elif "khả năng sử dụng công nghệ hạn chế" in user_question_lower or "khả năng công nghệ kém" in user_question_lower or "kỹ năng mềm chưa phát triển" in user_question_lower:
+        features = np.array([0, 0, 1])  # Cụm 3
+        cluster_info = clusters[2]
+    
     # Logic xử lý câu hỏi...
     if cluster_info == "Không xác định":
         try:
             response = co.generate(
                 model='command-r-plus-08-2024',
-                prompt=user_question[0].strip(),
+                prompt=user_question.strip(),
                 max_tokens=1000,
                 temperature=0.7,
             )
