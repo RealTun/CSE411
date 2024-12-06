@@ -370,7 +370,7 @@ def backend3():
     if students == True:
         data_shuffled = df.sample(frac=1).reset_index(drop=True)
 
-        data = data_shuffled.iloc[:, 2:6].values
+        data = data_shuffled.iloc[:, 2:7].values
 
         weights = np.array([2, 2,2,0.5,0.5])
 
