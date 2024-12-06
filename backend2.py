@@ -44,7 +44,7 @@ def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
             if (
                 (selected_group['Skill'] == label_gioi).sum() >= len(gioi) // 4 and 
                 (selected_group['Skill'] == label_khonggioi).sum() >= 1 and
-                ((selected_group['Skill'] == label_gioi).sum() + (selected_group['Skill'] == label_khonggioi).sum()) == 5
+                ((selected_group['Skill'] == label_gioi).sum() + (selected_group['Skill'] == label_khonggioi).sum()) >= df.shape[0]/4
             ):
                 # Kiểm tra khoảng cách trung bình trong nhóm
                 group_data = selected_group.iloc[:, 6:-1].values
@@ -209,47 +209,84 @@ def backend2():
 
     print(f"Kết quả đã được lưu tại '{output_file}'.")
 
-def backend(lan=1):
+def backend():
     tien_xu_ly()
     
     # Đọc dữ liệu từ CSV
     df = pd.read_csv('data/data_processed.csv', header=0)
 
     # Lấy dữ liệu từ cột cuối cùng
-    data = df.iloc[:, 9].values
-
-    array = [1, 2, 3, 4]
-    random.shuffle(array)
+    data = df.iloc[:, 10].values
 
     labels = []
-    label_suggest = []
+    students = True
     for label in data:
         if label == 1000:
-            labels.append(array[0])
-            label_suggest.append(1)
+            labels.append(1)
+            students = False
         elif label == 100:
-            labels.append(array[1])
-            label_suggest.append(2)
+            labels.append(4)
+            students = False
         elif label == 10:
-            labels.append(array[2])
-            label_suggest.append(3)
+            labels.append(3)
+            students = False
         elif label == 1:
-            labels.append(array[3])
-            label_suggest.append(4)
+            labels.append(2)
+            students = False
 
-    # Đọc dữ liệu khác từ file CSV và xóa cột không cần thiết
-    df2 = pd.read_csv('data/data_standard.csv', header=0)
-    df2 = df2.drop(columns=['Mức độ'])
-    df2['Nhóm'] = labels
+    if students == True:
+        data_shuffled = df.sample(frac=1).reset_index(drop=True)
 
-    # data_suggest = df.iloc[:, 6:9]  # Trích xuất giá trị từ các cột
+        data = data_shuffled.iloc[:, 2:7].values
 
-    # for _, row in data_suggest.iterrows():  # Duyệt qua từng hàng của DataFrame
-    #     # Chuyển mỗi hàng thành DataFrame 1 dòng với cùng tên cột
-    #     row_df = row.to_frame().T  # .T chuyển từ Series thành DataFrame
-    #     label_suggest.append(suggest_topic2(row_df))
+        weights = np.array([2, 2,2,0.5,0.5])
 
-    df2['Gợi ý'] = label_suggest  # Nhóm không thuộc nhóm nào sẽ có giá trị 0
+        scaler = StandardScaler()
+        data_normalized = scaler.fit_transform(data)
+        weighted_data = data_normalized * weights
+
+        Chenh_lech=0
+        while Chenh_lech < df.shape[0]/4:
+            kmeans = KMeans(n_clusters=2)
+            kmeans.fit(weighted_data)
+
+            labels = kmeans.labels_
+            df['Skill'] = labels
+
+            if(len(df[df['Skill'] == 1])>len(df[df['Skill'] == 0])):
+                Chenh_lech = len(df[df['Skill'] == 1]) - len(df[df['Skill'] == 0])
+            else:
+                Chenh_lech = len(df[df['Skill'] == 0]) - len(df[df['Skill'] == 1])
+
+        if(len(df[df['Skill'] == 1])>len(df[df['Skill'] == 0])):
+            label_gioi = 1
+            label_khonggioi = 0
+            gioi = df[df['Skill'] == label_gioi]
+            khong_gioi = df[df['Skill'] == label_khonggioi]
+        else:
+            label_gioi = 0
+            label_khonggioi = 1
+            gioi = df[df['Skill'] == label_gioi]
+            khong_gioi = df[df['Skill'] == label_khonggioi]
+
+        groups = create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
+
+        group_labels = []
+        group_number = 1
+
+        for group in groups:
+            group_indices = group.index
+            group_labels.extend([(idx, group_number) for idx in group_indices])
+            group_number += 1
+
+        group_dict = dict(group_labels)
+        df2 = pd.read_csv('data/data_standard.csv', header=0)
+        df2['Nhóm'] = df.index.map(group_dict) 
+    else:
+        # Đọc dữ liệu khác từ file CSV và xóa cột không cần thiết
+        df2 = pd.read_csv('data/data_standard.csv', header=0)
+        df2 = df2.drop(columns=['Mức độ'])
+        df2['Nhóm'] = labels
 
     data_shuffled = df2.sample(frac=1).reset_index(drop=True)
 
@@ -258,7 +295,7 @@ def backend(lan=1):
     data_shuffled.to_json(output_file, orient='records', force_ascii=False, indent=4)
 
     # Đường dẫn đến file JSON
-    json_file = 'data/history.json'
+    json_file = 'server/public/history.json'
 
     # Đọc dữ liệu từ file JSON
     with open(json_file, 'r', encoding='utf-8') as f:
@@ -267,20 +304,20 @@ def backend(lan=1):
     with open(output_file, "r", encoding="utf-8") as file:
         data_jsons = json.load(file)
 
-    def insert_to_group(input_value, value_to_insert):
-        str_key = str(input_value)  # Chuyển đầu vào thành chuỗi để làm key
-        if str_key in data_history[0]:  # Kiểm tra nếu key tồn tại trong JSON
-            if len(data_history[0][str_key]) < 19:
-                data_history[0][str_key].append(value_to_insert)  # Thêm giá trị vào mảng
-            else:
-                data_history[0][str_key] = []
-                data_history[0][str_key].append(value_to_insert)
+    def insert_to_group(value_to_insert):
+        last_key = max(map(int, data_history[0].keys()))  # Lấy key lớn nhất (chuyển về số nguyên để so sánh)
+        new_key = str(last_key)  # Tăng giá trị và chuyển lại thành chuỗi
+        if len(data_history[0][new_key]) >= 20:
+            new_key = str(last_key+1)
+            data_history[0][new_key] = []
+            
+        data_history[0][new_key].append(value_to_insert)
     if(len(data_history[0])>=6):
         data_history = [{"1":[]}]
         with open(json_file, 'w', encoding='utf-8') as f:
             json.dump(data_history, f, ensure_ascii=False, indent=4)
     for value in data_jsons:
-        insert_to_group(lan, value)
+        insert_to_group(value)
 
     # Ghi lại file JSON sau khi chỉnh sửa
     with open(json_file, 'w', encoding='utf-8') as f:
@@ -417,4 +454,4 @@ def backend3():
     with open(json_file, 'w', encoding='utf-8') as f:
         json.dump(data_history, f, ensure_ascii=False, indent=4)
 
-backend3()
+backend()

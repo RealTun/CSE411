@@ -1,21 +1,21 @@
 MSV,Họ tên,Điểm TB MIS,Điểm TB BigData,GPA,Thời gian tự học TB trong ngày,Số lần đi học muộn trong giai đoạn 1,Kỹ năng mềm,Khả năng sử dụng công nghệ,Sở trường,Mức độ,topic
-2151160496,Nguyễn Đăng Hoàng Giang,8.50,8.70,3.00,1.50,0,Tốt,Khá,Nội dung,10.00,3.00
-2151160501,Nguyễn Trung Hiếu,7.00,6.00,2.31,2.00,1,Khá,Tốt,Công nghệ,1.00,2.00
-2151160512,Nguyễn Năng Vũ Hùng,8.20,6.00,1.8,1.00,0,Khá,Trung bình,Nội dung,1.00,2.00
-2151160519,Nguyễn Phương Mai,8.50,9.60,3.20,3.00,0,Tốt,Tốt,Công nghệ,1000.00,1.00
-2151160535,Hạ Quang Dũng,8.25,9.45,3.43,2.00,0,Tốt,Tốt,Công nghệ,100.00,4.00
-2151163664,Nguyễn Đức Anh,8.20,10.00,2.8,3.00,0,Tốt,Tốt,Công nghệ,1000.00,1.00
-2151163668,Nguyễn Ngọc Bách,8.60,9.00,2.94,2.00,0,Khá,Tốt,Kỹ thuật,10.00,3.00
-2151163680,Bùi Quang Đạo,8.00,8.50,3.2,1.00,0,Trung bình,Trung bình,Kỹ thuật,10.00,3.00
-2151163689,Triệu Thị Hậu,9.00,10.00,2.8,4.00,0,Tốt,Khá,Công nghệ,1000.00,1.00
-2151163696,Phạm Ánh Hường,8.00,8.50,2.71,3.00,0,Tốt,Trung bình,Nội dung,100.00,4.00
-2151163702,Tào Hồng Lê,8.00,8.70,3.24,3.00,0,Trung bình,Trung bình,Nội dung,100.00,4.00
-2151163708,Phạm Nhật Minh,7.50,8.70,2.3,1.00,1,Khá,Trung bình,Kỹ thuật,10.00,3.00
-2151163709,Nguyễn Tuấn Ngọc,7.50,6.00,2.04,3.00,0,Tốt,Khá,Kỹ thuật,1000.00,1.00
-2151163713,Đào Hải Phúc,7.00,0.00,2.66,3.00,0,Khá,Khá,Công nghệ,1.00,2.00
-2151163718,Phạm Văn Quý,8.25,9.30,3.02,5.00,0,Khá,Khá,Nội dung,1.00,2.00
-2151163722,Đàm Khắc Thái,8.50,8.70,2.88,1.50,0,Khá,Khá,Kỹ thuật,10.00,3.00
-2151163724,Lê Quang Thanh,8.50,10.00,3.4,2.00,0,Khá,Tốt,Kỹ thuật,1000.00,1.00
-2151163731,Đỗ Thị Thương,8.00,9.05,2.8,3.00,0,Tốt,Khá,Nội dung,100.00,4.00
-2151163738,Đỗ Hữu Tuấn,8.70,9.20,3.28,4.00,0,Khá,Tốt,Công nghệ,100.00,4.00
-2251162190,Lê Văn Trung,7.00,7.00,2.33,1.00,0,Khá,Tốt,Công nghệ,1.00,2.00
+2151160496,Nguyễn Đăng Hoàng Giang,8.50,8.70,3.00,1.50,0,Tốt,Khá,Nội dung,0,3.00
+2151160501,Nguyễn Trung Hiếu,7.00,6.00,2.31,2.00,1,Khá,Tốt,Công nghệ,0,2.00
+2151160512,Nguyễn Năng Vũ Hùng,8.20,6.00,1.80,1.00,0,Khá,Trung bình,Nội dung,0,2.00
+2151160519,Nguyễn Phương Mai,8.50,9.60,3.20,3.00,0,Tốt,Tốt,Công nghệ,0,1.00
+2151160535,Hạ Quang Dũng,8.25,9.45,3.43,2.00,0,Tốt,Tốt,Công nghệ,0,4.00
+2151163664,Nguyễn Đức Anh,8.20,10.00,2.80,3.00,0,Tốt,Tốt,Công nghệ,0,1.00
+2151163668,Nguyễn Ngọc Bách,8.60,9.00,2.94,2.00,0,Khá,Tốt,Kỹ thuật,0,3.00
+2151163680,Bùi Quang Đạo,8.00,8.50,3.20,1.00,0,Trung bình,Trung bình,Kỹ thuật,0,3.00
+2151163689,Triệu Thị Hậu,9.00,10.00,2.80,4.00,0,Tốt,Khá,Công nghệ,0,1.00
+2151163696,Phạm Ánh Hường,8.00,8.50,2.71,3.00,0,Tốt,Trung bình,Nội dung,0,4.00
+2151163702,Tào Hồng Lê,8.00,8.70,3.24,3.00,0,Trung bình,Trung bình,Nội dung,0,4.00
+2151163708,Phạm Nhật Minh,7.50,8.70,2.30,1.00,1,Khá,Trung bình,Kỹ thuật,0,3.00
+2151163709,Nguyễn Tuấn Ngọc,7.50,6.00,2.04,3.00,0,Tốt,Khá,Kỹ thuật,0,1.00
+2151163713,Đào Hải Phúc,7.00,0.00,2.66,3.00,0,Khá,Khá,Công nghệ,0,2.00
+2151163718,Phạm Văn Quý,8.30,9.30,3.02,5.00,0,Khá,Khá,Nội dung,0,2.00
+2151163722,Đàm Khắc Thái,8.50,8.70,2.88,1.50,0,Khá,Khá,Kỹ thuật,0,3.00
+2151163724,Lê Quang Thanh,8.50,10.00,3.40,2.00,0,Khá,Tốt,Kỹ thuật,0,1.00
+2151163731,Đỗ Thị Thương,8.00,9.05,2.80,3.00,0,Tốt,Khá,Nội dung,0,4.00
+2151163738,Đỗ Hữu Tuấn,8.70,9.20,3.28,4.00,0,Khá,Tốt,Công nghệ,0,4.00
+2251162190,Lê Văn Trung,7.00,7.00,2.33,1.00,0,Khá,Tốt,Công nghệ,0,2.00
