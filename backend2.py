@@ -6,6 +6,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from tienxuly import tien_xu_ly
 import random
+import math
 
 from xgboost import XGBRegressor
 from sklearn.model_selection import GridSearchCV
@@ -16,6 +17,7 @@ import json
 # Hàm tạo nhóm dựa trên khoảng cách
 def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5):
     loop = 0
+    n = math.ceil(df.shape[0]/4)
     thres_hold = threshold
     while True:  # Vòng lặp tổng quát để chạy lại từ đầu nếu cần
         groups = []
@@ -23,10 +25,10 @@ def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
         remaining_gioi = gioi.copy()  # Khởi tạo lại danh sách "giỏi"
         remaining_khong_gioi = khong_gioi.copy()  # Khởi tạo lại danh sách "không giỏi"
 
-        all_data = df.iloc[:, 6:-1].values  # Dữ liệu để tính khoảng cách
+        all_data = df.iloc[:, 5:-1].values  # Dữ liệu để tính khoảng cách
         sufficient_groups = True  # Biến theo dõi xem quá trình có thành công không
 
-        while len(remaining_gioi) + len(remaining_khong_gioi) >= df.shape[0]/4:
+        while len(remaining_gioi) + len(remaining_khong_gioi) >= n:
             # Chọn ngẫu nhiên 1 "gioi" để bắt đầu nhóm
             start_member = remaining_gioi.sample(1, random_state=None)
             start_index = start_member.index[0]
@@ -36,18 +38,18 @@ def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
 
             # Lấy top 4 người gần nhất chưa được sử dụng
             sorted_indices = np.argsort(distances)
-            selected_indices = [idx for idx in sorted_indices if idx not in used_indices][:5]
+            selected_indices = [idx for idx in sorted_indices if idx not in used_indices][:int(n)]
 
             # Kiểm tra điều kiện (3 gioi + 2 khong gioi)
             selected_group = df.iloc[selected_indices]
 
             if (
-                (selected_group['Skill'] == label_gioi).sum() >= len(gioi) // 4 and 
-                (selected_group['Skill'] == label_khonggioi).sum() >= 1 and
-                ((selected_group['Skill'] == label_gioi).sum() + (selected_group['Skill'] == label_khonggioi).sum()) >= df.shape[0]/4
+                (selected_group['Skill'] == label_gioi).sum() >= 0 and 
+                (selected_group['Skill'] == label_khonggioi).sum() >= 0 and
+                ((selected_group['Skill'] == label_gioi).sum() + (selected_group['Skill'] == label_khonggioi).sum()) >= n
             ):
                 # Kiểm tra khoảng cách trung bình trong nhóm
-                group_data = selected_group.iloc[:, 6:-1].values
+                group_data = selected_group.iloc[:, 5:-1].values
                 avg_distance = np.mean(euclidean_distances(group_data))
 
                 if avg_distance < thres_hold:
@@ -237,9 +239,9 @@ def backend():
     if students == True:
         data_shuffled = df.sample(frac=1).reset_index(drop=True)
 
-        data = data_shuffled.iloc[:, 2:7].values
+        data = data_shuffled.iloc[:, 2:5].values
 
-        weights = np.array([2, 2,2,0.5,0.5])
+        weights = np.array([2, 2,2])
 
         scaler = StandardScaler()
         data_normalized = scaler.fit_transform(data)
@@ -281,7 +283,13 @@ def backend():
 
         group_dict = dict(group_labels)
         df2 = pd.read_csv('data/data_standard.csv', header=0)
-        df2['Nhóm'] = df.index.map(group_dict) 
+        df2['Nhóm'] = df.index.map(group_dict)
+
+        # Tìm giá trị lớn nhất trong group_dict
+        max_group = max(group_dict.values()) if group_dict else 0
+
+        # Thay thế các giá trị null bằng max_group + 1
+        df2['Nhóm'] = df2['Nhóm'].fillna(max_group + 1).astype(int)
     else:
         # Đọc dữ liệu khác từ file CSV và xóa cột không cần thiết
         df2 = pd.read_csv('data/data_standard.csv', header=0)
@@ -365,16 +373,16 @@ def backend3():
     if students == True:
         data_shuffled = df.sample(frac=1).reset_index(drop=True)
 
-        data = data_shuffled.iloc[:, 2:7].values
+        data = data_shuffled.iloc[:, 2:5].values
 
-        weights = np.array([2, 2,2,0.5,0.5])
+        weights = np.array([1, 1,2])
 
         scaler = StandardScaler()
         data_normalized = scaler.fit_transform(data)
         weighted_data = data_normalized * weights
 
         Chenh_lech=0
-        while Chenh_lech < 6:
+        while Chenh_lech < df.shape[0]/4:
             kmeans = KMeans(n_clusters=2)
             kmeans.fit(weighted_data)
 
@@ -409,8 +417,13 @@ def backend3():
 
         group_dict = dict(group_labels)
         df2 = pd.read_csv('../data/data_standard.csv', header=0)
-        df2 = df2.drop(columns=['Mức độ'])
-        df2['Nhóm'] = df.index.map(group_labels)
+        df2['Nhóm'] = df.index.map(group_dict)
+
+        # Tìm giá trị lớn nhất trong group_dict
+        max_group = max(group_dict.values()) if group_dict else 0
+
+        # Thay thế các giá trị null bằng max_group + 1
+        df2['Nhóm'] = df2['Nhóm'].fillna(max_group + 1).astype(int)
     else:
         # Đọc dữ liệu khác từ file CSV và xóa cột không cần thiết
         df2 = pd.read_csv('../data/data_standard.csv', header=0)
@@ -452,4 +465,4 @@ def backend3():
     with open(json_file, 'w', encoding='utf-8') as f:
         json.dump(data_history, f, ensure_ascii=False, indent=4)
 
-backend()
+backend2()
