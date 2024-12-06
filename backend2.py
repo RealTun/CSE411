@@ -44,7 +44,7 @@ def create_groups(df,label_gioi,label_khonggioi,gioi, khong_gioi, threshold=1.5)
             if (
                 (selected_group['Skill'] == label_gioi).sum() >= len(gioi) // 4 and 
                 (selected_group['Skill'] == label_khonggioi).sum() >= 1 and
-                ((selected_group['Skill'] == label_gioi).sum() + (selected_group['Skill'] == label_khonggioi).sum()) == 5
+                ((selected_group['Skill'] == label_gioi).sum() + (selected_group['Skill'] == label_khonggioi).sum()) >=3
             ):
                 # Kiểm tra khoảng cách trung bình trong nhóm
                 group_data = selected_group.iloc[:, 6:-1].values
@@ -328,7 +328,7 @@ def backend3():
     if students == True:
         data_shuffled = df.sample(frac=1).reset_index(drop=True)
 
-        data = data_shuffled.iloc[:, 2:6].values
+        data = data_shuffled.iloc[:, 2:7].values
 
         weights = np.array([2, 2,2,0.5,0.5])
 
@@ -372,10 +372,8 @@ def backend3():
 
         group_dict = dict(group_labels)
         df2 = pd.read_csv('../data/data_standard.csv', header=0)
-        df2['Nhóm'] = df.index.map(group_dict) 
-
-        output_file = '../data/thongtincanhan_with_groups.json'
-        df2.to_json(output_file, orient='records', force_ascii=False, indent=4)
+        df2 = df2.drop(columns=['Mức độ'])
+        df2['Nhóm'] = df.index.map(group_labels)
     else:
         # Đọc dữ liệu khác từ file CSV và xóa cột không cần thiết
         df2 = pd.read_csv('../data/data_standard.csv', header=0)
